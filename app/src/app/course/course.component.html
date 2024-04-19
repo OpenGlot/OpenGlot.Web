@@ -1,0 +1,17 @@
+<!-- lessons.component.html -->
+<div>
+    <h2>Lessons</h2>
+    <div *ngFor="let lesson of lessons">
+      <h3>{{ lesson.title }}</h3>
+      <p>Language: {{ lesson.language }}</p>
+      <p>Difficulty Level: {{ lesson.difficultyLevel }}</p>
+      <div *ngFor="let exercise of lesson.exercises">
+        <h4>Exercise {{ exercise.exerciseId }}</h4>
+        <p>Question: {{ exercise.question }}</p>
+        <ul>
+          <li *ngFor="let option of exercise.options">{{ option }}</li>
+        </ul>
+        <p>Correct Answer: {{ exercise.correctAnswer }}</p>
+      </div>
+    </div>
+  </div>
