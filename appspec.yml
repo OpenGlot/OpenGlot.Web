@@ -1,0 +1,10 @@
+version: 0.0
+hooks:
+  BeforeInstall:
+    - location: scripts/update-kubeconfig.sh
+      timeout: 60
+      runas: root
+  AfterInstall:
+    - location: scripts/apply-kubernetes-config.sh
+      timeout: 60
+      runas: root
