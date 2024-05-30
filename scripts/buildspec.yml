@@ -8,9 +8,9 @@ phases:
   build:
     commands:
       - echo Building Docker image...
-      - docker build -t $ECR_REPOSITORY_URI:$IMAGE_TAG .
+      - docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
       - echo Pushing Docker image to Amazon ECR...
-      - docker push $ECR_REPOSITORY_URI:$IMAGE_TAG
+      - docker push $ECR_REPOSITORY_URI/$ECR_REPOSITORY:$IMAGE_TAG
 
 artifacts:
   files: 
