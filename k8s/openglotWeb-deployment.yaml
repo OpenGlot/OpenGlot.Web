@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openglot-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openglot-web
+  template:
+    metadata:
+      labels:
+        app: openglot-web
+    spec:
+      containers:
+      - name: openglot-web
+        image: 154972961986.dkr.ecr.us-east-1.amazonaws.com/openglot-frontend:latest
+        ports:
+        - containerPort: 80
