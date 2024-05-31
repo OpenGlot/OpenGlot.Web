@@ -4,8 +4,8 @@ hooks:
   BeforeInstall:
     - location: scripts/update-kubeconfig.sh
       timeout: 60
-      runas: root
+      runas: ubuntu
   AfterInstall:
     - location: scripts/apply-kubernetes-config.sh
       timeout: 60
-      runas: root
+      runas: ubuntu
