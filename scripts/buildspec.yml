@@ -11,9 +11,14 @@ phases:
     commands:
       - echo Building Docker image...
       - docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
-      - docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REPOSITORY_URI/$ECR_REPOSITORY:$IMAGE_TAG
-      - echo Pushing Docker image to Amazon ECR...
+      - echo Tagging the image with 'latest'...
+      - docker tag $ECR_REPOSITORY:latest $ECR_REPOSITORY_URI/$ECR_REPOSITORY:latest
+  post_build:
+    commands:
+      - echo Pushing Docker image to Amazon ECR with build ID tag...
       - docker push $ECR_REPOSITORY_URI/$ECR_REPOSITORY:$IMAGE_TAG
+      - echo Pushing Docker image to Amazon ECR with 'latest' tag...
+      - docker push $ECR_REPOSITORY_URI/$ECR_REPOSITORY:latest
 
 artifacts:
   files: 
