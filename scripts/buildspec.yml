@@ -12,7 +12,7 @@ phases:
       - echo Building Docker image...
       - docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
       - echo Tagging the image with 'latest'...
-      - docker tag $ECR_REPOSITORY:latest $ECR_REPOSITORY_URI/$ECR_REPOSITORY:latest
+      - docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REPOSITORY_URI/$ECR_REPOSITORY:latest
       - docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REPOSITORY_URI/$ECR_REPOSITORY:$IMAGE_TAG
   post_build:
     commands:
