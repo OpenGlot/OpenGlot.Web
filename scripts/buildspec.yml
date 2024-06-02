@@ -4,6 +4,7 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
+      - echo $CLUSTER_NAME
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY_URI
       - echo Setting IMAGE_TAG to build ID...
       - export IMAGE_TAG=$(echo $CODEBUILD_BUILD_ID | sed 's/:/_/g')
@@ -25,3 +26,6 @@ phases:
 artifacts:
   files: 
     - '**/*'
+    environment_variables:
+    plaintext:
+      CLUSTER_NAME: $CLUSTER_NAME  
