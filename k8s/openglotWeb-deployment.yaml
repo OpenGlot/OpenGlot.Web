@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: openglot-web
-        image: 154972961986.dkr.ecr.us-east-1.amazonaws.com/openglot-frontend:latest
+        image: {{IMAGE_NAME}}:latest
         ports:
         - containerPort: 80
