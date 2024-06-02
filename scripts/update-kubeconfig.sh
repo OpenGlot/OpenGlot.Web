@@ -6,6 +6,9 @@ else
   exit 1
 fi
 
+rm -f /tmp/latest_artifact_web.zip
+rm -rf /tmp/latest_artifact_web
+
 echo $CLUSTER_NAME
 echo $AWS_REGION
 aws eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_REGION
