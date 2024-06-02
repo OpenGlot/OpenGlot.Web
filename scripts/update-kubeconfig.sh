@@ -1,11 +1,4 @@
 #!/bin/bash
-if [ -f /tmp/latest_artifact_web/env_vars ]; then
-  source /tmp/latest_artifact_web/env_vars
-else
-  echo "env_vars file not found!"
-  exit 1
-fi
-
 rm -f /tmp/latest_artifact_web.zip
 rm -rf /tmp/latest_artifact_web
 
@@ -17,6 +10,13 @@ aws s3 cp $S3_BUCKET/$latest_artifact /tmp/latest_artifact_web.zip
 
 # Unzip the latest artifact
 unzip /tmp/latest_artifact_web.zip -d /tmp/latest_artifact_web
+
+if [ -f /tmp/latest_artifact_web/env_vars ]; then
+  source /tmp/latest_artifact_web/env_vars
+else
+  echo "env_vars file not found!"
+  exit 1
+fi
 
 echo $CLUSTER_NAME
 echo $AWS_REGION
