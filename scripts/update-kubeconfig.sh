@@ -1,6 +1,6 @@
 #!/bin/bash
-if [ -f /tmp/env_vars ]; then
-  source /tmp/env_vars
+if [ -f /tmp/latest_artifact_web/env_vars ]; then
+  source /tmp/latest_artifact_web/env_vars
 else
   echo "env_vars file not found!"
   exit 1
