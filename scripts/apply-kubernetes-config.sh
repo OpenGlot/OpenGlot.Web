@@ -5,10 +5,6 @@ else
   exit 1
 fi
 
-# Remove the older artifcat
-rm -f /tmp/latest_artifact_web.zip
-rm -rf /tmp/latest_artifact_web
-
 # List all objects in the S3 bucket with the specified prefix
 latest_artifact=$(aws s3 ls $S3_BUCKET/$S3_ARTIFACT_PATH --recursive | sort | tail -n 1 | awk '{print $4}')
 
