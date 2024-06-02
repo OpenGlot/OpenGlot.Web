@@ -5,10 +5,11 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - echo $CLUSTER_NAME
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY_URI
+      - aws ecr get-login-password --region $c | docker login --username AWS --password-stdin $ECR_REPOSITORY_URI
       - echo Setting IMAGE_TAG to build ID...
       - export IMAGE_TAG=$(echo $CODEBUILD_BUILD_ID | sed 's/:/_/g')
       - echo "CLUSTER_NAME=$CLUSTER_NAME" >> env_vars
+      - echo "AWS_REGION=$AWS_REGION" >> env_vars
   build:
     commands:
       - echo Building Docker image...
