@@ -1,8 +1,5 @@
 version: 0.0
 os: linux
-files:
-  - source: /
-    destination: /tmp
 hooks:
   BeforeInstall:
     - location: scripts/update-kubeconfig.sh
