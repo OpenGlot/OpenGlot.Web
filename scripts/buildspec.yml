@@ -26,6 +26,6 @@ phases:
 artifacts:
   files: 
     - '**/*'
-  environment_variables:
-    plaintext:
-      CLUSTER_NAME: $CLUSTER_NAME  
+  # environment_variables:
+  #   plaintext:
+  #     CLUSTER_NAME: $CLUSTER_NAME  
