@@ -1,5 +1,4 @@
 # Remove the older artifcat
-#Test
 rm -f /tmp/latest_artifact_web.zip
 rm -rf /tmp/latest_artifact_web
 
