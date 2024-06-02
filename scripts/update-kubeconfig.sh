@@ -1,2 +1,2 @@
 #!/bin/bash
-aws eks update-kubeconfig --name eks_cluster --region us-east-1
+aws eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_REGION
