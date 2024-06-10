@@ -1,0 +1,100 @@
+import React, { useState } from 'react';
+import logo from '../assets/images/logo.svg';
+import Button from '../components/common/Button';
+import InputField from '../components/common/InputField';
+import { useAuth } from '../auth/useAuth';
+
+const SignupPage: React.FC = () => {
+  const { authState, handleSignUp } = useAuth();
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSignUp(email, password, confirmPassword, username);
+  };
+
+  const fields = [
+    {
+      label: 'Username',
+      type: 'username',
+      value: username,
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setUsername(e.target.value),
+    },
+    {
+      label: 'Email',
+      type: 'email',
+      value: email,
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setEmail(e.target.value),
+    },
+    {
+      label: 'Password',
+      type: 'password',
+      value: password,
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setPassword(e.target.value),
+    },
+    {
+      label: 'Confirm Password',
+      type: 'password',
+      value: confirmPassword,
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setConfirmPassword(e.target.value),
+    },
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center gap-8">
+      <div>
+        <img src={logo} alt="OpenGlot logo" className="w-28 h-16" />
+      </div>
+
+      <div className="flex flex-col items-center justify-center gap-2">
+        <h1 className="text-4xl font-bold">Welcome!</h1>
+        <p className="text-sm text-gray-600">
+          Please enter your details to create a new account
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {fields.map((field) => (
+          <InputField
+            key={field.label.toLowerCase().replace(' ', '-')}
+            id={field.label.toLowerCase().replace(' ', '-')}
+            label={field.label}
+            type={field.type}
+            value={field.value}
+            onChange={field.onChange}
+          />
+        ))}
+        <div className="flex flex-col items-center justify-between">
+          <Button width="w-96" type="submit" variant="filled">
+            {authState.loading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-white border-solid border-t-transparent rounded-full animate-spin mr-2"></div>
+                Processing...
+              </>
+            ) : (
+              'Sign Up'
+            )}
+          </Button>
+          {authState.error && (
+            <p className="text-red-500">Error: {authState.error.message}</p>
+          )}
+        </div>
+      </form>
+
+      <div className="mt-3">
+        <a href="/login">
+          Already a member? <span className="underline">Login</span>
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default SignupPage;

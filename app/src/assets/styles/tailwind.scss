@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add custom styles for the button click animation */
+@layer components {
+  .link-hover-effect {
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      display: block;
+      margin: auto;
+      left: 0;
+      right: 0;
+      bottom: -2px;
+      background: #000;
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+  }
+
+  .profile-hover-effect {
+    position: relative;
+    display: inline-block;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(235, 235, 235, 0.4);
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.3s ease;
+      z-index: 0;
+    }
+
+    &:hover::before {
+      transform: translate(-50%, -50%) scale(1.5);
+    }
+
+    img {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
