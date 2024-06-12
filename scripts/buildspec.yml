@@ -19,14 +19,25 @@ phases:
       - echo Tagging the image with 'latest'...
       - docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REPOSITORY_URI/$ECR_REPOSITORY:latest
       - docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REPOSITORY_URI/$ECR_REPOSITORY:$IMAGE_TAG
+      - echo Creating container from the image...
+      - container_id=$(docker create $ECR_REPOSITORY:$IMAGE_TAG)
+      - echo Copying build artifacts from container...
+      - docker cp $container_id:/app/build ./build
+      - echo Removing the container...
+      - docker rm $container_id
   post_build:
     commands:
       - echo Pushing Docker image to Amazon ECR with build ID tag...
       - docker push $ECR_REPOSITORY_URI/$ECR_REPOSITORY:$IMAGE_TAG
       - echo Pushing Docker image to Amazon ECR with 'latest' tag...
       - docker push $ECR_REPOSITORY_URI/$ECR_REPOSITORY:latest
-
+      - echo Deploying build artifacts to S3...
+      - aws s3 sync ./build s3://$S3_BUCKET_NAME --delete
 artifacts:
   files: 
     - '**/*'
     - env_vars
+
+env:
+  variables:
+    S3_BUCKET_NAME: "openglot-web-production"  # Replace with your actual S3 bucket name
