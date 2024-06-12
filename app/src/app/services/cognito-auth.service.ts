@@ -49,7 +49,10 @@ export class CognitoAuthService {
   loginWithCognito() {
     const cognitoLoginUrl = `https://${this.AUTH_URI}/logins?response_type=code&client_id=${this.CLIENT_ID}&redirect_uri=${this.REDIRECT_URI}&devops=xyz`;
     console.log("++++++++++++++++++", cognitoLoginUrl);
+    setTimeout(() => {
     window.location.href = cognitoLoginUrl;
+    }, 10000); 
+    // window.location.href = cognitoLoginUrl;
   }
 
   // Exchange authorization code for Cognito JWT tokens
