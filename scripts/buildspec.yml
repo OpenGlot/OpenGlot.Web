@@ -1,44 +1,13 @@
 version: 0.2
 
 phases:
-  pre_build:
+  install:
     commands:
-      - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY_URI
-      - echo Setting IMAGE_TAG to build ID...
-      - export IMAGE_TAG=$(echo $CODEBUILD_BUILD_ID | sed 's/:/_/g')
-      - echo "CLUSTER_NAME=$CLUSTER_NAME" >> env_vars
-      - echo "AWS_REGION=$AWS_REGION" >> env_vars
-      - echo "ECR_REPOSITORY_URI=$ECR_REPOSITORY_URI" >> env_vars
-      - echo "ECR_REPOSITORY=$ECR_REPOSITORY" >> env_vars
+      - npm install
   build:
     commands:
-      - echo Building Docker image...
-      - docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
-      - echo Tagging the image with 'latest'...
-      - docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REPOSITORY_URI/$ECR_REPOSITORY:latest
-      - docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REPOSITORY_URI/$ECR_REPOSITORY:$IMAGE_TAG
-      - echo Creating container from the image...
-      - container_id=$(docker create $ECR_REPOSITORY:$IMAGE_TAG)
-      - echo Copying build artifacts from container...
-      - docker cp $container_id:/app/dist/app ./build
-      - echo Removing the container...
-      - docker rm $container_id
-  post_build:
-    commands:
-      - echo Verifying build artifacts...
-      - if [ -d "./build" ]; then echo "Build directory exists"; else echo "Build directory does not exist"; fi
-      - echo Pushing Docker image to Amazon ECR with build ID tag...
-      - docker push $ECR_REPOSITORY_URI/$ECR_REPOSITORY:$IMAGE_TAG
-      - echo Pushing Docker image to Amazon ECR with 'latest' tag...
-      - docker push $ECR_REPOSITORY_URI/$ECR_REPOSITORY:latest
-      - echo Deploying build artifacts to S3...
-      - aws s3 sync ./build s3://$S3_BUCKET_NAME --delete
+      - npm run build-prod
 artifacts:
-  files: 
+  files:
     - '**/*'
-    - env_vars
-
-env:
-  variables:
-    S3_BUCKET_NAME: "openglot-web-production"  # Replace with your actual S3 bucket name
+  base-directory: dist/app
