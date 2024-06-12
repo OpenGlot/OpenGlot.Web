@@ -2,12 +2,14 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      node: 18
+  pre_build:
     commands:
       - npm install
   build:
     commands:
       - npm run build-prod
-artifacts:
-  files:
-    - '**/*'
-  base-directory: dist/app
+  post_build:
+    commands:
+      - aws s3 sync dist/app s3://openglot-web-production/web
