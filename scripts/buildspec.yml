@@ -13,4 +13,4 @@ phases:
       - npm run build-prod
   post_build:
     commands:
-      - aws s3 sync dist/app s3://openglot-web-production/web
+      - aws s3 sync dist/app s3://openglot-web-production/
