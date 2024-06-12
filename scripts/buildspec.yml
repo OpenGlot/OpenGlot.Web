@@ -6,6 +6,7 @@ phases:
       nodejs: 18
   pre_build:
     commands:
+      - ls -al
       - npm install
   build:
     commands:
