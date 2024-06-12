@@ -11,6 +11,8 @@ phases:
   build:
     commands:
       - npm run build-docker
+      - echo "Build complete. Verifying environment configuration..."
+      - grep -r "https://localhost/auth" dist/app
   post_build:
     commands:
       - aws s3 sync dist/app s3://openglot-web-beta/
