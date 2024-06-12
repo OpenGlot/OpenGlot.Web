@@ -47,7 +47,7 @@ export class CognitoAuthService {
 
   // Login with Cognito
   loginWithCognito() {
-    console.log("${this.REDIRECT_URI}+++++++++++",this.REDIRECT_URI);
+    console.log("++++++++++++++++++",this.REDIRECT_URI);
     const cognitoLoginUrl = `https://${this.AUTH_URI}/login?response_type=code&client_id=${this.CLIENT_ID}&redirect_uri=${this.REDIRECT_URI}`;
     window.location.href = cognitoLoginUrl;
   }
