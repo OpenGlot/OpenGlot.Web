@@ -11,12 +11,14 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CognitoAuthService {
+  console.log("Inside cognito auth");
   private jwtHelper: JwtHelperService = new JwtHelperService();
   private readonly AWS_REGION = environment.AWS_REGION;
   private readonly USER_POOL_ID = environment.USER_POOL_ID;
   private readonly CLIENT_ID = environment.CLIENT_ID;
   private readonly AUTH_URI = environment.AUTH_URI;
   private readonly REDIRECT_URI = environment.REDIRECT_URI;
+  console.log("REDIRECT_URI",${this.REDIRECT_URI});
 
   constructor(private http: HttpClient) {}
 
@@ -47,6 +49,7 @@ export class CognitoAuthService {
 
   // Login with Cognito
   loginWithCognito() {
+    console.log("${this.REDIRECT_URI}+++++++++++",${this.REDIRECT_URI});
     const cognitoLoginUrl = `https://${this.AUTH_URI}/login?response_type=code&client_id=${this.CLIENT_ID}&redirect_uri=${this.REDIRECT_URI}`;
     window.location.href = cognitoLoginUrl;
   }
