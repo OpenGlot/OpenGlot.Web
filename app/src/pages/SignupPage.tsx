@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import logo from '../assets/images/logo.svg';
-import Button from '../components/common/Button';
-import InputField from '../components/common/InputField';
-import { useAuth } from '../auth/useAuth';
+import React, { useState } from "react";
+import Button from "../components/common/Button";
+import InputField from "../components/common/InputField";
+import { useAuth } from "../auth/useAuth";
 
 const SignupPage: React.FC = () => {
   const { authState, handleSignUp } = useAuth();
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,29 +17,29 @@ const SignupPage: React.FC = () => {
 
   const fields = [
     {
-      label: 'Username',
-      type: 'username',
+      label: "Username",
+      type: "username",
       value: username,
       onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
         setUsername(e.target.value),
     },
     {
-      label: 'Email',
-      type: 'email',
+      label: "Email",
+      type: "email",
       value: email,
       onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
         setEmail(e.target.value),
     },
     {
-      label: 'Password',
-      type: 'password',
+      label: "Password",
+      type: "password",
       value: password,
       onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
         setPassword(e.target.value),
     },
     {
-      label: 'Confirm Password',
-      type: 'password',
+      label: "Confirm Password",
+      type: "password",
       value: confirmPassword,
       onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
         setConfirmPassword(e.target.value),
@@ -49,13 +48,10 @@ const SignupPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center gap-8">
-      <div>
-        <img src={logo} alt="OpenGlot logo" className="w-28 h-16" />
-      </div>
-
+      <div className="font-sansLogo gradient-text text-2xl">OpenGlot</div>
       <div className="flex flex-col items-center justify-center gap-2">
-        <h1 className="text-4xl font-bold">Welcome!</h1>
-        <p className="text-sm text-gray-600">
+        <h1 className="text-6xl font-bold">Welcome!</h1>
+        <p className="text-sm text-gray-600 dark:text-gray-300">
           Please enter your details to create a new account
         </p>
       </div>
@@ -63,8 +59,8 @@ const SignupPage: React.FC = () => {
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         {fields.map((field) => (
           <InputField
-            key={field.label.toLowerCase().replace(' ', '-')}
-            id={field.label.toLowerCase().replace(' ', '-')}
+            key={field.label.toLowerCase().replace(" ", "-")}
+            id={field.label.toLowerCase().replace(" ", "-")}
             label={field.label}
             type={field.type}
             value={field.value}
@@ -79,7 +75,7 @@ const SignupPage: React.FC = () => {
                 Processing...
               </>
             ) : (
-              'Sign Up'
+              "Sign Up"
             )}
           </Button>
           {authState.error && (
@@ -90,7 +86,7 @@ const SignupPage: React.FC = () => {
 
       <div className="mt-3">
         <a href="/login">
-          Already a member? <span className="underline">Login</span>
+          Already a member? <span className="link">Login</span>
         </a>
       </div>
     </div>

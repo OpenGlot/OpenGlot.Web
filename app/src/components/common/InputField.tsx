@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface InputFieldProps {
   id?: string;
@@ -21,12 +21,12 @@ const InputField: React.FC<InputFieldProps> = ({
     <div className="relative w-96">
       {label && (
         <label
-          className={`absolute bg-white px-1.5 left-3 top-1/2 text-sm transition-all duration-200 ease-in ${
+          className={`absolute bg-white dark:bg-customBlack px-1.5 left-3 top-1/2 text-sm transition-all duration-200 ease-in ${
             focused
-              ? 'transform -translate-y-9 text-blue-500'
+              ? "transform -translate-y-9 text-primary-dark dark:text-white"
               : value
-              ? 'transform -translate-y-9 text-gray-500'
-              : 'transform -translate-y-1/2 text-gray-500'
+              ? "transform -translate-y-9 text-gray-500 dark:text-gray-300"
+              : "transform -translate-y-1/2 text-gray-500 dark:text-gray-300"
           }`}
           htmlFor={id}
         >
@@ -37,7 +37,7 @@ const InputField: React.FC<InputFieldProps> = ({
       <input
         id={id}
         type={type}
-        className={`appearance-none border rounded-lg p-3 text-gray-700 focus:outline-none focus:border-blue-500 w-full`}
+        className={`border dark:border-primary-light dark:bg-customBlack rounded-lg p-3 text-gray-700 dark:text-white focus:outline-none focus:border-primary-dark dark:focus:border-primary-dark w-full`}
         value={value}
         onChange={onChange}
         onFocus={() => setFocused(true)}

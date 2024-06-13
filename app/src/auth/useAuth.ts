@@ -167,5 +167,7 @@ export const useAuth = () => {
     handleGoogleSignInCallback,
     handleSignOut,
     handleGoogleSignIn: googleSignIn,
+    handleFBSignIn: () => {},
+    handleAppleSignIn: () => {},
   };
 };

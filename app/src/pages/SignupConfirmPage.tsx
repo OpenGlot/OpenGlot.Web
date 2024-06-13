@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
-import logo from '../assets/images/logo.svg';
-import Button from '../components/common/Button';
-import { useAuth } from '../auth/useAuth';
+import React, { useState, useRef, useEffect } from "react";
+import { ReactComponent as Logo } from "../assets/images/logo.svg";
+import Button from "../components/common/Button";
+import { useAuth } from "../auth/useAuth";
 
 const SignupConfirmPage: React.FC = () => {
   const { authState, handleConfirmSignUp } = useAuth();
-  const [code, setCode] = useState<string[]>(Array(6).fill(''));
+  const [code, setCode] = useState<string[]>(Array(6).fill(""));
   const inputsRef = useRef<HTMLInputElement[]>([]);
   const pasteTimeouts = useRef<NodeJS.Timeout[]>([]);
 
@@ -17,7 +17,7 @@ const SignupConfirmPage: React.FC = () => {
     newCode[index] = e.target.value;
     setCode(newCode);
 
-    if (e.target.value !== '' && index < 5) {
+    if (e.target.value !== "" && index < 5) {
       inputsRef.current[index + 1].focus();
     }
   };
@@ -26,7 +26,7 @@ const SignupConfirmPage: React.FC = () => {
     e: React.KeyboardEvent<HTMLInputElement>,
     index: number
   ) => {
-    if (e.key === 'Backspace' && !code[index] && index > 0) {
+    if (e.key === "Backspace" && !code[index] && index > 0) {
       inputsRef.current[index - 1].focus();
     }
   };
@@ -36,8 +36,8 @@ const SignupConfirmPage: React.FC = () => {
     index: number
   ) => {
     e.preventDefault();
-    const paste = e.clipboardData.getData('text').slice(0, 6 - index);
-    const pasteArray = paste.split('');
+    const paste = e.clipboardData.getData("text").slice(0, 6 - index);
+    const pasteArray = paste.split("");
 
     pasteArray.forEach((char, i) => {
       pasteTimeouts.current.push(
@@ -59,7 +59,7 @@ const SignupConfirmPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleConfirmSignUp(code.join(''));
+    handleConfirmSignUp(code.join(""));
   };
 
   useEffect(() => {
@@ -72,13 +72,10 @@ const SignupConfirmPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center gap-8">
-      <div>
-        <img src={logo} alt="OpenGlot logo" className="w-28 h-16" />
-      </div>
-
+      <div className="font-sansLogo gradient-text text-2xl">OpenGlot</div>
       <div className="flex flex-col items-center justify-center gap-2">
         <h1 className="text-4xl font-bold">You are almost there!</h1>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-300">
           Please enter the verification code in your mailbox
         </p>
       </div>
@@ -98,7 +95,7 @@ const SignupConfirmPage: React.FC = () => {
               onKeyDown={(e) => handleKeyDown(e, index)}
               onPaste={(e) => handlePaste(e, index)}
               ref={(el) => (inputsRef.current[index] = el!)}
-              className="w-12 h-12 text-center text-xl border p-3 text-gray-700 focus:outline-none rounded-lg focus:border-blue-500"
+              className="w-12 h-12 text-center text-xl border p-3 text-gray-700 focus:outline-none rounded-lg focus:border-primary dark:border-primary-light dark:bg-customBlack dark:text-white  dark:focus:border-primary-dark"
               required
             />
           ))}
@@ -111,7 +108,7 @@ const SignupConfirmPage: React.FC = () => {
                 Confirming...
               </>
             ) : (
-              'Confirm'
+              "Confirm"
             )}
           </Button>
           {authState.error && (
@@ -121,8 +118,7 @@ const SignupConfirmPage: React.FC = () => {
       </form>
 
       <div>
-        Didn't receive it?{' '}
-        <span className="underline cursor-pointer">Send a new code</span>
+        Didn't receive it? <span className="link">Send a new code</span>
       </div>
     </div>
   );
