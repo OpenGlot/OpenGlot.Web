@@ -1,7 +1,7 @@
-import React from 'react';
-import brand from '../assets/images/brand.svg';
-import Navbar from '../components/common/Navbar';
-import { useAuth } from '../auth/useAuth';
+import React from "react";
+import brand from "../assets/images/brand.svg";
+import Navbar from "../components/common/Navbar";
+import { useAuth } from "../auth/useAuth";
 
 const HomePage: React.FC = () => {
   const { authState } = useAuth();
@@ -13,8 +13,8 @@ const HomePage: React.FC = () => {
       <div className="flex flex-grow flex-col items-center justify-center w-full">
         <h1 className="text-2xl font-semibold text-gray-700">
           {authState.user
-            ? `Welcome, ${authState.user.username || ''}!`
-            : 'Welcome!'}
+            ? `Welcome, ${authState.user.name || ""}!`
+            : "Welcome!"}
         </h1>
         <div>
           <img src={brand} alt="OpenGlot brand" className="w-96" />

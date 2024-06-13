@@ -1,7 +1,7 @@
 export interface User {
   username: string;
   email: string;
-  // Other user attributes
+  name: string;
 }
 
 export interface AuthState {

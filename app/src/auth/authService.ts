@@ -174,5 +174,6 @@ export const extractUserInfo = (idToken: string) => {
   return {
     email: decoded?.email || '',
     username: decoded?.['cognito:username'] || '',
+    name: decoded?.name || '',
   };
 };

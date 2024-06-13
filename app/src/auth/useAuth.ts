@@ -136,7 +136,7 @@ export const useAuth = () => {
       setTimeout(() => {
         navigate('/');
         window.location.reload();
-      }, 1000);
+      }, 2000);
     } else {
       setAuthState({
         ...authState,
