@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import logo from '../../assets/images/logo.svg';
-import brand from '../../assets/images/brand.svg';
-import Button from './Button';
-import { useAuth } from '../../auth/useAuth';
-import profileImg from '../../assets/images/default.jpeg';
+import React, { useState, useEffect, useRef } from "react";
+import logo from "../../assets/images/logo.svg";
+import brand from "../../assets/images/brand.svg";
+import Button from "./Button";
+import { useAuth } from "../../auth/useAuth";
+import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 
 const Navbar: React.FC = () => {
   const { authState, handleSignOut } = useAuth();
@@ -30,9 +30,9 @@ const Navbar: React.FC = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [popupRef]);
 
@@ -60,22 +60,31 @@ const Navbar: React.FC = () => {
       <div className="flex justify-end">
         {authState.user ? (
           <div className="relative" ref={popupRef}>
-            <div className=" profile-hover-effect">
-              <img
-                src={profileImg}
-                alt="Profile"
-                className="w-10 h-10 rounded-full cursor-pointer"
-                onClick={handleProfileClick}
-              />
+            <div
+              className="flex flex-row items-center gap-1 cursor-pointer"
+              onClick={handleProfileClick}
+            >
+              {authState.user ? authState.user.name : "User"}
+              {showPopup ? <GoTriangleUp /> : <GoTriangleDown />}
             </div>
+
             {showPopup && (
-              <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-10">
-                <span
+              <div className="absolute flex flex-col right-0 mt-2 w-44 rounded-lg shadow z-10 cursor-pointer">
+                <div className="w-full hover:bg-gray-100 px-3 py-2 rounded-t-lg">
+                  My profile
+                </div>
+                <div className="w-full hover:bg-gray-100 px-3 py-2">
+                  Settings
+                </div>
+                <div className="w-full hover:bg-gray-100 px-3 py-2">
+                  Language & region
+                </div>
+                <div
+                  className="w-full hover:bg-gray-100 px-3 py-2 rounded-b-lg"
                   onClick={handleLogout}
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer"
                 >
                   Log out
-                </span>
+                </div>
               </div>
             )}
           </div>
