@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'https://api.beta.openglot.com/api'; // Update with your API base URL
+  private apiUrl = 'https://api.beta.openglot.com/'; // Update with your API base URL
 
   constructor(private http: HttpClient) {}
 
