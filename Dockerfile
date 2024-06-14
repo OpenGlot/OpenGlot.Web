@@ -9,7 +9,7 @@ COPY app ./
 RUN yarn install
 
 # Build the application (assuming your React app uses 'yarn build')
-RUN yarn build
+RUN yarn build:docker
 
 # Stage 2: Serve the application with Nginx
 FROM nginx:alpine
