@@ -7,7 +7,7 @@ import {
 import axios from 'axios';
 
 import { config } from '../config';
-import { CognitoError } from './authTypes';
+import { CognitoError } from '../types/authTypes';
 import { storeTokens } from '../utils/storeGetTokens';
 
 const userPool = new CognitoUserPool({

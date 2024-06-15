@@ -2,15 +2,15 @@ import React from "react";
 import { useTheme } from "../../context/ThemeContext";
 
 const ThemeSwitcher: React.FC = () => {
-  const { theme, setTheme } = useTheme();
+  const { themePreference, setThemePreference } = useTheme();
 
   return (
     <div className="relative">
       <div>Appearance</div>
       <select
-        value={theme}
+        value={themePreference}
         onChange={(e) =>
-          setTheme(e.target.value as "light" | "dark" | "system")
+          setThemePreference(e.target.value as "light" | "dark" | "system")
         }
         className="p-2 border rounded dark:bg-customBlack"
       >

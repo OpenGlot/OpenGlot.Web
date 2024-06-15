@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import Button from "../components/common/Button";
-import { useAuth } from "../auth/useAuth";
+import { useAuth } from "../context/AuthContext";
 
 const SignupConfirmPage: React.FC = () => {
   const { authState, handleConfirmSignUp } = useAuth();

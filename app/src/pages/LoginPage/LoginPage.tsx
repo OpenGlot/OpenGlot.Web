@@ -3,7 +3,7 @@ import { FaGoogle, FaFacebookF, FaApple } from "react-icons/fa";
 import Button from "../../components/common/Button";
 import InputField from "../../components/common/InputField";
 import SocialLogin from "./SocialLogin";
-import { useAuth } from "../../auth/useAuth";
+import { useAuth } from "../../context/AuthContext";
 
 const LoginPage: React.FC = () => {
   const {

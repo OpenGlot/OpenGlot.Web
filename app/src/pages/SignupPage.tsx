@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "../components/common/Button";
 import InputField from "../components/common/InputField";
-import { useAuth } from "../auth/useAuth";
+import { useAuth } from "../context/AuthContext";
 
 const SignupPage: React.FC = () => {
   const { authState, handleSignUp } = useAuth();

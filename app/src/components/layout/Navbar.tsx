@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import Button from "./Button";
-import { useAuth } from "../../auth/useAuth";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
-import Popup from "./Popup";
+import Button from "../common/Button";
+import { useAuth } from "../../context/AuthContext";
+import Popup from "../common/Popup";
 
 const Navbar: React.FC = () => {
   const { authState, handleSignOut } = useAuth();

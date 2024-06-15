@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import Navbar from "../../components/common/Navbar";
+import Navbar from "../../components/layout/Navbar";
 
 const AccountPage: React.FC = () => {
   const navLinks = [

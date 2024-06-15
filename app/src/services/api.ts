@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api';
+const API_URL = 'http://localhost:5270';
 
 export interface Question {
   targetLanguage: string;
@@ -13,25 +13,30 @@ export interface User {
 }
 
 // Axios instance with credentials
-const axiosInstance = axios.create({
+const apiClient = axios.create({
   baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
   withCredentials: true,
 });
 
 export const fetchQuestions = async (): Promise<Question[]> => {
   try {
-    const response = await axiosInstance.get('/questions/random-question');
+    const response = await apiClient.get('/questions/random-question');
     return response.data.data.pairs;
   } catch (error) {
     throw new Error('Fetch questions failed');
   }
 };
 
-export const checkAuthStatus = async (): Promise<User> => {
+export const checkHealth = async (): Promise<any> => {
   try {
-    const response = await axiosInstance.get('/users/check-auth');
-    return response.data.data;
+    const response = await apiClient.get('/health');
+    return response;
   } catch (error) {
-    throw new Error('Auth check failed');
+    return error;
   }
 };
+
+export default apiClient;

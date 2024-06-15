@@ -1,7 +1,6 @@
 import React from "react";
-import brand from "../assets/images/brand.svg";
-import Navbar from "../components/common/Navbar";
-import { useAuth } from "../auth/useAuth";
+import Navbar from "../components/layout/Navbar";
+import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 
 const HomePage: React.FC = () => {
