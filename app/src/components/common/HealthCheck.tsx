@@ -12,7 +12,6 @@ const HealthCheck: React.FC = () => {
     const interval = setInterval(async () => {
       try {
         const healthStatus = await checkHealth();
-        console.log(healthStatus);
 
         setIsHealthy(healthStatus);
         if (healthStatus.status !== 200) {

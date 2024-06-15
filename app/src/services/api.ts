@@ -15,10 +15,6 @@ export interface User {
 // Axios instance with credentials
 const apiClient = axios.create({
   baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true,
 });
 
 export const fetchQuestions = async (): Promise<Question[]> => {
