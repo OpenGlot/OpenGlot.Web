@@ -1,12 +1,14 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "../../context/ThemeContext";
 
 const ThemeSwitcher: React.FC = () => {
+  const { t } = useTranslation();
   const { themePreference, setThemePreference } = useTheme();
 
   return (
     <div className="relative">
-      <div>Appearance</div>
+      <div>{t("Appearance")}</div>
       <select
         value={themePreference}
         onChange={(e) =>
@@ -14,9 +16,9 @@ const ThemeSwitcher: React.FC = () => {
         }
         className="p-2 border rounded dark:bg-customBlack"
       >
-        <option value="system">System</option>
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
+        <option value="system">{t("System")}</option>
+        <option value="light">{t("Light")}</option>
+        <option value="dark">{t("Dark")}</option>
       </select>
     </div>
   );

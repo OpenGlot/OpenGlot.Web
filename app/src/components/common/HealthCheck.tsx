@@ -22,7 +22,7 @@ const HealthCheck: React.FC = () => {
       } catch (error) {
         toast.error("Failed to check API health!");
       }
-    }, 10000); // Check every 10 seconds
+    }, 60000); // Check every minute
 
     return () => clearInterval(interval);
   }, [isHealthy]);

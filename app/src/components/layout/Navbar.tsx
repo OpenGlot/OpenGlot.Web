@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
+import { useTranslation } from "react-i18next";
 import Button from "../common/Button";
 import { useAuth } from "../../context/AuthContext";
 import Popup from "../common/Popup";
 
 const Navbar: React.FC = () => {
+  const { t } = useTranslation();
   const { authState, handleSignOut } = useAuth();
   const [showPopup, setShowPopup] = useState(false);
 
@@ -44,13 +46,13 @@ const Navbar: React.FC = () => {
       </a>
       <div className="flex justify-center gap-x-10">
         <a href="/questions" className="link-hover-effect">
-          Questions
+          {t("Questions")}
         </a>
         <a href="/" className="link-hover-effect">
-          SomeLink
+          {t("Courses")}
         </a>
         <a href="/" className="link-hover-effect">
-          AnotherLink
+          {t("Review")}
         </a>
       </div>
       <div className="flex justify-end">
@@ -61,7 +63,7 @@ const Navbar: React.FC = () => {
               onClick={handleProfileClick}
             >
               <div className="underline decoration-primary">
-                {authState.user ? authState.user.name : "User"}
+                {authState.user ? authState.user.name : t("User")}
               </div>
               {showPopup ? <GoTriangleUp /> : <GoTriangleDown />}
             </div>
@@ -74,12 +76,12 @@ const Navbar: React.FC = () => {
           <div className="flex items-center gap-x-2">
             <a href="/login">
               <Button variant="no-fill" width="w-28">
-                Login
+                {t("Login")}
               </Button>
             </a>
             <a href="/signup">
               <Button variant="emphasized" width="w-28">
-                Sign Up
+                {t("SignUp")}
               </Button>
             </a>
           </div>

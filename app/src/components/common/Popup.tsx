@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface PopupProps {
   setShowPopup: React.Dispatch<React.SetStateAction<boolean>>;
@@ -7,10 +8,12 @@ interface PopupProps {
 }
 
 const Popup: React.FC<PopupProps> = ({ setShowPopup, handleLogout }) => {
+  const { t } = useTranslation();
+
   const links = [
-    { to: "/account/my-profile", label: "My Profile" },
-    { to: "/account/my-courses", label: "My Courses" },
-    { to: "/account/settings", label: "Settings" },
+    { to: "/account/my-profile", label: t("My Profile") },
+    { to: "/account/my-courses", label: t("My Courses") },
+    { to: "/account/settings", label: t("Settings") },
   ];
 
   return (
@@ -29,7 +32,7 @@ const Popup: React.FC<PopupProps> = ({ setShowPopup, handleLogout }) => {
         className="w-full hover:bg-gray-100 px-3 py-2 dark:hover:bg-primary-dark"
         onClick={handleLogout}
       >
-        Log out
+        {t("Log out")}
       </div>
     </div>
   );

@@ -1,12 +1,15 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Navbar from "../../components/layout/Navbar";
 
 const AccountPage: React.FC = () => {
+  const { t } = useTranslation();
+
   const navLinks = [
-    { to: "my-profile", label: "My Profile" },
-    { to: "my-courses", label: "My Courses" },
-    { to: "settings", label: "Settings" },
+    { to: "my-profile", label: t("My Profile") },
+    { to: "my-courses", label: t("My Courses") },
+    { to: "settings", label: t("Settings") },
   ];
 
   return (

@@ -1,9 +1,11 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import Navbar from "../components/layout/Navbar";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 
 const HomePage: React.FC = () => {
+  const { t } = useTranslation();
   const { authState } = useAuth();
   const { theme } = useTheme();
 
@@ -14,8 +16,8 @@ const HomePage: React.FC = () => {
       <div className="flex flex-grow flex-col gap-10 items-center justify-center w-full">
         <h1 className="text-2xl font-semibold">
           {authState.user
-            ? `Welcome, ${authState.user.name || ""}!`
-            : "Welcome!"}
+            ? `${t("Welcome")}, ${authState.user.name || ""}!`
+            : t("Welcome")}
         </h1>
         <div
           className={`font-sansLogo text-8xl ${

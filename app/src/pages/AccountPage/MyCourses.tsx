@@ -1,17 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const MyCourses: React.FC = () => {
-  return (
-    <div>
-      <h2 className="text-xl font-bold mb-4">Language and Regions</h2>
-      <select className="p-2 border rounded dark:bg-customBlack">
-        <option value="en">English</option>
-        <option value="es">Spanish</option>
-        <option value="fr">French</option>
-        {/* Add more options as needed */}
-      </select>
-    </div>
-  );
+  const { t } = useTranslation();
+
+  return <div>{t("My Courses")}</div>;
 };
 
 export default MyCourses;

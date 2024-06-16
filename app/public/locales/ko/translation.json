@@ -1,0 +1,23 @@
+{
+  "Questions": "질문",
+  "Courses": "강좌",
+  "Review": "복습",
+  "Login": "로그인",
+  "SignUp": "회원가입",
+  "User": "사용자",
+  "English": "영어",
+  "Chinese": "중국어",
+  "Korean": "한국어",
+  "Welcome": "환영합니다",
+  "My Profile": "내 프로필",
+  "My Courses": "내 강좌",
+  "Settings": "설정",
+  "Log out": "로그아웃",
+  "Language": "언어",
+  "Appearance": "외관",
+  "System": "시스템",
+  "Light": "밝은",
+  "Dark": "어두운",
+  "Email": "이메일",
+  "Password": "비밀번호"
+}
