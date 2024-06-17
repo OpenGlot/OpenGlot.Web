@@ -4,7 +4,7 @@ WORKDIR /app
 COPY /app/package.json /app/package-lock.json ./
 RUN npm ci
 COPY /app .
-RUN npm run build
+RUN npm run build-prod
 
 # Stage 2: Serve the application with Nginx
 FROM 154972961986.dkr.ecr.us-east-1.amazonaws.com/nginx:latest
