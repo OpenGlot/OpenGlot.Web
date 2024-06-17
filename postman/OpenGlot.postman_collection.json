@@ -27,14 +27,9 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5270/health",
-					"protocol": "http",
+					"raw": "{{URL}}health",
 					"host": [
-						"localhost"
-					],
-					"port": "5270",
-					"path": [
-						"health"
+						"{{URL}}health"
 					]
 				}
 			},
@@ -56,16 +51,30 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5270/api/users/profile",
-					"protocol": "http",
+					"raw": "{{URL}}api/users/profile",
 					"host": [
-						"localhost"
+						"{{URL}}api"
 					],
-					"port": "5270",
 					"path": [
-						"api",
 						"users",
 						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}api/Courses",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"Courses"
 					]
 				}
 			},

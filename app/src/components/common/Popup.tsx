@@ -22,14 +22,16 @@ const Popup: React.FC<PopupProps> = ({ setShowPopup, handleLogout }) => {
         <Link
           key={index}
           to={link.to}
-          className="w-full hover:bg-gray-100 px-3 py-2 dark:hover:bg-primary-dark"
+          className={`w-full hover:bg-gray-100 px-3 py-2 dark:hover:bg-primary-dark ${
+            index === 0 && "rounded-t-lg"
+          }`}
           onClick={() => setShowPopup(false)}
         >
           {link.label}
         </Link>
       ))}
       <div
-        className="w-full hover:bg-gray-100 px-3 py-2 dark:hover:bg-primary-dark"
+        className="w-full hover:bg-gray-100 px-3 py-2 dark:hover:bg-primary-dark rounded-b-lg"
         onClick={handleLogout}
       >
         {t("Log out")}

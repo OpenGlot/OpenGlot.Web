@@ -118,4 +118,8 @@
     box-shadow: 0 0 10px -4px var(--glow-color-secondary),
       0 0 20px -4px var(--glow-color-secondary);
   }
+
+  .custom-checkbox:checked {
+    accent-color: var(--link-hover-color);
+  }
 }

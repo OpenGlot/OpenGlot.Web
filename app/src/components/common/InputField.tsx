@@ -5,6 +5,7 @@ interface InputFieldProps {
   label?: string;
   type: string;
   value: string;
+  width?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -13,15 +14,16 @@ const InputField: React.FC<InputFieldProps> = ({
   label,
   type,
   value,
+  width,
   onChange,
 }) => {
   const [focused, setFocused] = useState(false);
 
   return (
-    <div className="relative w-96">
+    <div className={`relative ${width ? width : "w-96"}`}>
       {label && (
         <label
-          className={`absolute bg-white dark:bg-customBlack px-1.5 left-3 top-1/2 text-sm transition-all duration-200 ease-in ${
+          className={`absolute bg-white dark:bg-customBlack px-1.5 left-3 top-1/2 transition-transform duration-200 ease-in ${
             focused
               ? "transform -translate-y-9 text-primary-dark dark:text-white"
               : value

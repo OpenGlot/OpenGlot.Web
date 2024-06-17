@@ -71,7 +71,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
           newTokens.accessToken,
           refreshToken
         );
-        const userInfo = extractUserInfo(newTokens.idToken);
+        const userInfo = await extractUserInfo(newTokens.idToken);
         setAuthState({
           ...initialAuthState,
           user: { ...userInfo },
@@ -80,7 +80,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setAuthState({ ...initialAuthState, user: null });
       }
     } else {
-      const userInfo = extractUserInfo(idToken);
+      const userInfo = await extractUserInfo(idToken);
       setAuthState({
         ...initialAuthState,
         user: { ...userInfo },
@@ -149,10 +149,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     setAuthState({ ...authState, loading: true });
     try {
       const result = await signIn(email, password);
-      const userInfo = extractUserInfo(result.idToken);
-      setAuthState({ ...authState, loading: false, user: userInfo });
-      navigate("/");
-      window.location.reload();
+      const userInfo = await extractUserInfo(result.idToken.jwtToken);
+      setAuthState({
+        ...authState,
+        user: { ...userInfo },
+        loading: false,
+      });
+
+      if (userInfo.dob === "") {
+        navigate("/enter-info");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       const cognitoError = error as CognitoError;
       setAuthState({ ...authState, loading: false, error: cognitoError });
@@ -171,7 +179,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
           tokens.access_token,
           tokens.refresh_token
         );
-        const userInfo = extractUserInfo(tokens.id_token);
+        const userInfo = await extractUserInfo(tokens.id_token);
         setAuthState({
           ...authState,
           user: { ...userInfo },

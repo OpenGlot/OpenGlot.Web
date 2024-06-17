@@ -10,6 +10,8 @@ import { config } from '../config';
 import { CognitoError } from '../types/authTypes';
 import { storeTokens } from '../utils/storeGetTokens';
 
+import { User } from '../types/authTypes';
+
 const userPool = new CognitoUserPool({
   UserPoolId: config.userPoolId,
   ClientId: config.userPoolWebClientId,
@@ -169,11 +171,12 @@ export const refreshTokens = async (refreshToken: string) => {
   }
 };
 
-export const extractUserInfo = (idToken: string) => {
+export const extractUserInfo = async (idToken: string): Promise<User> => {
   const decoded = parseJwt(idToken);
   return {
     email: decoded?.email || '',
     username: decoded?.['cognito:username'] || '',
     name: decoded?.name || '',
+    dob: decoded?.dob || '',
   };
 };

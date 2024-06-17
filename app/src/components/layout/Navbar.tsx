@@ -80,7 +80,7 @@ const Navbar: React.FC = () => {
               </Button>
             </a>
             <a href="/signup">
-              <Button variant="emphasized" width="w-28">
+              <Button variant="outlined" width="w-28">
                 {t("SignUp")}
               </Button>
             </a>

@@ -9,6 +9,7 @@ import AccountPage from "./pages/AccountPage/AccountPage";
 import MyProfile from "./pages/AccountPage/MyProfile";
 import Settings from "./pages/AccountPage/Settings";
 import MyCourses from "./pages/AccountPage/MyCourses";
+import EnterUserInfoPage from "./pages/EnterUserInfoPage";
 import ProviderWrapper from "./context/ProviderWrapper";
 
 const router = createBrowserRouter([
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { path: "/signup-confirm", element: <SignupConfirmPage /> },
       { path: "/questions", element: <MatchingPairs /> },
       { path: "/oauth2/callback", element: <OAuthCallbackPage /> },
+      { path: "/enter-info", element: <EnterUserInfoPage /> },
       {
         path: "account",
         element: <AccountPage />,

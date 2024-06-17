@@ -2,6 +2,7 @@ export interface User {
   username: string;
   email: string;
   name: string;
+  dob?: string;
 }
 
 export interface AuthState {
