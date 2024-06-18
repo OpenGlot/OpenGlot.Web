@@ -10,9 +10,7 @@ phases:
       - npm install
   build:
     commands:
-      - echo $BUILD_COMMAND
       - $BUILD_COMMAND
   post_build:
     commands:
-      - echo $S3_BUCKET_NAME
       - aws s3 sync dist/app s3://$S3_BUCKET_NAME/
