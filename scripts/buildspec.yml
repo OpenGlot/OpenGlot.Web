@@ -10,7 +10,9 @@ phases:
       - npm install
   build:
     commands:
-      - npm run build-prod
+      - echo "Running build command: $BUILD_COMMAND"
+      - $BUILD_COMMAND
   post_build:
     commands:
-      - aws s3 sync dist/app s3://openglot-web-production/
+      - echo "Syncing built files to S3 bucket: $S3_BUCKET_NAME"
+      - aws s3 sync dist/app s3://$S3_BUCKET_NAME/
