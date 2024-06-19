@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+  pre_build:
+    commands:
+      - cd app
+      - npm install --global yarn
+      - yarn install
+  build:
+    commands:
+      - $BUILD_COMMAND
+  post_build:
+    commands:
+      - aws s3 sync dist/app s3://$S3_BUCKET_NAME/

@@ -44,8 +44,12 @@
   "scripts": {
     "start": "PORT=8080 react-scripts start",
     "start:docker": "cross-env REACT_APP_ENV=docker PORT=80  react-scripts start",
+    "start:beta": "cross-env REACT_APP_ENV=beta PORT=80  react-scripts start",
+    "start:prod": "cross-env REACT_APP_ENV=prod PORT=80  react-scripts start",
     "build": "react-scripts build",
     "build:docker": "cross-env REACT_APP_ENV=docker react-scripts build",
+    "build:beta": "cross-env REACT_APP_ENV=beta react-scripts build",
+    "build:prod": "cross-env REACT_APP_ENV=prod react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
