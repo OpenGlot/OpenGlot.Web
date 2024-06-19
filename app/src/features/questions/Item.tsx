@@ -1,10 +1,10 @@
-import React from 'react';
-import Button from '../common/Button';
+import React from "react";
+import Button from "../../components/common/Button";
 
 interface ItemProps {
   item: string;
-  column: 'left' | 'right';
-  onClick: (item: string, column: 'left' | 'right') => void;
+  column: "left" | "right";
+  onClick: (item: string, column: "left" | "right") => void;
   isSelected: boolean;
   isDisabled: boolean;
   isCorrect: boolean;
@@ -21,16 +21,16 @@ const Item: React.FC<ItemProps> = ({
   isIncorrect,
 }) => {
   let variant:
-    | 'default'
-    | 'selected'
-    | 'focused'
-    | 'disabled'
-    | 'correct'
-    | 'incorrect' = 'default';
-  if (isSelected) variant = 'selected';
-  if (isDisabled) variant = 'disabled';
-  if (isCorrect) variant = 'correct';
-  if (isIncorrect) variant = 'incorrect';
+    | "default"
+    | "selected"
+    | "focused"
+    | "disabled"
+    | "correct"
+    | "incorrect" = "default";
+  if (isSelected) variant = "selected";
+  if (isDisabled) variant = "disabled";
+  if (isCorrect) variant = "correct";
+  if (isIncorrect) variant = "incorrect";
 
   return (
     <Button

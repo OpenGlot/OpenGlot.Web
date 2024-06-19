@@ -1,6 +1,6 @@
-import React from 'react';
-import { useMatchingPairs } from './hooks/useMatchingPairs';
-import Item from './Item';
+import React from "react";
+import { useMatchingPairs } from "./hooks/useMatchingPairs";
+import Item from "./Item";
 
 const MatchingPairs: React.FC = () => {
   const {
@@ -27,7 +27,7 @@ const MatchingPairs: React.FC = () => {
               column="left"
               onClick={handleClick}
               isSelected={
-                selectedItem?.item === item && selectedItem.column === 'left'
+                selectedItem?.item === item && selectedItem.column === "left"
               }
               isDisabled={disabledItems.includes(item)}
               isCorrect={
@@ -45,7 +45,7 @@ const MatchingPairs: React.FC = () => {
               column="right"
               onClick={handleClick}
               isSelected={
-                selectedItem?.item === item && selectedItem.column === 'right'
+                selectedItem?.item === item && selectedItem.column === "right"
               }
               isDisabled={disabledItems.includes(item)}
               isCorrect={

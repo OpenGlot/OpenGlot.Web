@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import MatchingPairs from "./components/questions/MatchingPairs";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SignupPage from "./pages/SignupPage";
@@ -11,6 +10,23 @@ import Settings from "./pages/AccountPage/Settings";
 import MyCourses from "./pages/AccountPage/MyCourses";
 import EnterUserInfoPage from "./pages/EnterUserInfoPage";
 import ProviderWrapper from "./context/ProviderWrapper";
+import MatchingPairs from "./features/questions/MatchingPairs";
+import LanguageList from "./features/languages/LanguageList";
+import LanguageDetail from "./features/languages/LanguageDetails";
+import { languagesLoader } from "./features/languages/LanguagesLoader";
+import { languageLoader } from "./features/languages/LanguageLoader";
+import ModuleList from "./features/modules/ModuleList";
+import ModuleDetail from "./features/modules/ModuleDetails";
+import { modulesLoader } from "./features/modules/ModulesLoader";
+import { moduleLoader } from "./features/modules/ModuleLoader";
+import CourseList from "./features/courses/CourseList";
+import CourseDetail from "./features/courses/CourseDetails";
+import { coursesLoader } from "./features/courses/LanguagesLoader";
+import { courseLoader } from "./features/courses/CourseLoader";
+import LessonList from "./features/lessons/LessonList";
+import LessonDetail from "./features/lessons/LessonDetails";
+import { lessonsLoader } from "./features/lessons/LessonsLoader";
+import { lessonLoader } from "./features/lessons/LessonLoader";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +48,46 @@ const router = createBrowserRouter([
           { path: "my-courses", element: <MyCourses /> },
           { path: "settings", element: <Settings /> },
         ],
+      },
+      {
+        path: "Languages",
+        element: <LanguageList />,
+        loader: languagesLoader,
+      },
+      {
+        path: "/Languages/:id",
+        element: <LanguageDetail />,
+        loader: languageLoader,
+      },
+      {
+        path: "Modules",
+        element: <ModuleList />,
+        loader: modulesLoader,
+      },
+      {
+        path: "/Modules/:id",
+        element: <ModuleDetail />,
+        loader: moduleLoader,
+      },
+      {
+        path: "Courses",
+        element: <CourseList />,
+        loader: coursesLoader,
+      },
+      {
+        path: "/Courses/:id",
+        element: <CourseDetail />,
+        loader: courseLoader,
+      },
+      {
+        path: "Lessons",
+        element: <LessonList />,
+        loader: lessonsLoader,
+      },
+      {
+        path: "/Lessons/:id",
+        element: <LessonDetail />,
+        loader: lessonLoader,
       },
     ],
   },
