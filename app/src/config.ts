@@ -8,7 +8,7 @@ switch (process.env.REACT_APP_ENV) {
     configValue = require('./config.prod').default;
     break;
   case 'beta':
-      configValue = require('./config.prod').default;
+      configValue = require('./config.beta').default;
       break;
   case 'development':
   case 'local':
