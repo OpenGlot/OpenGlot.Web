@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { checkHealth } from "../../services/api";
+import { checkHealth, getLanguages } from "../../services/api";
 import { useTheme } from "../../context/ThemeContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,6 +12,9 @@ const HealthCheck: React.FC = () => {
     const interval = setInterval(async () => {
       try {
         const healthStatus = await checkHealth();
+        const languages = await getLanguages();
+        console.log(healthStatus);
+        console.log(languages);
 
         setIsHealthy(healthStatus);
         if (healthStatus.status !== 200) {
@@ -22,7 +25,7 @@ const HealthCheck: React.FC = () => {
       } catch (error) {
         toast.error("Failed to check API health!");
       }
-    }, 60000); // Check every minute
+    }, 6000); // Check every minute
 
     return () => clearInterval(interval);
   }, [isHealthy]);

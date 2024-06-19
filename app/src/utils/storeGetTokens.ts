@@ -1,33 +1,25 @@
-import Cookies from 'js-cookie';
-
 export const storeTokens = (
   idToken: string,
   accessToken: string,
   refreshToken: string
 ) => {
   return Promise.all([
-    Cookies.set('idToken', idToken, { secure: true, sameSite: 'strict' }),
-    Cookies.set('accessToken', accessToken, {
-      secure: true,
-      sameSite: 'strict',
-    }),
-    Cookies.set('refreshToken', refreshToken, {
-      secure: true,
-      sameSite: 'strict',
-    }),
+    localStorage.setItem('idToken', idToken),
+    localStorage.setItem('accessToken', accessToken),
+    localStorage.setItem('refreshToken', refreshToken),
   ]);
 };
 
 export const getTokens = () => {
   return {
-    idToken: Cookies.get('idToken'),
-    accessToken: Cookies.get('accessToken'),
-    refreshToken: Cookies.get('refreshToken'),
+    idToken: localStorage.getItem('idToken'),
+    accessToken: localStorage.getItem('accessToken'),
+    refreshToken: localStorage.getItem('refreshToken'),
   };
 };
 
 export const removeTokens = () => {
-  Cookies.remove('idToken');
-  Cookies.remove('accessToken');
-  Cookies.remove('refreshToken');
+  localStorage.removeItem('idToken');
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
 };

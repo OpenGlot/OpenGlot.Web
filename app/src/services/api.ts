@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5270';
+const API_URL = 'https://localhost/api/';
 
 export interface Question {
   targetLanguage: string;
@@ -28,7 +28,17 @@ export const fetchQuestions = async (): Promise<Question[]> => {
 
 export const checkHealth = async (): Promise<any> => {
   try {
-    const response = await apiClient.get('/health');
+    const response = await apiClient.get('health');
+    console.log(response);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getLanguages = async () => {
+  try {
+    const response = await apiClient.get('Languages');
     return response;
   } catch (error) {
     return error;
