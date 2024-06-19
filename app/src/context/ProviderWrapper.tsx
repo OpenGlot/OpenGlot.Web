@@ -8,7 +8,8 @@ const ProviderWrapper: React.FC = () => {
   return (
     <ThemeProvider>
       <AuthProvider>
-        {process.env.NODE_ENV === "development" && <HealthCheck />}
+        {(process.env.NODE_ENV === "development" ||
+          process.env.REACT_APP_ENV === "docker") && <HealthCheck />}
         <Outlet />
       </AuthProvider>
     </ThemeProvider>

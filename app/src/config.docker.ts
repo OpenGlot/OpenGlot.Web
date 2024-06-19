@@ -4,10 +4,11 @@ const config = {
   userPoolWebClientId: '1qei9084gdum632hggk6856j4f',
   oauth: {
     domain: 'openglot02.auth.us-east-1.amazoncognito.com',
-    redirectSignIn: 'http://localhost/oauth2/callback',
-    redirectSignOut: 'http://localhost/',
+    redirectSignIn: 'https://localhost/oauth2/callback',
+    redirectSignOut: 'https://localhost/',
     scope: ['openid', 'profile', 'email'],
   },
+  REACT_APP_API_URL: 'api/',
 };
 
 export default config;

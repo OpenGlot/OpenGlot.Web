@@ -15,7 +15,7 @@ RUN yarn install
 COPY app/ .
 
 # Expose the port the app runs on
-EXPOSE 8080
+EXPOSE 80
 
 # Start the development server
-CMD ["yarn", "start"]
+CMD ["yarn", "start:docker"]

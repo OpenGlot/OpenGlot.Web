@@ -42,7 +42,7 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "PORT=8080 react-scripts start",
+    "start": "HTTPS=true cross-env PORT=8080 react-scripts start",
     "start:docker": "cross-env REACT_APP_ENV=docker PORT=80  react-scripts start",
     "start:beta": "cross-env REACT_APP_ENV=beta PORT=80  react-scripts start",
     "start:prod": "cross-env REACT_APP_ENV=prod PORT=80  react-scripts start",

@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { config } from '../config';
 
-const API_URL = 'https://localhost/api/';
+const API_URL = config.REACT_APP_API_URL;
 
 export interface Question {
   targetLanguage: string;

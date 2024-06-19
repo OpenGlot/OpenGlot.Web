@@ -8,6 +8,7 @@ const config = {
     redirectSignOut: 'http://localhost:8080/',
     scope: ['openid', 'profile', 'email'],
   },
+  REACT_APP_API_URL: 'api/',
 };
 
 export default config;
