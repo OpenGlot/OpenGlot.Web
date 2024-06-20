@@ -1,0 +1,598 @@
+{
+  "info": {
+    "_postman_id": "b4841187-3a7f-4110-a5e5-511394f03ef4",
+    "name": "OpenGlotTest",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26701309"
+  },
+  "item": [
+    {
+      "name": "Courses",
+      "item": [
+        {
+          "name": "Get all courses",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is less than 500ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "",
+                  "pm.test('Response body contains required fields', function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('array');",
+                  "    if (jsonData.length > 0) {",
+                  "        jsonData.forEach(function(item) {",
+                  "            pm.expect(item).to.have.property('id');",
+                  "            pm.expect(item).to.have.property('title');",
+                  "            pm.expect(item).to.have.property('languageId');",
+                  "            pm.expect(item).to.have.property('language');",
+                  "        });",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/Courses",
+              "host": ["{{URL}}api"],
+              "path": ["Courses"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get one course",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is less than 500ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "",
+                  "",
+                  "pm.test('Response body contains required fields', function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('object');",
+                  "    pm.expect(jsonData).to.have.property('id');",
+                  "    pm.expect(jsonData).to.have.property('title');",
+                  "    pm.expect(jsonData).to.have.property('languageId');",
+                  "    pm.expect(jsonData).to.have.property('language');",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/Courses/1",
+              "host": ["{{URL}}api"],
+              "path": ["Courses", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get all users",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is less than 500ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "",
+                  "pm.test('Response body contains required fields', function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('array');",
+                  "    if (jsonData.length > 0) {",
+                  "        jsonData.forEach(function(user) {",
+                  "            pm.expect(user).to.have.property('userId');",
+                  "            pm.expect(user).to.have.property('username');",
+                  "            pm.expect(user).to.have.property('email');",
+                  "            pm.expect(user).to.have.property('nativeLanguage');",
+                  "            pm.expect(user).to.have.property('targetLanguage');",
+                  "            pm.expect(user).to.have.property('targetLanguageLevel');",
+                  "            pm.expect(user).to.have.property('targetLanguage2');",
+                  "            pm.expect(user).to.have.property('targetLanguageLevel2');",
+                  "            pm.expect(user).to.have.property('targetLanguage3');",
+                  "            pm.expect(user).to.have.property('targetLanguageLevel3');",
+                  "            pm.expect(user).to.have.property('dateOfBirth');",
+                  "            pm.expect(user).to.have.property('timeZone');",
+                  "            pm.expect(user).to.have.property('userRoles');",
+                  "            pm.expect(user).to.have.property('ratings');",
+                  "            pm.expect(user).to.have.property('progresses');",
+                  "            pm.expect(user).to.have.property('badges');",
+                  "            pm.expect(user).to.have.property('notifications');",
+                  "            pm.expect(user).to.have.property('flashcards');",
+                  "            pm.expect(user).to.have.property('userGeneratedContents');",
+                  "            pm.expect(user).to.have.property('subscription');",
+                  "        });",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJraWQiOiIzUWpLSk9yOFRRNVFsUk9CMWNRQmhBbkoxRTUzUzEzVWZyaXNxVnpUcmtJPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIzNDI4MDRmOC01MGQxLTcwNjQtMDc0NC04NWY0ZGQ1ZmI2YWYiLCJjb2duaXRvOmdyb3VwcyI6WyJ1cy1lYXN0LTFfQUtpODQ5VUhyX0dvb2dsZSJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9BS2k4NDlVSHIiLCJ2ZXJzaW9uIjoyLCJjbGllbnRfaWQiOiIxcWVpOTA4NGdkdW02MzJoZ2drNjg1Nmo0ZiIsIm9yaWdpbl9qdGkiOiJiNDhiYzBiZC0zNmE5LTQyNmUtOTFkOS05NmYyMWU1Zjg5NDUiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6InBob25lIG9wZW5pZCBwcm9maWxlIGVtYWlsIiwiYXV0aF90aW1lIjoxNzE4NDkzMzk4LCJleHAiOjE3MTg0OTY5OTgsImlhdCI6MTcxODQ5MzM5OCwianRpIjoiODczNDExNWUtOWE3Yy00ZjJhLThjNmEtNjZjOGU3YmYxN2M3IiwidXNlcm5hbWUiOiJnb29nbGVfMTEzMDc4Nzc2ODg4MTYxNDc0MDM3In0.HgkPyC-7hxrkoZ18cPNQcyyUMnEfHel2FHlXKlyycH93uFiui0rCKYMTwBvkEKeSk4CjAAwnUdQ-ubwUIXtXZ6Qdx7T6CliLYuOgi32b8bajyo70C5GFG0gTeTthsJi7phjgkSv8G7SrfnA4_0vchDv3LpIg_5UHUIK98qh3VHs25HO6T-0zKXqC3Fv1Zia_JoxrYroVgwWDtlQ7mMdOVcFmk1eo2ytzOLvsjcJLjNsTAEH4HP1uFjRpClwBmqx9AphlV0pP6a8xKmVbZS0bVhCYSKITGp7BGeOPT8sSJ_Y9adCuwtJ8YTflgEHX04kUSMdjTGQ9Or8rtiwIvejfiA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/users",
+              "host": ["{{URL}}api"],
+              "path": ["users"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get one user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is less than 500ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "",
+                  "pm.test('Response body contains required fields', function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('userId');",
+                  "    pm.expect(jsonData).to.have.property('username');",
+                  "    pm.expect(jsonData).to.have.property('email');",
+                  "    pm.expect(jsonData).to.have.property('nativeLanguage');",
+                  "    pm.expect(jsonData).to.have.property('targetLanguage');",
+                  "    pm.expect(jsonData).to.have.property('targetLanguageLevel');",
+                  "    pm.expect(jsonData).to.have.property('targetLanguage2');",
+                  "    pm.expect(jsonData).to.have.property('targetLanguageLevel2');",
+                  "    pm.expect(jsonData).to.have.property('targetLanguage3');",
+                  "    pm.expect(jsonData).to.have.property('targetLanguageLevel3');",
+                  "    pm.expect(jsonData).to.have.property('dateOfBirth');",
+                  "    pm.expect(jsonData).to.have.property('timeZone');",
+                  "    pm.expect(jsonData).to.have.property('userRoles');",
+                  "    pm.expect(jsonData).to.have.property('ratings');",
+                  "    pm.expect(jsonData).to.have.property('progresses');",
+                  "    pm.expect(jsonData).to.have.property('badges');",
+                  "    pm.expect(jsonData).to.have.property('notifications');",
+                  "    pm.expect(jsonData).to.have.property('flashcards');",
+                  "    pm.expect(jsonData).to.have.property('userGeneratedContents');",
+                  "    pm.expect(jsonData).to.have.property('subscription');",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/users/1",
+              "host": ["{{URL}}api"],
+              "path": ["users", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Lessons",
+      "item": [
+        {
+          "name": "Get all lessons",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('jwt') });",
+                  "",
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is less than 500ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "",
+                  "",
+                  "pm.test('Response body contains required fields', function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('array');",
+                  "    if (jsonData.length > 0) {",
+                  "        jsonData.forEach(function(item) {",
+                  "        pm.expect(item).to.have.property('id');",
+                  "        pm.expect(item).to.have.property('title');",
+                  "        pm.expect(item).to.have.property('contentType');",
+                  "        pm.expect(item).to.have.property('createdAt');",
+                  "        pm.expect(item).to.have.property('moduleId');",
+                  "        pm.expect(item).to.have.property('module');",
+                  "        pm.expect(item).to.have.property('questions');",
+                  "        pm.expect(item).to.have.property('ratings');",
+                  "        });",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/Lessons",
+              "host": ["{{URL}}api"],
+              "path": ["Lessons"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get one lesson",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('jwt') });",
+                  "",
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is less than 500ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "",
+                  "pm.test('Response body contains required fields', function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id');",
+                  "    pm.expect(jsonData).to.have.property('title');",
+                  "    pm.expect(jsonData).to.have.property('contentType');",
+                  "    pm.expect(jsonData).to.have.property('createdAt');",
+                  "    pm.expect(jsonData).to.have.property('moduleId');",
+                  "    pm.expect(jsonData).to.have.property('module');",
+                  "    pm.expect(jsonData).to.have.property('questions');",
+                  "    pm.expect(jsonData).to.have.property('ratings');",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/Lessons/1",
+              "host": ["{{URL}}api"],
+              "path": ["Lessons", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Utils",
+      "item": [
+        {
+          "name": "Health check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is less than 500ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "",
+                  "pm.test('Response body is healthy', function () {",
+                  "    pm.expect(pm.response.text()).to.include('Healthy');",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/health",
+              "host": ["{{URL}}api"],
+              "path": ["health"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Languages",
+      "item": [
+        {
+          "name": "Get all languages",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is less than 500ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "",
+                  "pm.test('Response body contains required fields', function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('array');",
+                  "    if (jsonData.length > 0) {",
+                  "        jsonData.forEach(function(item) {",
+                  "            pm.expect(item).to.have.property('id');",
+                  "            pm.expect(item).to.have.property('name');",
+                  "            pm.expect(item).to.have.property('description');",
+                  "            pm.expect(item).to.have.property('courses');",
+                  "        });",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/Languages",
+              "host": ["{{URL}}api"],
+              "path": ["Languages"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get one language",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is less than 500ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "",
+                  "pm.test('Response body contains required fields', function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id');",
+                  "    pm.expect(jsonData).to.have.property('name');",
+                  "    pm.expect(jsonData).to.have.property('description');",
+                  "    pm.expect(jsonData).to.have.property('courses');",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/Languages/1",
+              "host": ["{{URL}}api"],
+              "path": ["Languages", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Modules",
+      "item": [
+        {
+          "name": "Get all modules",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is less than 500ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "",
+                  "pm.test('Response body contains required fields', function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('array');",
+                  "    if (jsonData.length > 0) {",
+                  "        jsonData.forEach(function(item) {",
+                  "            pm.expect(item).to.have.property('id');",
+                  "            pm.expect(item).to.have.property('title');",
+                  "            pm.expect(item).to.have.property('courseId');",
+                  "            pm.expect(item).to.have.property('course');",
+                  "            pm.expect(item).to.have.property('lessons');",
+                  "            pm.expect(item).to.have.property('progresses');",
+                  "            pm.expect(item).to.have.property('ratings');",
+                  "        });",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/Modules",
+              "host": ["{{URL}}api"],
+              "path": ["Modules"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get one module",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is less than 500ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "",
+                  "pm.test('Response body contains required fields', function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id');",
+                  "    pm.expect(jsonData).to.have.property('title');",
+                  "    pm.expect(jsonData).to.have.property('courseId');",
+                  "    pm.expect(jsonData).to.have.property('course');",
+                  "    pm.expect(jsonData).to.have.property('lessons');",
+                  "    pm.expect(jsonData).to.have.property('progresses');",
+                  "    pm.expect(jsonData).to.have.property('ratings');",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/Modules/1",
+              "host": ["{{URL}}api"],
+              "path": ["Modules", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

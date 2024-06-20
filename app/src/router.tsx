@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         loader: languagesLoader,
       },
       {
-        path: "/Languages/:id",
+        path: "/Language/:id",
         element: <LanguageDetail />,
         loader: languageLoader,
       },
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
         loader: modulesLoader,
       },
       {
-        path: "/Modules/:id",
+        path: "/Module/:id",
         element: <ModuleDetail />,
         loader: moduleLoader,
       },
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
         loader: coursesLoader,
       },
       {
-        path: "/Courses/:id",
+        path: "/Course/:id",
         element: <CourseDetail />,
         loader: courseLoader,
       },
@@ -85,7 +85,7 @@ const router = createBrowserRouter([
         loader: lessonsLoader,
       },
       {
-        path: "/Lessons/:id",
+        path: "/Lesson/:id",
         element: <LessonDetail />,
         loader: lessonLoader,
       },
