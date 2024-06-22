@@ -1,15 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Settings } from 'lucide-react';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
-} from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { Slider } from '@/components/ui/slider';
 
 const GRID_SIZE = 10;
 const CELL_SIZE = 40;
@@ -24,7 +13,7 @@ const words = {
 };
 
 const LanguageLearningGame = () => {
-  const [playerPosition, setPlayerPosition] = useState({ x: 0, y: 0 });
+  const [playerPosition, setPlayerPosition] = useState({ x: GRID_SIZE - 1, y: GRID_SIZE - 1 });
   const [objects, setObjects] = useState([]);
   const [score, setScore] = useState(0);
   const [targetPartOfSpeech, setTargetPartOfSpeech] = useState(partsOfSpeech[0]);
@@ -34,6 +23,7 @@ const LanguageLearningGame = () => {
     highlight: true,
     speed: 500,
   });
+  const [showSettings, setShowSettings] = useState(false);
 
   const removeObject = useCallback((objToRemove) => {
     setObjects(prevObjects => prevObjects.filter(obj => obj !== objToRemove));
@@ -103,18 +93,15 @@ const LanguageLearningGame = () => {
 
         const newObjectAtPlayer = newObjects.find(obj => obj.x === playerPosition.x && obj.y === playerPosition.y);
 
-        // Check if an object has moved onto the player
         if (!objectAtPlayer && newObjectAtPlayer) {
           if (checkScoring(newObjectAtPlayer)) {
             newObjects = newObjects.filter(obj => obj !== newObjectAtPlayer);
           }
-        }
-        // Check if an object has moved through the player
-        else if (objectAtPlayer && !newObjectAtPlayer) {
+        } else if (objectAtPlayer && !newObjectAtPlayer) {
           checkScoring(objectAtPlayer);
         }
 
-        if (newObjects.length < 5) {
+        while (newObjects.length < 5) {
           const newType = partsOfSpeech[Math.floor(Math.random() * partsOfSpeech.length)];
           const newObj = {
             x: Math.floor(Math.random() * GRID_SIZE),
@@ -133,7 +120,7 @@ const LanguageLearningGame = () => {
   }, [playerPosition, targetPartOfSpeech, gameOver, settings.speed, checkScoring]);
 
   const handleRestart = () => {
-    setPlayerPosition({ x: 0, y: 0 });
+    setPlayerPosition({ x: GRID_SIZE - 1, y: GRID_SIZE - 1 });
     setObjects([]);
     setScore(0);
     setGameOver(false);
@@ -153,49 +140,46 @@ const LanguageLearningGame = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <h1 className="text-4xl font-bold mb-4">Language Learning Game</h1>
       <div className="mb-4 flex items-center space-x-4">
         <p className="text-xl">
           Score: {score} | Target: {targetPartOfSpeech}s
         </p>
-        <Dialog>
-          <DialogTrigger asChild>
-            <button className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
-              <Settings size={24} />
-            </button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Game Settings</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="highlight">Highlight Words</Label>
-                <Switch
-                  id="highlight"
-                  checked={settings.highlight}
-                  onCheckedChange={(checked) => handleSettingsChange('highlight', checked)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="speed">Game Speed</Label>
-                <Slider
-                  id="speed"
-                  min={100}
-                  max={1000}
-                  step={100}
-                  value={[settings.speed]}
-                  onValueChange={([value]) => handleSettingsChange('speed', value)}
-                />
-                <div className="text-sm text-gray-500">
-                  {settings.speed}ms (lower is faster)
-                </div>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <button
+          className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+          onClick={() => setShowSettings(!showSettings)}
+        >
+          Settings
+        </button>
       </div>
+      {showSettings && (
+        <div className="mb-4 p-4 bg-white rounded shadow">
+          <h2 className="text-lg font-semibold mb-2">Game Settings</h2>
+          <div className="flex items-center justify-between mb-2">
+            <label htmlFor="highlight">Highlight Words:</label>
+            <input
+              type="checkbox"
+              id="highlight"
+              checked={settings.highlight}
+              onChange={(e) => handleSettingsChange('highlight', e.target.checked)}
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <label htmlFor="speed">Game Speed:</label>
+            <input
+              type="range"
+              id="speed"
+              min="100"
+              max="1000"
+              step="100"
+              value={settings.speed}
+              onChange={(e) => handleSettingsChange('speed', parseInt(e.target.value))}
+            />
+            <span>{settings.speed}ms</span>
+          </div>
+        </div>
+      )}
       <div
         className="relative bg-white border-2 border-gray-300"
         style={{
@@ -251,12 +235,7 @@ const LanguageLearningGame = () => {
       )}
       <div className="mt-4">
         <p className="text-lg font-semibold">Controls:</p>
-        <div className="flex space-x-2 mt-2">
-          <ArrowUp size={24} />
-          <ArrowDown size={24} />
-          <ArrowLeft size={24} />
-          <ArrowRight size={24} />
-        </div>
+        <p>Use arrow keys to move</p>
       </div>
     </div>
   );
