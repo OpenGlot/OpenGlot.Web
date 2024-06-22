@@ -27,6 +27,7 @@ import LessonList from "./features/lessons/LessonList";
 import LessonDetail from "./features/lessons/LessonDetails";
 import { lessonsLoader } from "./features/lessons/LessonsLoader";
 import { lessonLoader } from "./features/lessons/LessonLoader";
+import LanguageLearningGame from "./games/LanguageLearningGame";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +90,7 @@ const router = createBrowserRouter([
         element: <LessonDetail />,
         loader: lessonLoader,
       },
+      { path: "/Game", element: <LanguageLearningGame /> },
     ],
   },
 ]);

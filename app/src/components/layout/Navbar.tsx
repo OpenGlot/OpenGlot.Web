@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import Button from "../common/Button";
 import { useAuth } from "../../context/AuthContext";
 import Popup from "../common/Popup";
+import LanguageSwitcher from "../common/LanguageSwitcher";
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
@@ -54,8 +55,12 @@ const Navbar: React.FC = () => {
         <a href="/" className="link-hover-effect">
           {t("Review")}
         </a>
+        <a href="/game" className="link-hover-effect">
+          {t("Game")}
+        </a>
       </div>
-      <div className="flex justify-end">
+      <div className="flex flex-row items-center justify-end">
+        <LanguageSwitcher />
         {authState.user ? (
           <div className="relative" ref={popupRef}>
             <div

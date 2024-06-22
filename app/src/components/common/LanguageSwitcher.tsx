@@ -24,9 +24,8 @@ const LanguageSwitcher: React.FC = () => {
 
   return (
     <div>
-      <div>{i18n.t("Language")}</div>
       <select
-        className="p-2 border rounded dark:bg-customBlack"
+        className="p-2 dark:bg-customBlack"
         value={selectedLanguage}
         onChange={changeLanguage}
       >

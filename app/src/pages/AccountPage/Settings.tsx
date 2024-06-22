@@ -1,12 +1,10 @@
 import React from "react";
-import ThemeSwitcher from "./ThemeSwitcher";
-import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeSwitcher from "../../components/common/ThemeSwitcher";
 
 const Settings: React.FC = () => {
   return (
     <>
       <ThemeSwitcher />
-      <LanguageSwitcher />
     </>
   );
 };

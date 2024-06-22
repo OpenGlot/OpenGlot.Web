@@ -1,83 +1,116 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from "react";
 
 const GRID_SIZE = 10;
 const CELL_SIZE = 40;
 
-const partsOfSpeech = ['noun', 'verb', 'adjective', 'adverb'];
+const partsOfSpeech = ["noun", "verb", "adjective", "adverb"] as const;
+
+type PartOfSpeech = (typeof partsOfSpeech)[number];
 
 const words = {
-  noun: ['cat', 'house', 'tree', 'book', 'car'],
-  verb: ['run', 'jump', 'swim', 'read', 'drive'],
-  adjective: ['big', 'small', 'red', 'fast', 'slow'],
-  adverb: ['quickly', 'slowly', 'loudly', 'softly', 'carefully'],
+  noun: ["cat", "house", "tree", "book", "car"],
+  verb: ["run", "jump", "swim", "read", "drive"],
+  adjective: ["big", "small", "red", "fast", "slow"],
+  adverb: ["quickly", "slowly", "loudly", "softly", "carefully"],
 };
 
-const LanguageLearningGame = () => {
-  const [playerPosition, setPlayerPosition] = useState({ x: GRID_SIZE - 1, y: GRID_SIZE - 1 });
-  const [objects, setObjects] = useState([]);
+interface ObjectType {
+  x: number;
+  y: number;
+  type: PartOfSpeech;
+  word: string;
+}
+
+interface Position {
+  x: number;
+  y: number;
+}
+
+const LanguageLearningGame: React.FC = () => {
+  const [playerPosition, setPlayerPosition] = useState<Position>({
+    x: GRID_SIZE - 1,
+    y: GRID_SIZE - 1,
+  });
+  const [objects, setObjects] = useState<ObjectType[]>([]);
   const [score, setScore] = useState(0);
-  const [targetPartOfSpeech, setTargetPartOfSpeech] = useState(partsOfSpeech[0]);
+  const [targetPartOfSpeech, setTargetPartOfSpeech] = useState<PartOfSpeech>(
+    partsOfSpeech[0]
+  );
   const [gameOver, setGameOver] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [settings, setSettings] = useState({
     highlight: true,
     speed: 500,
   });
   const [showSettings, setShowSettings] = useState(false);
 
-  const removeObject = useCallback((objToRemove) => {
-    setObjects(prevObjects => prevObjects.filter(obj => obj !== objToRemove));
+  const removeObject = useCallback((objToRemove: ObjectType) => {
+    setObjects((prevObjects) =>
+      prevObjects.filter((obj) => obj !== objToRemove)
+    );
   }, []);
 
-  const checkScoring = useCallback((object) => {
-    if (object) {
-      if (object.type === targetPartOfSpeech) {
-        setScore(prevScore => prevScore + 1);
-        setMessage(`Correct! You scored with "${object.word}", which is a ${object.type}.`);
-        removeObject(object);
-        return true;
-      } else {
-        setGameOver(true);
-        setMessage(`Game Over! You interacted with "${object.word}", which is a ${object.type}, not a ${targetPartOfSpeech}.`);
-        return false;
+  const checkScoring = useCallback(
+    (object: ObjectType | undefined) => {
+      if (object) {
+        if (object.type === targetPartOfSpeech) {
+          setScore((prevScore) => prevScore + 1);
+          setMessage(
+            `Correct! You scored with "${object.word}", which is a ${object.type}.`
+          );
+          removeObject(object);
+          return true;
+        } else {
+          setGameOver(true);
+          setMessage(
+            `Game Over! You interacted with "${object.word}", which is a ${object.type}, not a ${targetPartOfSpeech}.`
+          );
+          return false;
+        }
       }
-    }
-    return true;
-  }, [targetPartOfSpeech, removeObject]);
+      return true;
+    },
+    [targetPartOfSpeech, removeObject]
+  );
 
   useEffect(() => {
-    const handleKeyPress = (e) => {
+    const handleKeyPress = (e: KeyboardEvent) => {
       if (gameOver) return;
 
       const newPosition = { ...playerPosition };
-      
+
       switch (e.key) {
-        case 'ArrowUp':
+        case "ArrowUp":
           newPosition.y = Math.max(0, newPosition.y - 1);
           break;
-        case 'ArrowDown':
+        case "ArrowDown":
           newPosition.y = Math.min(GRID_SIZE - 1, newPosition.y + 1);
           break;
-        case 'ArrowLeft':
+        case "ArrowLeft":
           newPosition.x = Math.max(0, newPosition.x - 1);
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
           newPosition.x = Math.min(GRID_SIZE - 1, newPosition.x + 1);
           break;
         default:
           return;
       }
 
-      if (newPosition.x !== playerPosition.x || newPosition.y !== playerPosition.y) {
-        const object = objects.find(obj => obj.x === newPosition.x && obj.y === newPosition.y);
+      if (
+        newPosition.x !== playerPosition.x ||
+        newPosition.y !== playerPosition.y
+      ) {
+        const object = objects.find(
+          (obj) => obj.x === newPosition.x && obj.y === newPosition.y
+        );
         if (checkScoring(object)) {
           setPlayerPosition(newPosition);
         }
       }
     };
 
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
   }, [playerPosition, gameOver, checkScoring, objects]);
 
   useEffect(() => {
@@ -85,29 +118,36 @@ const LanguageLearningGame = () => {
 
     const gameLoop = setInterval(() => {
       setObjects((prevObjects) => {
-        const objectAtPlayer = prevObjects.find(obj => obj.x === playerPosition.x && obj.y === playerPosition.y);
-        
+        const objectAtPlayer = prevObjects.find(
+          (obj) => obj.x === playerPosition.x && obj.y === playerPosition.y
+        );
+
         let newObjects = prevObjects
           .map((obj) => ({ ...obj, y: obj.y + 1 }))
           .filter((obj) => obj.y < GRID_SIZE);
 
-        const newObjectAtPlayer = newObjects.find(obj => obj.x === playerPosition.x && obj.y === playerPosition.y);
+        const newObjectAtPlayer = newObjects.find(
+          (obj) => obj.x === playerPosition.x && obj.y === playerPosition.y
+        );
 
         if (!objectAtPlayer && newObjectAtPlayer) {
           if (checkScoring(newObjectAtPlayer)) {
-            newObjects = newObjects.filter(obj => obj !== newObjectAtPlayer);
+            newObjects = newObjects.filter((obj) => obj !== newObjectAtPlayer);
           }
         } else if (objectAtPlayer && !newObjectAtPlayer) {
           checkScoring(objectAtPlayer);
         }
 
         while (newObjects.length < 5) {
-          const newType = partsOfSpeech[Math.floor(Math.random() * partsOfSpeech.length)];
-          const newObj = {
+          const newType =
+            partsOfSpeech[Math.floor(Math.random() * partsOfSpeech.length)];
+          const newObj: ObjectType = {
             x: Math.floor(Math.random() * GRID_SIZE),
             y: 0,
             type: newType,
-            word: words[newType][Math.floor(Math.random() * words[newType].length)],
+            word: words[newType][
+              Math.floor(Math.random() * words[newType].length)
+            ],
           };
           newObjects.push(newObj);
         }
@@ -117,15 +157,23 @@ const LanguageLearningGame = () => {
     }, settings.speed);
 
     return () => clearInterval(gameLoop);
-  }, [playerPosition, targetPartOfSpeech, gameOver, settings.speed, checkScoring]);
+  }, [
+    playerPosition,
+    targetPartOfSpeech,
+    gameOver,
+    settings.speed,
+    checkScoring,
+  ]);
 
   const handleRestart = () => {
     setPlayerPosition({ x: GRID_SIZE - 1, y: GRID_SIZE - 1 });
     setObjects([]);
     setScore(0);
     setGameOver(false);
-    setMessage('');
-    setTargetPartOfSpeech(partsOfSpeech[Math.floor(Math.random() * partsOfSpeech.length)]);
+    setMessage("");
+    setTargetPartOfSpeech(
+      partsOfSpeech[Math.floor(Math.random() * partsOfSpeech.length)]
+    );
   };
 
   const handleChangeTarget = () => {
@@ -135,12 +183,12 @@ const LanguageLearningGame = () => {
     setMessage(`New target: ${partsOfSpeech[nextIndex]}s`);
   };
 
-  const handleSettingsChange = (key, value) => {
-    setSettings(prev => ({ ...prev, [key]: value }));
+  const handleSettingsChange = (key: string, value: any) => {
+    setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen dark:bg-customBlack p-4">
       <h1 className="text-4xl font-bold mb-4">Language Learning Game</h1>
       <div className="mb-4 flex items-center space-x-4">
         <p className="text-xl">
@@ -162,7 +210,9 @@ const LanguageLearningGame = () => {
               type="checkbox"
               id="highlight"
               checked={settings.highlight}
-              onChange={(e) => handleSettingsChange('highlight', e.target.checked)}
+              onChange={(e) =>
+                handleSettingsChange("highlight", e.target.checked)
+              }
             />
           </div>
           <div className="flex items-center justify-between">
@@ -174,7 +224,9 @@ const LanguageLearningGame = () => {
               max="1000"
               step="100"
               value={settings.speed}
-              onChange={(e) => handleSettingsChange('speed', parseInt(e.target.value))}
+              onChange={(e) =>
+                handleSettingsChange("speed", parseInt(e.target.value))
+              }
             />
             <span>{settings.speed}ms</span>
           </div>
@@ -196,10 +248,12 @@ const LanguageLearningGame = () => {
               top: obj.y * CELL_SIZE,
               width: CELL_SIZE,
               height: CELL_SIZE,
-              backgroundColor: 'lightblue',
-              border: settings.highlight 
-                ? `2px solid ${obj.type === targetPartOfSpeech ? 'green' : 'red'}`
-                : '2px solid transparent',
+              backgroundColor: "lightblue",
+              border: settings.highlight
+                ? `2px solid ${
+                    obj.type === targetPartOfSpeech ? "green" : "red"
+                  }`
+                : "2px solid transparent",
             }}
           >
             {obj.word}
@@ -227,7 +281,7 @@ const LanguageLearningGame = () => {
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           onClick={handleRestart}
         >
-          {gameOver ? 'Restart' : 'New Game'}
+          {gameOver ? "Restart" : "New Game"}
         </button>
       </div>
       {gameOver && (
