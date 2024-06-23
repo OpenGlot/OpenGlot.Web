@@ -11,9 +11,7 @@ const LanguageList: React.FC = () => {
       <ul>
         {languages.map((language) => (
           <li key={language.id}>
-            {language.name}
-            {language.description}
-            <Link to={`/languages/${language.id}`}>{language.name}</Link>
+            <Link to={`/language/${language.id}`}>{language.name}</Link>
           </li>
         ))}
       </ul>

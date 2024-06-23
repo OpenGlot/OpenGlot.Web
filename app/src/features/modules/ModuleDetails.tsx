@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { Module } from "./module";
 import { Lesson } from "../lessons/lesson";
 
@@ -12,13 +12,16 @@ const ModuleDetail: React.FC = () => {
 
   return (
     <div>
-      <h1>{moduleDetail.title}</h1>
+      <h1>title: {moduleDetail.title}</h1>
+      Lessons:
       {moduleDetail.lessons ? (
-        <div>
+        <ul>
           {moduleDetail.lessons.map((lesson: Lesson) => (
-            <p key={lesson.id}>{lesson.title}</p>
+            <li key={lesson.id}>
+              <Link to={`/lesson/${lesson.id}`}>{lesson.title}</Link>
+            </li>
           ))}
-        </div>
+        </ul>
       ) : (
         <p>No lessons available</p>
       )}

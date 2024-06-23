@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { Lesson } from "./lesson";
 
 const LessonDetail: React.FC = () => {
@@ -11,8 +11,13 @@ const LessonDetail: React.FC = () => {
 
   return (
     <div>
-      <h1>{lessonDetail.title}</h1>
-      <p>{lessonDetail.moduleId}</p>
+      <h1>title: {lessonDetail.title}</h1>
+      <p>
+        Module:{" "}
+        <Link to={`/module/${lessonDetail.moduleId}`}>
+          Module {lessonDetail.moduleId}
+        </Link>
+      </p>
     </div>
   );
 };

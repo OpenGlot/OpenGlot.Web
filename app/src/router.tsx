@@ -21,7 +21,7 @@ import { modulesLoader } from "./features/modules/ModulesLoader";
 import { moduleLoader } from "./features/modules/ModuleLoader";
 import CourseList from "./features/courses/CourseList";
 import CourseDetail from "./features/courses/CourseDetails";
-import { coursesLoader } from "./features/courses/LanguagesLoader";
+import { coursesLoader } from "./features/courses/CoursesLoader";
 import { courseLoader } from "./features/courses/CourseLoader";
 import LessonList from "./features/lessons/LessonList";
 import LessonDetail from "./features/lessons/LessonDetails";

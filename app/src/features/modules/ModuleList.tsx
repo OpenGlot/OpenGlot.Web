@@ -11,8 +11,7 @@ const ModuleList: React.FC = () => {
       <ul>
         {modules.map((module) => (
           <li key={module.id}>
-            {module.title}
-            <Link to={`/modules/${module.id}`}>{module.title}</Link>
+            <Link to={`/module/${module.id}`}>{module.title}</Link>
           </li>
         ))}
       </ul>

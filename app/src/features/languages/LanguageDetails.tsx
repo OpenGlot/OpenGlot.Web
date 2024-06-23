@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { Language } from "./language";
 
 const LanguageDetail: React.FC = () => {
@@ -11,8 +11,18 @@ const LanguageDetail: React.FC = () => {
 
   return (
     <div>
-      <h1>{languageDetail.name}</h1>
-      <p>{languageDetail.description}</p>
+      <h1>title: {languageDetail.name}</h1>
+      <p>description: {languageDetail.description}</p>
+      <div>
+        Courses:{" "}
+        <ul>
+          {languageDetail.courses?.map((course) => (
+            <li key={course.id}>
+              <Link to={`/course/${course.id}`}>{course.title}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
