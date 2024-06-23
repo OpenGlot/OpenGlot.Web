@@ -47,7 +47,7 @@ const SignupPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-8">
+    <div className="flex flex-col items-center justify-center gap-8">
       <div className="font-sansLogo gradient-text text-2xl">OpenGlot</div>
       <div className="flex flex-col items-center justify-center gap-2">
         <h1 className="text-6xl font-bold">Welcome!</h1>

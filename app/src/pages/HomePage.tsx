@@ -1,6 +1,5 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Navbar from "../components/layout/Navbar";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 
@@ -10,8 +9,7 @@ const HomePage: React.FC = () => {
   const { theme } = useTheme();
 
   return (
-    <div className="min-h-screen flex flex-col items-center w-full">
-      <Navbar />
+    <div className="flex flex-col items-center justify-center w-full h-full">
       {/* <div className="w-full border-b"></div> */}
       <div className="flex flex-grow flex-col gap-10 items-center justify-center w-full">
         <h1 className="text-2xl font-semibold">

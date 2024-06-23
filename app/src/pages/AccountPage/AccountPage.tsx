@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Navbar from "../../components/layout/Navbar";
 
 const AccountPage: React.FC = () => {
   const { t } = useTranslation();
@@ -14,7 +13,6 @@ const AccountPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       <div className="w-full border-b"></div>
       <div className="flex flex-grow">
         {/* Left Column */}

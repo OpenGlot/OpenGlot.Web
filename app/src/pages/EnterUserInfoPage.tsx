@@ -101,7 +101,7 @@ const EnterUserInfoPage: React.FC = () => {
     : `${(step / questions.length) * 100}%`;
 
   return (
-    <div className="flex flex-col gap-10 mt-48 items-center h-screen max-w-md mx-auto">
+    <div className="flex flex-col gap-10 items-center max-w-md mx-auto">
       <h1 className="text-4xl font-bold self-start">Before we get started</h1>
       <div className="w-full h-0.5 bg-gray-200 dark:bg-gray-600 relative">
         <div

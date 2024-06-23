@@ -49,7 +49,7 @@ const Navbar: React.FC = () => {
         <a href="/questions" className="link-hover-effect">
           {t("Questions")}
         </a>
-        <a href="/" className="link-hover-effect">
+        <a href="/courses" className="link-hover-effect">
           {t("Courses")}
         </a>
         <a href="/" className="link-hover-effect">
@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
           {t("Game")}
         </a>
       </div>
-      <div className="flex flex-row items-center justify-end">
+      <div className="flex flex-row items-center justify-end gap-2">
         <LanguageSwitcher />
         {authState.user ? (
           <div className="relative" ref={popupRef}>

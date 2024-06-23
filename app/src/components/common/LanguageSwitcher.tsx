@@ -25,7 +25,7 @@ const LanguageSwitcher: React.FC = () => {
   return (
     <div>
       <select
-        className="p-2 dark:bg-customBlack"
+        className="cursor-pointer dark:bg-customBlack"
         value={selectedLanguage}
         onChange={changeLanguage}
       >

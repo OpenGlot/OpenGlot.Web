@@ -1,8 +1,8 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "./ThemeContext";
 import { AuthProvider } from "./AuthContext";
 import HealthCheck from "../components/common/HealthCheck";
+import Layout from "components/layout/Layout";
 
 const ProviderWrapper: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const ProviderWrapper: React.FC = () => {
       <AuthProvider>
         {(process.env.NODE_ENV === "development" ||
           process.env.REACT_APP_ENV === "docker") && <HealthCheck />}
-        <Outlet />
+        <Layout />
       </AuthProvider>
     </ThemeProvider>
   );
