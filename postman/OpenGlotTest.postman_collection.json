@@ -10,18 +10,8 @@
 			"name": "Auth",
 			"item": [
 				{
-					"name": "Cognito signin",
+					"name": "Get auth token",
 					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
 						{
 							"listen": "prerequest",
 							"script": {
@@ -60,82 +50,181 @@
 								"type": "text/javascript",
 								"packages": {}
 							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
-							"type": "oauth2",
-							"oauth2": [
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "refreshTokenUrl",
-									"value": "",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "{{redirect_uri}}",
-									"type": "string"
-								},
-								{
-									"key": "tokenType",
-									"value": "Bearer",
-									"type": "string"
-								},
-								{
-									"key": "accessToken",
-									"value": "eyJraWQiOiJoZHpcL0FWczJ1Y1RIdVZpOGpoaEdJcmlKeEg4U1VCUm1TUVVXODhcL2VCb1U9IiwiYWxnIjoiUlMyNTYifQ.eyJhdF9oYXNoIjoiMHBQUE43M1R1WFg2OVVpQUR5bVVIQSIsInN1YiI6ImM0Mzg2NDI4LTgwZTEtNzA1OS0xZWYyLTEwNWI3YzQzNTFlYSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfQUtpODQ5VUhyIiwiY29nbml0bzp1c2VybmFtZSI6ImM0Mzg2NDI4LTgwZTEtNzA1OS0xZWYyLTEwNWI3YzQzNTFlYSIsIm9yaWdpbl9qdGkiOiI4NWQ2ZmM4OC03ZWM5LTRkM2UtOWUxYy01OWJhYTQ5YmI3NjQiLCJhdWQiOiIxcWVpOTA4NGdkdW02MzJoZ2drNjg1Nmo0ZiIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzE4ODg2MjM3LCJuYW1lIjoiVGVzdFVzZXIiLCJleHAiOjE3MTg4ODk4MzcsImlhdCI6MTcxODg4NjIzNywianRpIjoiNTY1NGI0MTYtYjgxMS00ZjE0LTlmZWEtMzYxMWVmNjBhNDhkIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIn0.eTrK2wM17oQQjm2ax59UvJN3kz97WCoBHHPPDXoNRXxuFmr3x4ZxaI4a58iEbLGBOoNUsp4nhz1TBTmgTlIktc7ya8JrLPOBTkwRZJTTCR6Q-y_SZCmbky5X0IMrzN3wdJir24rLdeuQ3S2SJ2sj9B7e-BMpX0eUTn0-6UPaBg47gj0qLpq6vr_yAXNhnqdz6OEs3KPX1UwF03gl4LrVdsUJLgybifIV5WcHZdRQhpoqbwTVV6dlWD6PU8p3GehxDhjeehSN4WklA5ssZto5XsNpxE5R3IA0TdFLnw0Xa4sNiwQFp1X8zhi0YacUAHpZIe5PdTYGj_LhOPKczi7PUw",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "headerPrefix",
-									"value": "Bearer",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "useBrowser",
-									"value": false,
-									"type": "boolean"
-								},
-								{
-									"key": "client_authentication",
-									"value": "body",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "authorization_code",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "https://openglot02.auth.us-east-1.amazoncognito.com/oauth2/authorize",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "https://openglot02.auth.us-east-1.amazoncognito.com/oauth2/token",
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
 									"type": "string"
 								}
 							]
 						},
 						"method": "GET",
 						"header": [],
+						"url": {
+							"raw": "{{URL}}api/users",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response time is less than 500ms', function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test('Response body contains required fields', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an('array');",
+									"    if (jsonData.length > 0) {",
+									"        jsonData.forEach(function(user) {",
+									"            pm.expect(user).to.have.property('userId');",
+									"            pm.expect(user).to.have.property('username');",
+									"            pm.expect(user).to.have.property('email');",
+									"            pm.expect(user).to.have.property('nativeLanguage');",
+									"            pm.expect(user).to.have.property('targetLanguage');",
+									"            pm.expect(user).to.have.property('targetLanguageLevel');",
+									"            pm.expect(user).to.have.property('targetLanguage2');",
+									"            pm.expect(user).to.have.property('targetLanguageLevel2');",
+									"            pm.expect(user).to.have.property('targetLanguage3');",
+									"            pm.expect(user).to.have.property('targetLanguageLevel3');",
+									"            pm.expect(user).to.have.property('dateOfBirth');",
+									"            pm.expect(user).to.have.property('timeZone');",
+									"            pm.expect(user).to.have.property('userRole');",
+									"            pm.expect(user).to.have.property('ratings');",
+									"            pm.expect(user).to.have.property('progresses');",
+									"            pm.expect(user).to.have.property('badges');",
+									"            pm.expect(user).to.have.property('notifications');",
+									"            pm.expect(user).to.have.property('flashcards');",
+									"            pm.expect(user).to.have.property('userGeneratedContents');",
+									"            pm.expect(user).to.have.property('subscription');",
+									"        });",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/users",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"user_id\", jsonData.userId);",
+									"pm.environment.set(\"user_name\", jsonData.username);",
+									"pm.environment.set(\"user_email\", jsonData.email);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \"userId\": \"999\",\n    \"username\": \"user999\",\n    \"email\": \"abcd@gmail.com\",\n    \"nativeLanguage\": \"English\",\n    \"targetLanguage\": \"Spanish\",\n    \"targetLanguageLevel\": \"Beginner\",\n    \"targetLanguage2\": null,\n    \"targetLanguageLevel2\": null,\n    \"targetLanguage3\": null,\n    \"targetLanguageLevel3\": null,\n    \"dateOfBirth\": \"2000-01-01T00:00:00Z\",\n    \"timeZone\": \"UTC\",\n    \"userRole\": 0,\n    \"ratings\": null,\n    \"progresses\": null,\n    \"badges\": null,\n    \"notifications\": null,\n    \"flashcards\": null,\n    \"userGeneratedContents\": null,\n    \"subscription\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -143,32 +232,264 @@
 							}
 						},
 						"url": {
-							"raw": "https://openglot02.auth.us-east-1.amazoncognito.com/oauth2/authorize?response_type=code&client_id={{client_id}}&redirect_uri={{redirect_uri}}",
-							"protocol": "https",
+							"raw": "{{URL}}api/users",
 							"host": [
-								"openglot02",
-								"auth",
-								"us-east-1",
-								"amazoncognito",
-								"com"
+								"{{URL}}api"
 							],
 							"path": [
-								"oauth2",
-								"authorize"
-							],
-							"query": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify User Creation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response time is less than 500ms', function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.test('Response body contains required fields', function () {  ",
+									"    pm.expect(jsonData).to.have.property('userId');",
+									"    pm.expect(jsonData).to.have.property('username');",
+									"    pm.expect(jsonData).to.have.property('email');",
+									"    pm.expect(jsonData).to.have.property('nativeLanguage');",
+									"    pm.expect(jsonData).to.have.property('targetLanguage');",
+									"    pm.expect(jsonData).to.have.property('targetLanguageLevel');",
+									"    pm.expect(jsonData).to.have.property('targetLanguage2');",
+									"    pm.expect(jsonData).to.have.property('targetLanguageLevel2');",
+									"    pm.expect(jsonData).to.have.property('targetLanguage3');",
+									"    pm.expect(jsonData).to.have.property('targetLanguageLevel3');",
+									"    pm.expect(jsonData).to.have.property('dateOfBirth');",
+									"    pm.expect(jsonData).to.have.property('timeZone');",
+									"    pm.expect(jsonData).to.have.property('userRole');",
+									"    pm.expect(jsonData).to.have.property('ratings');",
+									"    pm.expect(jsonData).to.have.property('progresses');",
+									"    pm.expect(jsonData).to.have.property('badges');",
+									"    pm.expect(jsonData).to.have.property('notifications');",
+									"    pm.expect(jsonData).to.have.property('flashcards');",
+									"    pm.expect(jsonData).to.have.property('userGeneratedContents');",
+									"    pm.expect(jsonData).to.have.property('subscription');",
+									"});",
+									"",
+									"pm.test(\"Username is correct\", function () {",
+									"    pm.expect(jsonData.username).to.eql('user999');",
+									"});",
+									"",
+									"pm.test(\"User email is correct\", function () {",
+									"    pm.expect(jsonData.email).to.eql('abcd@gmail.com');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "response_type",
-									"value": "code"
-								},
-								{
-									"key": "client_id",
-									"value": "{{client_id}}"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "{{redirect_uri}}"
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
 								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/users/{{user_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"999\",\n    \"username\": \"Updated user999\",\n    \"email\": \"updated_abcd@gmail.com\",\n    \"nativeLanguage\": \"English\",\n    \"targetLanguage\": \"Spanish\",\n    \"targetLanguageLevel\": \"Beginner\",\n    \"targetLanguage2\": null,\n    \"targetLanguageLevel2\": null,\n    \"targetLanguage3\": null,\n    \"targetLanguageLevel3\": null,\n    \"dateOfBirth\": \"2000-01-01T00:00:00Z\",\n    \"timeZone\": \"UTC\",\n    \"userRole\": 0,\n    \"ratings\": null,\n    \"progresses\": null,\n    \"badges\": null,\n    \"notifications\": null,\n    \"flashcards\": null,\n    \"userGeneratedContents\": null,\n    \"subscription\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}api/users/{{user_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify user update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Username is updated correctly\", function () {",
+									"    pm.expect(jsonData.username).to.eql(\"Updated user999\");",
+									"});",
+									"",
+									"pm.test(\"Email is updated correctly\", function () {",
+									"    pm.expect(jsonData.email).to.eql(\"updated_abcd@gmail.com\");",
+									"});",
+									"",
+									"pm.test(\"Date of birth is correct\", function () {",
+									"    pm.expect(jsonData.dateOfBirth).to.eql(\"2000-01-01T00:00:00Z\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/users/{{user_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/users/{{user_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify User Deletion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/users/{{user_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"users",
+								"{{user_id}}"
 							]
 						}
 					},
@@ -180,7 +501,7 @@
 			"name": "Courses",
 			"item": [
 				{
-					"name": "Get all courses",
+					"name": "Get All Courses",
 					"event": [
 						{
 							"listen": "test",
@@ -223,6 +544,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -238,29 +569,20 @@
 					"response": []
 				},
 				{
-					"name": "Get one course",
+					"name": "Create Course",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test('Status code is 200', function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
 									"});",
 									"",
-									"pm.test('Response time is less than 500ms', function () {",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);",
-									"});",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"course_id\", jsonData.id);",
 									"",
-									"",
-									"pm.test('Response body contains required fields', function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData).to.be.an('object');",
-									"    pm.expect(jsonData).to.have.property('id');",
-									"    pm.expect(jsonData).to.have.property('title');",
-									"    pm.expect(jsonData).to.have.property('languageId');",
-									"    pm.expect(jsonData).to.have.property('language');",
-									"});"
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -268,28 +590,41 @@
 						}
 					],
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 999,\n    \"title\": \"Course 999 for 999\",\n    \"description\": \"Description 999\",\n    \"languageId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{URL}}api/Courses/1",
+							"raw": "{{URL}}api/Courses",
 							"host": [
 								"{{URL}}api"
 							],
 							"path": [
-								"Courses",
-								"1"
+								"Courses"
 							]
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Users",
-			"item": [
+				},
 				{
-					"name": "Get all users",
+					"name": "Verify Course Creation",
 					"event": [
 						{
 							"listen": "test",
@@ -303,33 +638,21 @@
 									"    pm.expect(pm.response.responseTime).to.be.below(500);",
 									"});",
 									"",
+									"var jsonData = pm.response.json();",
 									"pm.test('Response body contains required fields', function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData).to.be.an('array');",
-									"    if (jsonData.length > 0) {",
-									"        jsonData.forEach(function(user) {",
-									"            pm.expect(user).to.have.property('userId');",
-									"            pm.expect(user).to.have.property('username');",
-									"            pm.expect(user).to.have.property('email');",
-									"            pm.expect(user).to.have.property('nativeLanguage');",
-									"            pm.expect(user).to.have.property('targetLanguage');",
-									"            pm.expect(user).to.have.property('targetLanguageLevel');",
-									"            pm.expect(user).to.have.property('targetLanguage2');",
-									"            pm.expect(user).to.have.property('targetLanguageLevel2');",
-									"            pm.expect(user).to.have.property('targetLanguage3');",
-									"            pm.expect(user).to.have.property('targetLanguageLevel3');",
-									"            pm.expect(user).to.have.property('dateOfBirth');",
-									"            pm.expect(user).to.have.property('timeZone');",
-									"            pm.expect(user).to.have.property('userRoles');",
-									"            pm.expect(user).to.have.property('ratings');",
-									"            pm.expect(user).to.have.property('progresses');",
-									"            pm.expect(user).to.have.property('badges');",
-									"            pm.expect(user).to.have.property('notifications');",
-									"            pm.expect(user).to.have.property('flashcards');",
-									"            pm.expect(user).to.have.property('userGeneratedContents');",
-									"            pm.expect(user).to.have.property('subscription');",
-									"        });",
-									"    }",
+									"    pm.expect(jsonData).to.be.an('object');",
+									"    pm.expect(jsonData).to.have.property('id');",
+									"    pm.expect(jsonData).to.have.property('title');",
+									"    pm.expect(jsonData).to.have.property('languageId');",
+									"    pm.expect(jsonData).to.have.property('language');",
+									"});",
+									"",
+									"pm.test(\"Course title is correct\", function () {",
+									"    pm.expect(jsonData.title).to.eql(\"Course 999 for 999\");",
+									"});",
+									"",
+									"pm.test(\"Course description is correct\", function () {",
+									"    pm.expect(jsonData.description).to.eql(\"Description 999\");",
 									"});"
 								],
 								"type": "text/javascript",
@@ -343,7 +666,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJraWQiOiIzUWpLSk9yOFRRNVFsUk9CMWNRQmhBbkoxRTUzUzEzVWZyaXNxVnpUcmtJPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIzNDI4MDRmOC01MGQxLTcwNjQtMDc0NC04NWY0ZGQ1ZmI2YWYiLCJjb2duaXRvOmdyb3VwcyI6WyJ1cy1lYXN0LTFfQUtpODQ5VUhyX0dvb2dsZSJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9BS2k4NDlVSHIiLCJ2ZXJzaW9uIjoyLCJjbGllbnRfaWQiOiIxcWVpOTA4NGdkdW02MzJoZ2drNjg1Nmo0ZiIsIm9yaWdpbl9qdGkiOiJiNDhiYzBiZC0zNmE5LTQyNmUtOTFkOS05NmYyMWU1Zjg5NDUiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6InBob25lIG9wZW5pZCBwcm9maWxlIGVtYWlsIiwiYXV0aF90aW1lIjoxNzE4NDkzMzk4LCJleHAiOjE3MTg0OTY5OTgsImlhdCI6MTcxODQ5MzM5OCwianRpIjoiODczNDExNWUtOWE3Yy00ZjJhLThjNmEtNjZjOGU3YmYxN2M3IiwidXNlcm5hbWUiOiJnb29nbGVfMTEzMDc4Nzc2ODg4MTYxNDc0MDM3In0.HgkPyC-7hxrkoZ18cPNQcyyUMnEfHel2FHlXKlyycH93uFiui0rCKYMTwBvkEKeSk4CjAAwnUdQ-ubwUIXtXZ6Qdx7T6CliLYuOgi32b8bajyo70C5GFG0gTeTthsJi7phjgkSv8G7SrfnA4_0vchDv3LpIg_5UHUIK98qh3VHs25HO6T-0zKXqC3Fv1Zia_JoxrYroVgwWDtlQ7mMdOVcFmk1eo2ytzOLvsjcJLjNsTAEH4HP1uFjRpClwBmqx9AphlV0pP6a8xKmVbZS0bVhCYSKITGp7BGeOPT8sSJ_Y9adCuwtJ8YTflgEHX04kUSMdjTGQ9Or8rtiwIvejfiA",
+									"value": "{{cognitoIdToken}}",
 									"type": "string"
 								}
 							]
@@ -351,55 +674,31 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}api/users",
+							"raw": "{{URL}}api/Courses/{{course_id}}",
 							"host": [
 								"{{URL}}api"
 							],
 							"path": [
-								"users"
+								"Courses",
+								"{{course_id}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get one user",
+					"name": "Update Course",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test('Status code is 200', function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
 									"});",
 									"",
-									"pm.test('Response time is less than 500ms', function () {",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);",
-									"});",
 									"",
-									"pm.test('Response body contains required fields', function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData).to.have.property('userId');",
-									"    pm.expect(jsonData).to.have.property('username');",
-									"    pm.expect(jsonData).to.have.property('email');",
-									"    pm.expect(jsonData).to.have.property('nativeLanguage');",
-									"    pm.expect(jsonData).to.have.property('targetLanguage');",
-									"    pm.expect(jsonData).to.have.property('targetLanguageLevel');",
-									"    pm.expect(jsonData).to.have.property('targetLanguage2');",
-									"    pm.expect(jsonData).to.have.property('targetLanguageLevel2');",
-									"    pm.expect(jsonData).to.have.property('targetLanguage3');",
-									"    pm.expect(jsonData).to.have.property('targetLanguageLevel3');",
-									"    pm.expect(jsonData).to.have.property('dateOfBirth');",
-									"    pm.expect(jsonData).to.have.property('timeZone');",
-									"    pm.expect(jsonData).to.have.property('userRoles');",
-									"    pm.expect(jsonData).to.have.property('ratings');",
-									"    pm.expect(jsonData).to.have.property('progresses');",
-									"    pm.expect(jsonData).to.have.property('badges');",
-									"    pm.expect(jsonData).to.have.property('notifications');",
-									"    pm.expect(jsonData).to.have.property('flashcards');",
-									"    pm.expect(jsonData).to.have.property('userGeneratedContents');",
-									"    pm.expect(jsonData).to.have.property('subscription');",
-									"});"
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -407,16 +706,188 @@
 						}
 					],
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 999,\n    \"title\": \"Updated course 999 for 999\",\n    \"description\": \"Updated description 999\",\n    \"languageId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{URL}}api/users/1",
+							"raw": "{{URL}}api/Courses/{{course_id}}",
 							"host": [
 								"{{URL}}api"
 							],
 							"path": [
-								"users",
-								"1"
+								"Courses",
+								"{{course_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": " Verify Course Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Course title is updated correctly\", function () {",
+									"    pm.expect(jsonData.title).to.eql(\"Updated course 999 for 999\");",
+									"});",
+									"",
+									"pm.test(\"Course description is updated correctly\", function () {",
+									"    pm.expect(jsonData.description).to.eql(\"Updated description 999\");",
+									"});",
+									"",
+									"pm.test(\"Course languageId is correct\", function () {",
+									"    pm.expect(jsonData.languageId).to.eql(1);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}api/Courses/{{course_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Courses",
+								"{{course_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/Courses/{{course_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Courses",
+								"{{course_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Course Deletion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/Courses/{{course_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Courses",
+								"{{course_id}}"
 							]
 						}
 					},
@@ -428,7 +899,7 @@
 			"name": "Lessons",
 			"item": [
 				{
-					"name": "Get all lessons",
+					"name": "Get All Lessons",
 					"event": [
 						{
 							"listen": "test",
@@ -493,14 +964,66 @@
 					"response": []
 				},
 				{
-					"name": "Get one lesson",
+					"name": "Create Lesson",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('cognitoIdToken') });",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
 									"",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"lesson_id\", jsonData.id);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \"id\": 999,\n    \"title\": \"Lesson 999 for 999\",\n    \"contentType\": 3,\n    \"moduleId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}api/Lessons",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Lessons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Lesson Creation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
 									"pm.test('Status code is 200', function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
@@ -509,8 +1032,8 @@
 									"    pm.expect(pm.response.responseTime).to.be.below(500);",
 									"});",
 									"",
-									"pm.test('Response body contains required fields', function () {",
-									"    var jsonData = pm.response.json();",
+									"var jsonData = pm.response.json();",
+									"pm.test('Response body contains required fields', function () { ",
 									"    pm.expect(jsonData).to.have.property('id');",
 									"    pm.expect(jsonData).to.have.property('title');",
 									"    pm.expect(jsonData).to.have.property('contentType');",
@@ -519,7 +1042,20 @@
 									"    pm.expect(jsonData).to.have.property('module');",
 									"    pm.expect(jsonData).to.have.property('questions');",
 									"    pm.expect(jsonData).to.have.property('ratings');",
-									"});"
+									"});",
+									"",
+									"pm.test(\"Lesson title is correct\", function () {",
+									"    pm.expect(jsonData.title).to.eql(\"Lesson 999 for 999\");",
+									"});",
+									"",
+									"pm.test(\"Content type is correct\", function () {",
+									"    pm.expect(jsonData.contentType).to.eql(3);",
+									"});",
+									"",
+									"pm.test(\"Module ID is correct\", function () {",
+									"    pm.expect(jsonData.moduleId).to.eql(1);",
+									"});",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -540,13 +1076,197 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}api/Lessons/1",
+							"raw": "{{URL}}api/Lessons/{{lesson_id}}",
 							"host": [
 								"{{URL}}api"
 							],
 							"path": [
 								"Lessons",
-								"1"
+								"{{lesson_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Lesson",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 999,\n    \"title\": \"Updated Lesson 999 for 999\",\n    \"contentType\": 4,\n    \"moduleId\": 1\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}api/Lessons/{{lesson_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Lessons",
+								"{{lesson_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Lesson Update ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Lesson title is updated correctly\", function () {",
+									"    pm.expect(jsonData.title).to.eql(\"Updated Lesson 999 for 999\");",
+									"});",
+									"",
+									"pm.test(\"Content type is updated correctly\", function () {",
+									"    pm.expect(jsonData.contentType).to.eql(4);",
+									"});",
+									"",
+									"pm.test(\"Module ID is correct\", function () {",
+									"    pm.expect(jsonData.moduleId).to.eql(1);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/Lessons/{{lesson_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Lessons",
+								"{{lesson_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Lesson",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/Lessons/{{lesson_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Lessons",
+								"{{lesson_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Lesson Deletion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/Lessons/{{lesson_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Lessons",
+								"{{lesson_id}}"
 							]
 						}
 					},
@@ -618,7 +1338,7 @@
 			"name": "Languages",
 			"item": [
 				{
-					"name": "Get all languages",
+					"name": "Get All Languages",
 					"event": [
 						{
 							"listen": "test",
@@ -651,6 +1371,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -666,7 +1396,61 @@
 					"response": []
 				},
 				{
-					"name": "Get one language",
+					"name": "Create Language",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"language_id\", jsonData.id);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 999,\n    \"name\": \"Whatever\",\n    \"code\": \"zh\",\n    \"description\": \"Chinese Language\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}api/Languages",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Languages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Language Creation",
 					"event": [
 						{
 							"listen": "test",
@@ -680,12 +1464,33 @@
 									"    pm.expect(pm.response.responseTime).to.be.below(500);",
 									"});",
 									"",
+									"var jsonData = pm.response.json();",
 									"pm.test('Response body contains required fields', function () {",
-									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData).to.have.property('id');",
 									"    pm.expect(jsonData).to.have.property('name');",
 									"    pm.expect(jsonData).to.have.property('description');",
 									"    pm.expect(jsonData).to.have.property('courses');",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Language ID is correct\", function () {",
+									"    pm.expect(jsonData.id).to.eql(999);",
+									"});",
+									"",
+									"pm.test(\"Language name is correct\", function () {",
+									"    pm.expect(jsonData.name).to.eql(\"Whatever\");",
+									"});",
+									"",
+									"pm.test(\"Language code is correct\", function () {",
+									"    pm.expect(jsonData.code).to.eql(\"zh\");",
+									"});",
+									"",
+									"pm.test(\"Language description is correct\", function () {",
+									"    pm.expect(jsonData.description).to.eql(\"Chinese Language\");",
 									"});",
 									""
 								],
@@ -695,16 +1500,231 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}api/Languages/1",
+							"raw": "{{URL}}api/Languages/{{language_id}}",
 							"host": [
 								"{{URL}}api"
 							],
 							"path": [
 								"Languages",
-								"1"
+								"{{language_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Language",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 999,\n    \"name\": \"Updated Whatever\",\n    \"code\": \"zh\",\n    \"description\": \"Updated Chinese Language\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}api/Languages/{{language_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Languages",
+								"{{language_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Language Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Language name is updated correctly\", function () {",
+									"    pm.expect(jsonData.name).to.eql(\"Updated Whatever\");",
+									"});",
+									"",
+									"pm.test(\"Language code is correct\", function () {",
+									"    pm.expect(jsonData.code).to.eql(\"zh\");",
+									"});",
+									"",
+									"pm.test(\"Language description is updated correctly\", function () {",
+									"    pm.expect(jsonData.description).to.eql(\"Updated Chinese Language\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/Languages/{{language_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Languages",
+								"{{language_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Language",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}api/Languages/{{language_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Languages",
+								"{{language_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Language Deletion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/Languages/{{language_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Languages",
+								"{{language_id}}"
 							]
 						}
 					},
@@ -716,7 +1736,7 @@
 			"name": "Modules",
 			"item": [
 				{
-					"name": "Get all modules",
+					"name": "Get All Modules",
 					"event": [
 						{
 							"listen": "test",
@@ -752,6 +1772,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -767,7 +1797,61 @@
 					"response": []
 				},
 				{
-					"name": "Get one module",
+					"name": "Create Module",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"module_id\", jsonData.id);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"id\": 999,\n        \"title\": \"Module 999 for 999\",\n        \"description\": \"Module Description 999\",\n        \"courseId\": 20,\n        \"course\": null,\n        \"lessons\": null,\n        \"progresses\": null,\n        \"ratings\": null\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}api/Modules",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Modules"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Module Creation",
 					"event": [
 						{
 							"listen": "test",
@@ -781,8 +1865,8 @@
 									"    pm.expect(pm.response.responseTime).to.be.below(500);",
 									"});",
 									"",
-									"pm.test('Response body contains required fields', function () {",
-									"    var jsonData = pm.response.json();",
+									"var jsonData = pm.response.json();",
+									"pm.test('Response body contains required fields', function () {  ",
 									"    pm.expect(jsonData).to.have.property('id');",
 									"    pm.expect(jsonData).to.have.property('title');",
 									"    pm.expect(jsonData).to.have.property('courseId');",
@@ -790,7 +1874,118 @@
 									"    pm.expect(jsonData).to.have.property('lessons');",
 									"    pm.expect(jsonData).to.have.property('progresses');",
 									"    pm.expect(jsonData).to.have.property('ratings');",
-									"});"
+									"});",
+									"",
+									"pm.test(\"Module title is correct\", function () {",
+									"    pm.expect(jsonData.title).to.eql(\"Module 999 for 999\");",
+									"});",
+									"",
+									"pm.test(\"Module description is correct\", function () {",
+									"    pm.expect(jsonData.description).to.eql(\"Module Description 999\");",
+									"});",
+									"",
+									"pm.test(\"Course ID is correct\", function () {",
+									"    pm.expect(jsonData.courseId).to.eql(20);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cognitoIdToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/Modules/{{module_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Modules",
+								"{{module_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Module",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 999,\n    \"title\": \"Updated Module 999 for 999\",\n    \"description\": \"Updated Module Description 999\",\n    \"courseId\": 20,\n    \"course\": null,\n    \"lessons\": null,\n    \"progresses\": null,\n    \"ratings\": null\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}api/Modules/{{module_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Modules",
+								"{{module_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Module Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Module title is updated correctly\", function () {",
+									"    pm.expect(jsonData.title).to.eql(\"Updated Module 999 for 999\");",
+									"});",
+									"",
+									"pm.test(\"Module description is updated correctly\", function () {",
+									"    pm.expect(jsonData.description).to.eql(\"Updated Module Description 999\");",
+									"});",
+									"",
+									"pm.test(\"Course ID is correct\", function () {",
+									"    pm.expect(jsonData.courseId).to.eql(20);",
+									"});",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -801,13 +1996,79 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}api/Modules/1",
+							"raw": "{{URL}}api/Modules/{{module_id}}",
 							"host": [
 								"{{URL}}api"
 							],
 							"path": [
 								"Modules",
-								"1"
+								"{{module_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Module",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/Modules/{{module_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Modules",
+								"{{module_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Module Deletion ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/Modules/{{module_id}}",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"Modules",
+								"{{module_id}}"
 							]
 						}
 					},
