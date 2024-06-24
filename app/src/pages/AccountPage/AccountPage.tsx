@@ -12,7 +12,7 @@ const AccountPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col w-full">
       <div className="w-full border-b"></div>
       <div className="flex flex-grow">
         {/* Left Column */}

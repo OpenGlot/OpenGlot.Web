@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { config } from '../config';
-import { Language } from '../features/languages/language';
-import { Module } from '../features/modules/module';
-import { Course } from '../features/courses/course';
-import { Lesson } from '../features/lessons/lesson';
+import { Language } from 'features/languages/language';
+import { Module } from 'features/modules/module';
+import { Course } from 'features/courses/course';
+import { Lesson } from 'features/lessons/lesson';
 import { getTokens } from '../utils/storeGetTokens';
+import { extractUserInfo } from './authService';
+import { DBUser } from 'pages/AccountPage/DBUser';
 
 const API_URL = config.REACT_APP_API_URL;
 
@@ -42,8 +44,13 @@ export const checkHealth = async (): Promise<any> => {
 };
 
 export const getLanguages = async (): Promise<Language[]> => {
+  const { idToken } = await getTokens();
   try {
-    const response = await apiClient.get('Languages');
+    const response = await apiClient.get('Languages', {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching languages:', error);
@@ -52,8 +59,13 @@ export const getLanguages = async (): Promise<Language[]> => {
 };
 
 export const getLanguageDetails = async (id: number): Promise<Language> => {
+  const { idToken } = await getTokens();
   try {
-    const response = await apiClient.get(`Languages/${id}`);
+    const response = await apiClient.get(`Languages/${id}`, {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching language details:', error);
@@ -62,8 +74,13 @@ export const getLanguageDetails = async (id: number): Promise<Language> => {
 };
 
 export const getModules = async (): Promise<Module[]> => {
+  const { idToken } = await getTokens();
   try {
-    const response = await apiClient.get('Modules');
+    const response = await apiClient.get('Modules', {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching modules:', error);
@@ -72,8 +89,13 @@ export const getModules = async (): Promise<Module[]> => {
 };
 
 export const getModuleDetails = async (id: number): Promise<Module> => {
+  const { idToken } = await getTokens();
   try {
-    const response = await apiClient.get(`Modules/${id}`);
+    const response = await apiClient.get(`Modules/${id}`, {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching module details:', error);
@@ -82,8 +104,13 @@ export const getModuleDetails = async (id: number): Promise<Module> => {
 };
 
 export const getCourses = async (): Promise<Course[]> => {
+  const { idToken } = await getTokens();
   try {
-    const response = await apiClient.get('Courses');
+    const response = await apiClient.get('Courses', {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching courses:', error);
@@ -92,8 +119,13 @@ export const getCourses = async (): Promise<Course[]> => {
 };
 
 export const getCourseDetails = async (id: number): Promise<Course> => {
+  const { idToken } = await getTokens();
   try {
-    const response = await apiClient.get(`Courses/${id}`);
+    const response = await apiClient.get(`Courses/${id}`, {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching course details:', error);
@@ -120,6 +152,22 @@ export const getLessonDetails = async (id: number): Promise<Lesson> => {
   const { idToken } = await getTokens();
   try {
     const response = await apiClient.get(`Lessons/${id}`, {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching lesson details:', error);
+    throw new Error('Failed to fetch lesson details');
+  }
+};
+
+export const getUserDetails = async (id: string): Promise<DBUser> => {
+  const { idToken } = await getTokens();
+
+  try {
+    const response = await apiClient.get(`users/${id}`, {
       headers: {
         Authorization: `Bearer ${idToken}`,
       },

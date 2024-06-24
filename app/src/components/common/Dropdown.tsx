@@ -2,12 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-interface PopupProps {
-  setShowPopup: React.Dispatch<React.SetStateAction<boolean>>;
+interface DropdownProps {
+  setShowDropdown: React.Dispatch<React.SetStateAction<boolean>>;
   handleLogout: () => void;
 }
 
-const Popup: React.FC<PopupProps> = ({ setShowPopup, handleLogout }) => {
+const Dropdown: React.FC<DropdownProps> = ({
+  setShowDropdown,
+  handleLogout,
+}) => {
   const { t } = useTranslation();
 
   const links = [
@@ -25,7 +28,7 @@ const Popup: React.FC<PopupProps> = ({ setShowPopup, handleLogout }) => {
           className={`w-full hover:bg-gray-100 px-3 py-2 dark:hover:bg-primary-dark ${
             index === 0 && "rounded-t-lg"
           }`}
-          onClick={() => setShowPopup(false)}
+          onClick={() => setShowDropdown(false)}
         >
           {link.label}
         </Link>
@@ -40,4 +43,4 @@ const Popup: React.FC<PopupProps> = ({ setShowPopup, handleLogout }) => {
   );
 };
 
-export default Popup;
+export default Dropdown;

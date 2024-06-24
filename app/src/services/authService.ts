@@ -5,11 +5,9 @@ import {
   CognitoUserPool,
 } from 'amazon-cognito-identity-js';
 import axios from 'axios';
-
 import { config } from '../config';
 import { CognitoError } from '../types/authTypes';
 import { storeTokens } from '../utils/storeGetTokens';
-
 import { User } from '../types/authTypes';
 
 const userPool = new CognitoUserPool({

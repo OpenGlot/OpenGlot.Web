@@ -3,32 +3,32 @@ import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import { useTranslation } from "react-i18next";
 import Button from "../common/Button";
 import { useAuth } from "../../context/AuthContext";
-import Popup from "../common/Popup";
+import Dropdown from "../common/Dropdown";
 import LanguageSwitcher from "../common/LanguageSwitcher";
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
   const { authState, handleSignOut } = useAuth();
-  const [showPopup, setShowPopup] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
-  const popupRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleProfileClick = () => {
-    setShowPopup((prev) => !prev);
+    setShowDropdown((prev) => !prev);
   };
 
   const handleLogout = () => {
-    setShowPopup(false);
+    setShowDropdown(false);
     handleSignOut();
   };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        popupRef.current &&
-        !popupRef.current.contains(event.target as Node)
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
       ) {
-        setShowPopup(false);
+        setShowDropdown(false);
       }
     };
 
@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [popupRef]);
+  }, [dropdownRef]);
 
   return (
     <nav className="container bg-white dark:bg-customBlack px-4 py-4 grid grid-cols-3 justify-between items-center relative">
@@ -62,7 +62,7 @@ const Navbar: React.FC = () => {
       <div className="flex flex-row items-center justify-end gap-2">
         <LanguageSwitcher />
         {authState.user ? (
-          <div className="relative" ref={popupRef}>
+          <div className="relative" ref={dropdownRef}>
             <div
               className="flex flex-row items-center gap-1 cursor-pointer"
               onClick={handleProfileClick}
@@ -70,11 +70,14 @@ const Navbar: React.FC = () => {
               <div className="underline decoration-primary">
                 {authState.user ? authState.user.name : t("User")}
               </div>
-              {showPopup ? <GoTriangleUp /> : <GoTriangleDown />}
+              {showDropdown ? <GoTriangleUp /> : <GoTriangleDown />}
             </div>
 
-            {showPopup && (
-              <Popup setShowPopup={setShowPopup} handleLogout={handleLogout} />
+            {showDropdown && (
+              <Dropdown
+                setShowDropdown={setShowDropdown}
+                handleLogout={handleLogout}
+              />
             )}
           </div>
         ) : (
