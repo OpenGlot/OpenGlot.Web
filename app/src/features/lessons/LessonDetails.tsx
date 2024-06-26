@@ -11,13 +11,39 @@ const LessonDetail: React.FC = () => {
 
   return (
     <div>
-      <h1>title: {lessonDetail.title}</h1>
+      <h1>Title: {lessonDetail.title}</h1>
       <p>
         Module:{" "}
         <Link to={`/module/${lessonDetail.moduleId}`}>
           Module {lessonDetail.moduleId}
         </Link>
       </p>
+      <div>
+        Questions:
+        <ul>
+          {lessonDetail.questions?.map((question) => (
+            <li key={question.id}>
+              {question.text} - {question.answer}
+              {question.options?.map((option) => (
+                <div key={option.id}>
+                  {option.text}
+                  {option.audio && (
+                    <audio controls>
+                      <source src={option.audio.urlKey} type="audio/mpeg" />
+                    </audio>
+                  )}
+                  {option.image && (
+                    <img
+                      src={option.image.urlKey}
+                      alt={option.image.description}
+                    />
+                  )}
+                </div>
+              ))}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

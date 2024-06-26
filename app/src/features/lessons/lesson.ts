@@ -1,4 +1,5 @@
 import { Module } from '../modules/module';
+import { Question } from '../questions/question';
 
 export interface Lesson {
   id: number;
@@ -7,6 +8,6 @@ export interface Lesson {
   createAt: Date;
   moduleId: number;
   module: Module | null;
-  questions: null;
+  questions: Question[] | null;
   ratings: null;
 }
