@@ -5,7 +5,6 @@ import { Module } from 'features/modules/module';
 import { Course } from 'features/courses/course';
 import { Lesson } from 'features/lessons/lesson';
 import { getTokens } from '../utils/storeGetTokens';
-import { extractUserInfo } from './authService';
 import { DBUser } from 'pages/AccountPage/DBUser';
 
 const API_URL = config.REACT_APP_API_URL;

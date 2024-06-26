@@ -6,6 +6,8 @@ import React, {
   ReactNode,
 } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { config } from "../config";
 import {
   signUp,
   confirmSignUp,
@@ -18,6 +20,8 @@ import {
 } from "../services/authService";
 import { AuthState, CognitoError } from "../types/authTypes";
 import { storeTokens, getTokens, removeTokens } from "../utils/storeGetTokens";
+
+const API_URL = config.REACT_APP_API_URL;
 
 // Initial auth state
 const initialAuthState: AuthState = {
@@ -94,6 +98,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   }, []);
 
   // Handlers
+  const handleAuthState = (newState: Partial<AuthState>) => {
+    setAuthState((prevState) => ({
+      ...prevState,
+      ...newState,
+    }));
+  };
+
   const handleSignUp = async (
     email: string,
     password: string,
@@ -101,31 +112,32 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     username: string
   ) => {
     if (password !== confirmPassword) {
-      setAuthState({
-        ...authState,
+      handleAuthState({
         error: { message: "Passwords do not match" } as CognitoError,
       });
       return;
     }
-    setAuthState({ ...authState, loading: true });
+
+    handleAuthState({ loading: true });
+
     try {
       await signUp(email, password, username);
-      setAuthState({ ...authState, loading: false });
+      handleAuthState({ loading: false });
       alert("Sign up successful! Please verify your email.");
       sessionStorage.setItem("emailForConfirmation", email);
       navigate("/signup-confirm");
     } catch (error) {
       const cognitoError = error as CognitoError;
-      setAuthState({ ...authState, loading: false, error: cognitoError });
+      handleAuthState({ loading: false, error: cognitoError });
     }
   };
 
   const handleConfirmSignUp = async (code: string) => {
-    setAuthState({ ...authState, loading: true });
+    handleAuthState({ loading: true });
+
     const email = sessionStorage.getItem("emailForConfirmation");
     if (!email) {
-      setAuthState({
-        ...authState,
+      handleAuthState({
         loading: false,
         error: {
           message: "Email not found",
@@ -136,72 +148,75 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     }
     try {
       await confirmSignUp(email, code);
-      setAuthState({ ...authState, loading: false });
+      handleAuthState({ loading: false });
       sessionStorage.removeItem("emailForConfirmation");
       navigate("/login");
     } catch (error) {
       const cognitoError = error as CognitoError;
-      setAuthState({ ...authState, loading: false, error: cognitoError });
+      handleAuthState({ loading: false, error: cognitoError });
     }
   };
 
-  const handleSignIn = async (email: string, password: string) => {
-    setAuthState({ ...authState, loading: true });
+  const postLogin = async (idToken: string) => {
     try {
-      const result = await signIn(email, password);
-      const userInfo = await extractUserInfo(result.idToken.jwtToken);
-      setAuthState({
-        ...authState,
-        user: { ...userInfo },
-        loading: false,
-      });
-
-      if (userInfo.dob === "") {
-        navigate("/enter-info");
-      } else {
+      const response = await axios.post(
+        `${API_URL}users/login`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        }
+      );
+      if (response.status === 200) {
         navigate("/");
       }
     } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
+        navigate("/enter-info");
+      } else {
+        console.error("An unexpected error occurred:", error);
+      }
+    }
+  };
+
+  const processSignIn = async (idToken: string) => {
+    const userInfo = await extractUserInfo(idToken);
+    await postLogin(idToken);
+    handleAuthState({ user: { ...userInfo }, loading: false });
+  };
+
+  const handleSignIn = async (email: string, password: string) => {
+    handleAuthState({ loading: true });
+    try {
+      const result = await signIn(email, password);
+      await processSignIn(result.idToken.jwtToken);
+    } catch (error) {
       const cognitoError = error as CognitoError;
-      setAuthState({ ...authState, loading: false, error: cognitoError });
+      handleAuthState({ loading: false, error: cognitoError });
     }
   };
 
   const handleGoogleSignInCallback = async (authorizationCode: string) => {
-    setAuthState({ ...authState, loading: true });
-    const tokens = await exchangeCodeForTokens(authorizationCode);
-
-    if (tokens) {
-      console.log(tokens);
-      try {
+    handleAuthState({ loading: true });
+    try {
+      const tokens = await exchangeCodeForTokens(authorizationCode);
+      if (tokens) {
         await storeTokens(
           tokens.id_token,
           tokens.access_token,
           tokens.refresh_token
         );
-        const userInfo = await extractUserInfo(tokens.id_token);
-        setAuthState({
-          ...authState,
-          user: { ...userInfo },
-          loading: false,
-        });
-        navigate("/");
-      } catch (error) {
-        console.error("Failed to store tokens:", error);
-        setAuthState({
-          ...authState,
-          loading: false,
-          error: {
-            message: "Failed to store tokens",
-          } as CognitoError,
-        });
+        await processSignIn(tokens.id_token);
+      } else {
+        throw new Error("Failed to exchange code for tokens");
       }
-    } else {
-      setAuthState({
-        ...authState,
+    } catch (error) {
+      console.error("Failed to store tokens or exchange code:", error);
+      handleAuthState({
         loading: false,
         error: {
-          message: "Failed to exchange code for tokens",
+          message: "An unexpected error occurred",
         } as CognitoError,
       });
     }

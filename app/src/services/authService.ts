@@ -127,14 +127,11 @@ export const exchangeCodeForTokens = async (authorizationCode: string) => {
     });
 
     if (response.status === 200) {
-      console.log('Tokens received: ', response.data);
       return response.data;
     } else {
-      console.error('Error: ', response);
       return response;
     }
   } catch (error) {
-    console.error('Error: ', error);
     return error;
   }
 };

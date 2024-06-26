@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Card from "../components/common/Card";
 
 interface UserInfo {
-  dob: string;
+  dateOfBirth: string;
   nativeLanguages: string[];
   targetLanguages: string[];
-  timezone: string;
+  timeZone: string;
 }
 
 type UserInfoKey = keyof UserInfo;
@@ -16,22 +16,22 @@ const EnterUserInfoPage: React.FC = () => {
   const [step, setStep] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userInfo, setUserInfo] = useState<UserInfo>({
-    dob: "",
+    dateOfBirth: "",
     nativeLanguages: [],
     targetLanguages: [],
-    timezone: "",
+    timeZone: "",
   });
 
   useEffect(() => {
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    setUserInfo((prev) => ({ ...prev, timezone }));
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    setUserInfo((prev) => ({ ...prev, timeZone }));
   }, []);
 
   const questions = [
     {
       question: "Enter your date of birth",
       inputType: "date",
-      key: "dob" as UserInfoKey,
+      key: "dateOfBirth" as UserInfoKey,
     },
     {
       question: "Select your native languages",
