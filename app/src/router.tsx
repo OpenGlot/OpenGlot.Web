@@ -9,6 +9,9 @@ import MyProfile from "pages/AccountPage/MyProfile";
 import Settings from "pages/AccountPage/Settings";
 import MyCourses from "pages/AccountPage/MyCourses";
 import EnterUserInfoPage from "pages/EnterUserInfoPage";
+import ForgetPasswordPage from "pages/ForgotPasswordPage";
+import VerifyPasswordResetPage from "pages/VerifyPasswordResetPage";
+import EnterNewPasswordPage from "pages/EnterNewPasswordPage";
 import ProviderWrapper from "context/ProviderWrapper";
 import MatchingPairs from "features/questions/MatchingPairs";
 import LanguageList from "features/languages/LanguageList";
@@ -91,6 +94,9 @@ const router = createBrowserRouter([
         loader: lessonLoader,
       },
       { path: "/Game", element: <LanguageLearningGame /> },
+      { path: "/forgot-password", element: <ForgetPasswordPage /> },
+      { path: "/verify-password-reset", element: <VerifyPasswordResetPage /> },
+      { path: "/reset-password", element: <EnterNewPasswordPage /> },
     ],
   },
 ]);

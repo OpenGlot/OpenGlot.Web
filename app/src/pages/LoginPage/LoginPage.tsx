@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FaGoogle, FaFacebookF, FaApple } from "react-icons/fa";
 import Button from "../../components/common/Button";
 import InputField from "../../components/common/InputField";
@@ -66,7 +67,9 @@ const LoginPage: React.FC = () => {
               onChange={field.onChange}
             />
           ))}
-          <div className="link text-sm -mt-3 text-right">Forgot password?</div>
+          <Link to="/forgot-password" className="link text-sm -mt-3 text-right">
+            Forgot password?
+          </Link>
           <div className="flex flex-col items-center justify-between">
             <Button width="w-96" type="submit" variant="filled">
               {authState.loading ? (

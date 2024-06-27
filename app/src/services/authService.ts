@@ -203,3 +203,60 @@ export const resendConfirmationCode = async () => {
     }
   });
 };
+
+export const forgotPassword = async (email: string): Promise<void> => {
+  const userData = {
+    Username: email,
+    Pool: userPool,
+  };
+
+  const cognitoUser = new CognitoUser(userData);
+
+  return new Promise((resolve, reject) => {
+    cognitoUser.forgotPassword({
+      onSuccess: (data) => {
+        alert('Code sent successfully');
+        console.log('Code sent successfully:', data);
+        localStorage.setItem('email-reseting', email);
+        resolve();
+      },
+      onFailure: (err) => {
+        console.error('Error sending code:', err.message || err);
+        reject(err);
+      },
+    });
+  });
+};
+
+export const resetPassword = async (
+  verificationCode: string,
+  newPassword: string
+): Promise<void> => {
+  const email = localStorage.getItem('email-reseting');
+
+  if (!email) {
+    console.error('No email found in localStorage');
+    alert('No email found. Please sign up again.');
+    return;
+  }
+
+  const userData = {
+    Username: email,
+    Pool: userPool,
+  };
+
+  const cognitoUser = new CognitoUser(userData);
+
+  return new Promise((resolve, reject) => {
+    cognitoUser.confirmPassword(verificationCode, newPassword, {
+      onSuccess: () => {
+        console.log('Password reset successfully');
+        resolve();
+      },
+      onFailure: (err) => {
+        console.error('Error resetting password:', err.message || err);
+        reject(err);
+      },
+    });
+  });
+};
