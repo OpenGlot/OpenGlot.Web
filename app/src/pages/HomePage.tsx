@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "../context/AuthContext";
-import { useTheme } from "../context/ThemeContext";
+import { useAuth, useTheme } from "context";
 
 const HomePage: React.FC = () => {
   const { t } = useTranslation();

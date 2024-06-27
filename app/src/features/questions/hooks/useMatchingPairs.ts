@@ -1,5 +1,5 @@
 // import { useState, useEffect } from 'react';
-// import { fetchQuestions } from '../../../services/api';
+// import { fetchQuestions } from 'services';
 // import { shuffleArray } from 'utils';
 // import { Question } from 'types';
 

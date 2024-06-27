@@ -1,5 +1,5 @@
 import { LoaderFunction } from 'react-router-dom';
-import { getModuleDetails } from '../../services/api';
+import { getModuleDetails } from 'services';
 
 export const moduleLoader: LoaderFunction = async ({ params }) => {
   const id = params.id;

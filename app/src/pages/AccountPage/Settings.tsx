@@ -1,5 +1,5 @@
 import React from "react";
-import ThemeSwitcher from "../../components/common/ThemeSwitcher";
+import { ThemeSwitcher } from "components";
 
 const Settings: React.FC = () => {
   return (

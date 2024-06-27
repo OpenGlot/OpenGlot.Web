@@ -1,10 +1,8 @@
 import React from "react";
-import { ThemeProvider } from "./ThemeContext";
-import { AuthProvider } from "./AuthContext";
-import HealthCheck from "components/common/HealthCheck";
-import Layout from "components/layout/Layout";
+import { ThemeProvider, AuthProvider } from "context";
+import { HealthCheck, Layout } from "components";
 
-const ProviderWrapper: React.FC = () => {
+export const ProviderWrapper: React.FC = () => {
   return (
     <ThemeProvider>
       <AuthProvider>
@@ -15,5 +13,3 @@ const ProviderWrapper: React.FC = () => {
     </ThemeProvider>
   );
 };
-
-export default ProviderWrapper;

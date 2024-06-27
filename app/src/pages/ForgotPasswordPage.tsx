@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import InputField from "components/common/InputField";
-import Button from "components/common/Button";
-import { forgotPassword } from "services/authService";
+import { InputField, Button } from "components";
+import { forgotPassword } from "services";
 
 const ForgotPasswordPage: React.FC = () => {
   const [email, setEmail] = useState("");

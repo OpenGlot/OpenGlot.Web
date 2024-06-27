@@ -1,37 +1,41 @@
 import { createBrowserRouter } from "react-router-dom";
-import HomePage from "pages/HomePage";
-import LoginPage from "pages/LoginPage/LoginPage";
-import SignupPage from "pages/SignupPage";
-import SignupConfirmPage from "pages/SignupConfirmPage";
-import OAuthCallbackPage from "pages/OAuthCallbackPage";
-import AccountPage from "pages/AccountPage/AccountPage";
-import MyProfile from "pages/AccountPage/MyProfile";
-import Settings from "pages/AccountPage/Settings";
-import MyCourses from "pages/AccountPage/MyCourses";
-import EnterUserInfoPage from "pages/EnterUserInfoPage";
-import ForgotPasswordPage from "pages/ForgotPasswordPage";
-import VerifyPasswordResetPage from "pages/VerifyPasswordResetPage";
-import EnterNewPasswordPage from "pages/EnterNewPasswordPage";
-import ErrorBoundary from "pages/ErrorBoundry";
-import ProviderWrapper from "context/ProviderWrapper";
-import LanguageList from "features/languages/LanguageList";
-import LanguageDetail from "features/languages/LanguageDetails";
-import { languagesLoader } from "features/languages/LanguagesLoader";
-import { languageLoader } from "features/languages/LanguageLoader";
-import ModuleList from "features/modules/ModuleList";
-import ModuleDetail from "features/modules/ModuleDetails";
-import { modulesLoader } from "features/modules/ModulesLoader";
-import { moduleLoader } from "features/modules/ModuleLoader";
-import CourseList from "features/courses/CourseList";
-import CourseDetail from "features/courses/CourseDetails";
-import { coursesLoader } from "features/courses/CoursesLoader";
-import { courseLoader } from "features/courses/CourseLoader";
-import LessonList from "features/lessons/LessonList";
-import LessonDetail from "features/lessons/LessonDetails";
-import { lessonsLoader } from "features/lessons/LessonsLoader";
-import { lessonLoader } from "features/lessons/LessonLoader";
-import LanguageLearningGame from "games/LanguageLearningGame";
-import ProtectedRoute from "components/common/ProtectedRoute";
+import {
+  HomePage,
+  ForgotPasswordPage,
+  LoginPage,
+  SignupPage,
+  SignupConfirmPage,
+  EnterUserInfoPage,
+  VerifyPasswordResetPage,
+  EnterNewPasswordPage,
+  AccountPage,
+  MyProfile,
+  Settings,
+  MyCourses,
+  OAuthCallbackPage,
+  ErrorBoundary,
+} from "pages";
+import { ProviderWrapper } from "context";
+import {
+  LanguageList,
+  LanguageDetails,
+  languagesLoader,
+  languageLoader,
+  ModuleList,
+  ModuleDetails,
+  modulesLoader,
+  moduleLoader,
+  CourseList,
+  CourseDetails,
+  coursesLoader,
+  courseLoader,
+  LessonList,
+  LessonDetails,
+  lessonsLoader,
+  lessonLoader,
+} from "features";
+import { LanguageLearningGame } from "games";
+import { ProtectedRoute } from "components";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +59,7 @@ const router = createBrowserRouter([
           { path: "courses", element: <CourseList />, loader: coursesLoader },
           {
             path: "course/:id",
-            element: <CourseDetail />,
+            element: <CourseDetails />,
             loader: courseLoader,
           },
           {
@@ -65,19 +69,19 @@ const router = createBrowserRouter([
           },
           {
             path: "language/:id",
-            element: <LanguageDetail />,
+            element: <LanguageDetails />,
             loader: languageLoader,
           },
           { path: "modules", element: <ModuleList />, loader: modulesLoader },
           {
             path: "module/:id",
-            element: <ModuleDetail />,
+            element: <ModuleDetails />,
             loader: moduleLoader,
           },
           { path: "lessons", element: <LessonList />, loader: lessonsLoader },
           {
             path: "lesson/:id",
-            element: <LessonDetail />,
+            element: <LessonDetails />,
             loader: lessonLoader,
           },
           {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Card from "../components/common/Card";
+import { Card } from "components";
 
 interface UserInfo {
   dateOfBirth: string;

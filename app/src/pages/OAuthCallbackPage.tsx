@@ -1,7 +1,6 @@
-// src/components/Auth/OAuthCallback.tsx
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthService } from "hooks/useAuthService";
+import { useAuthService } from "hooks";
 
 const OAuthCallbackPage: React.FC = () => {
   const { handleGoogleSignInCallback } = useAuthService();

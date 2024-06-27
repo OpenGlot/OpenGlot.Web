@@ -1,18 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from '../context/AuthContext';
-import { config } from '../config';
+import { useAuth } from 'context';
 import {
   signUp,
   confirmSignUp,
   signIn,
   googleSignIn,
   exchangeCodeForTokens,
-} from '../services/authService';
-import { checkRegisterState } from 'services/api';
+  checkRegisterState,
+} from 'services';
 import { storeTokens, removeTokens, extractUserInfo } from 'utils';
-
-const API_URL = config.REACT_APP_API_URL;
 
 export const useAuthService = () => {
   const { setAuthState, changeAuthState } = useAuth();
@@ -74,29 +71,6 @@ export const useAuthService = () => {
       navigate('/login');
     } catch (error) {
       changeAuthState({ loading: false, error: error as Error });
-    }
-  };
-
-  const postLogin = async (idToken: string) => {
-    try {
-      const response = await axios.post(
-        `${API_URL}users/login`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${idToken}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        navigate('/');
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 404) {
-        navigate('/enter-info');
-      } else {
-        console.error('An unexpected error occurred:', error);
-      }
     }
   };
 

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import InputField from "components/common/InputField";
-import Button from "components/common/Button";
-import { resetPassword } from "services/authService";
+import { InputField, Button } from "components";
+import { resetPassword } from "services";
 
 const EnterNewPasswordPage: React.FC = () => {
   const navigate = useNavigate();

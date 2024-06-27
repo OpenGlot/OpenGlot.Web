@@ -1,5 +1,5 @@
 import { LoaderFunction } from 'react-router-dom';
-import { getCourseDetails } from '../../services/api';
+import { getCourseDetails } from 'services';
 
 export const courseLoader: LoaderFunction = async ({ params }) => {
   const id = params.id;

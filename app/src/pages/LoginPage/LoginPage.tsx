@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaGoogle, FaFacebookF, FaApple } from "react-icons/fa";
-import Button from "../../components/common/Button";
-import InputField from "../../components/common/InputField";
+import { Button, InputField } from "components";
 import SocialLogin from "./SocialLogin";
-import { useAuth } from "../../context/AuthContext";
-import { useAuthService } from "hooks/useAuthService";
+import { useAuth } from "context";
+import { useAuthService } from "hooks";
 
 const LoginPage: React.FC = () => {
   const { authState, changeAuthState } = useAuth();

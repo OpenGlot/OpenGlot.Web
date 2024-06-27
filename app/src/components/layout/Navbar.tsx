@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import { useTranslation } from "react-i18next";
-import Button from "../common/Button";
-import { useAuth } from "../../context/AuthContext";
-import Dropdown from "../common/Dropdown";
-import LanguageSwitcher from "../common/LanguageSwitcher";
-import { useTheme } from "context/ThemeContext";
-import { useAuthService } from "hooks/useAuthService";
+import { Button, Dropdown, LanguageSwitcher } from "components";
+import { useAuth, useTheme } from "context";
+import { useAuthService } from "hooks";
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
@@ -53,8 +50,8 @@ const Navbar: React.FC = () => {
         <a href="/courses" className="link-hover-effect">
           {t("Courses")}
         </a>
-        <a href="/lessons" className="link-hover-effect">
-          {t("Lessons")}
+        <a href="/modules" className="link-hover-effect">
+          {t("Modules")}
         </a>
         <a href="/" className="link-hover-effect">
           {t("Review")}

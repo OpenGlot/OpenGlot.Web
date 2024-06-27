@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { checkHealth } from "../../services/api";
-import { useTheme } from "../../context/ThemeContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { checkHealth } from "services";
+import { useTheme } from "context";
 
 const HealthCheck: React.FC = () => {
   const { theme } = useTheme();

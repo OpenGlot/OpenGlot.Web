@@ -1,8 +1,8 @@
 import React from "react";
-import { useAuth } from "context/AuthContext";
-import { resendConfirmationCode } from "services/authService";
-import VerificationCodeForm from "components/common/VerificationCodeForm";
-import { useAuthService } from "hooks/useAuthService";
+import { useAuth } from "context";
+import { resendConfirmationCode } from "services";
+import { VerificationCodeForm } from "components";
+import { useAuthService } from "hooks";
 
 const SignupConfirmPage: React.FC = () => {
   const { authState } = useAuth();

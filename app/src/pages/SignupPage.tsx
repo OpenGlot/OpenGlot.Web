@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import Button from "../components/common/Button";
-import InputField from "../components/common/InputField";
-import { useAuth } from "../context/AuthContext";
-import { useAuthService } from "hooks/useAuthService";
+import { Button, InputField } from "components";
+import { useAuth } from "context";
+import { useAuthService } from "hooks";
 
 const SignupPage: React.FC = () => {
   const { authState, changeAuthState } = useAuth();

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { User } from "types";
-import { getUserDetails } from "services/api";
-import { useAuth } from "context/AuthContext";
+import { getUserDetails } from "services";
+import { useAuth } from "context";
 
 const MyProfile: React.FC = () => {
   const { authState } = useAuth();

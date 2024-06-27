@@ -1,5 +1,5 @@
 import { LoaderFunction } from 'react-router-dom';
-import { getLanguageDetails } from '../../services/api';
+import { getLanguageDetails } from 'services';
 
 export const languageLoader: LoaderFunction = async ({ params }) => {
   const id = params.id;

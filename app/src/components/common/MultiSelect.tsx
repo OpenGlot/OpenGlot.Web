@@ -5,7 +5,6 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
-
 import { GoChevronDown, GoChevronUp, GoSearch } from "react-icons/go";
 
 interface MultiSelectProps {
