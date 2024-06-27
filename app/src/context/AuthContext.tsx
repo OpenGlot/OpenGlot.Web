@@ -123,6 +123,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     try {
       await signUp(email, password, username);
       handleAuthState({ loading: false });
+      localStorage.setItem("email-pending", email);
       alert("Sign up successful! Please verify your email.");
       sessionStorage.setItem("emailForConfirmation", email);
       navigate("/signup-confirm");

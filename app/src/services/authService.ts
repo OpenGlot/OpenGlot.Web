@@ -175,3 +175,31 @@ export const extractUserInfo = async (idToken: string): Promise<User> => {
     dob: decoded?.dob || '',
   };
 };
+
+export const resendConfirmationCode = async () => {
+  const email = localStorage.getItem('email-pending');
+  console.log(email);
+
+  if (!email) {
+    console.error('No email found in localStorage');
+    alert('No email found. Please sign up again.');
+    return;
+  }
+
+  const userData = {
+    Username: email,
+    Pool: userPool,
+  };
+
+  const cognitoUser = new CognitoUser(userData);
+
+  cognitoUser.resendConfirmationCode((err, result) => {
+    if (err) {
+      console.error('Error resending confirmation code:', err.message || err);
+      alert(`Error resending confirmation code: ${err.message || err}`);
+    } else {
+      console.log('Resend confirmation code success:', result);
+      alert('Resent confirmation code, please check your email');
+    }
+  });
+};

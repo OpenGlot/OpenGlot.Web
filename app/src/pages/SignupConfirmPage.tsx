@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Button from "../components/common/Button";
 import { useAuth } from "../context/AuthContext";
+import { resendConfirmationCode } from "services/authService";
 
 const SignupConfirmPage: React.FC = () => {
   const { authState, handleConfirmSignUp } = useAuth();
@@ -117,7 +118,10 @@ const SignupConfirmPage: React.FC = () => {
       </form>
 
       <div>
-        Didn't receive it? <span className="link">Send a new code</span>
+        Didn't receive it?{" "}
+        <button className="link" onClick={resendConfirmationCode}>
+          Send a new code
+        </button>
       </div>
     </div>
   );
