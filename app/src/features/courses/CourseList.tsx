@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
-import { Course } from "./course";
+import { Course } from "types";
 
 const CourseList: React.FC = () => {
   const { courses } = useLoaderData() as { courses: Course[] };

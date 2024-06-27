@@ -1,5 +1,5 @@
-import { Module } from '../modules/module';
-import { Question } from '../questions/question';
+import { Module } from './module';
+import { Question } from './question';
 
 export interface Lesson {
   id: number;

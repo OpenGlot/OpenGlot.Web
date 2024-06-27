@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
-import { Module } from "./module";
-import { Lesson } from "../lessons/lesson";
+import { Module, Lesson } from "types";
 
 const ModuleDetail: React.FC = () => {
   const moduleDetail = useLoaderData() as Module;

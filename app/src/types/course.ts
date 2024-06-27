@@ -1,5 +1,5 @@
-import { Language } from '../languages/language';
-import { Module } from '../modules/module';
+import { Language } from './language';
+import { Module } from './module';
 
 export interface Course {
   id: number;

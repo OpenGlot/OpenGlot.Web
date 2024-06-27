@@ -8,14 +8,14 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    supportedLngs: ['en', 'zh', 'ko'], // Add your supported languages here
+    supportedLngs: ['en', 'zh', 'ko'],
     fallbackLng: 'en',
     debug: true,
     interpolation: {
       escapeValue: false,
     },
     backend: {
-      loadPath: '/locales/{{lng}}/translation.json', // Adjust the path to your translations
+      loadPath: '/locales/{{lng}}/translation.json',
     },
   });
 

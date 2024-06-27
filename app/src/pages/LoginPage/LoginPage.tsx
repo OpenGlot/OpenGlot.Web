@@ -5,15 +5,16 @@ import Button from "../../components/common/Button";
 import InputField from "../../components/common/InputField";
 import SocialLogin from "./SocialLogin";
 import { useAuth } from "../../context/AuthContext";
+import { useAuthService } from "hooks/useAuthService";
 
 const LoginPage: React.FC = () => {
+  const { authState, changeAuthState } = useAuth();
   const {
-    authState,
     handleSignIn,
     handleGoogleSignIn,
     handleFBSignIn,
     handleAppleSignIn,
-  } = useAuth();
+  } = useAuthService();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,15 +28,19 @@ const LoginPage: React.FC = () => {
       label: "Email",
       type: "email",
       value: email,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setEmail(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+        changeAuthState({ error: null });
+      },
     },
     {
       label: "Password",
       type: "password",
       value: password,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setPassword(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+        changeAuthState({ error: null });
+      },
     },
   ];
 
@@ -70,7 +75,7 @@ const LoginPage: React.FC = () => {
           <Link to="/forgot-password" className="link text-sm -mt-3 text-right">
             Forgot password?
           </Link>
-          <div className="flex flex-col items-center justify-between">
+          <div className="flex flex-col items-center justify-between relative">
             <Button width="w-96" type="submit" variant="filled">
               {authState.loading ? (
                 <>
@@ -83,7 +88,9 @@ const LoginPage: React.FC = () => {
             </Button>
 
             {authState.error && (
-              <p className="text-red-500">Error: {authState.error.message}</p>
+              <p className="absolute top-14 text-red-500">
+                Error: {authState.error.message}
+              </p>
             )}
           </div>
         </form>

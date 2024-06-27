@@ -16,10 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "typeRoots": ["node_modules/@types"],
-    "baseUrl": "./src",
-    "paths": {
-      "@/components": ["./src/components"]
-    }
-  },
-  "include": ["src", "src/games"]
+    "baseUrl": "./src"
+  }
 }

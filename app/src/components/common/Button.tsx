@@ -10,10 +10,10 @@ interface ButtonProps {
     | "incorrect"
     | "outlined"
     | "filled"
-    | "no-fill";
+    | "contrast";
   width: string;
   padding?: string;
-  type?: "submit" | "reset" | "button" | undefined;
+  type?: "submit" | "reset" | undefined;
   children: React.ReactNode;
 }
 
@@ -44,13 +44,13 @@ const Button: React.FC<ButtonProps> = ({
       break;
     case "outlined":
       className +=
-        " border-gray-500 active:border-gray-900 hover:bg-gray-700 hover:border-gray-700 hover:text-white active:bg-gray-900 dark:bg-primary-dark dark:border-primary-dark glowing-outline";
+        " border-gray-500 active:border-gray-900 hover:bg-gray-700 hover:border-gray-700 hover:text-white active:bg-gray-900 glowing-outline";
       break;
     case "filled":
       className +=
         " border-gray-800 bg-gray-800 dark:bg-primary-dark dark:border-primary-dark text-white hover:bg-gray-700 hover:border-gray-700 active:border-gray-900 active:bg-gray-900 glowing-outline";
       break;
-    case "no-fill":
+    case "contrast":
       className +=
         " border-transparent hover:border-gray-100 hover:bg-gray-100 dark:hover:bg-customBlack dark:hover:border-primary active:bg-gray-200 active:border-gray-200 dark:active:bg-customBlack dark:active:border-primary-dark";
       break;
@@ -63,7 +63,6 @@ const Button: React.FC<ButtonProps> = ({
     <button
       className={className}
       onClick={onClick}
-      disabled={variant === "disabled"}
       type={type ? type : "button"}
     >
       {children}

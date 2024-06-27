@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Button from "../components/common/Button";
 import InputField from "../components/common/InputField";
 import { useAuth } from "../context/AuthContext";
+import { useAuthService } from "hooks/useAuthService";
 
 const SignupPage: React.FC = () => {
-  const { authState, handleSignUp } = useAuth();
+  const { authState, changeAuthState } = useAuth();
+  const { handleSignUp } = useAuthService();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,29 +22,37 @@ const SignupPage: React.FC = () => {
       label: "Username",
       type: "username",
       value: username,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setUsername(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUsername(e.target.value);
+        changeAuthState({ error: null });
+      },
     },
     {
       label: "Email",
       type: "email",
       value: email,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setEmail(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+        changeAuthState({ error: null });
+      },
     },
     {
       label: "Password",
       type: "password",
       value: password,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setPassword(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+        changeAuthState({ error: null });
+      },
     },
     {
       label: "Confirm Password",
       type: "password",
       value: confirmPassword,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setConfirmPassword(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        setConfirmPassword(e.target.value);
+        changeAuthState({ error: null });
+      },
     },
   ];
 
@@ -67,7 +77,7 @@ const SignupPage: React.FC = () => {
             onChange={field.onChange}
           />
         ))}
-        <div className="flex flex-col items-center justify-between">
+        <div className="flex flex-col items-center justify-between relative">
           <Button width="w-96" type="submit" variant="filled">
             {authState.loading ? (
               <>
@@ -79,7 +89,9 @@ const SignupPage: React.FC = () => {
             )}
           </Button>
           {authState.error && (
-            <p className="text-red-500">Error: {authState.error.message}</p>
+            <p className="absolute top-14 text-red-500">
+              Error: {authState.error.message}
+            </p>
           )}
         </div>
       </form>

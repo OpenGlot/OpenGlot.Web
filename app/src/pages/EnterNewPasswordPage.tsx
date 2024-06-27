@@ -34,6 +34,7 @@ const EnterNewPasswordPage: React.FC = () => {
       <form className="flex flex-col gap-8" onSubmit={handlePasswordSubmit}>
         <InputField
           key="password"
+          id="password"
           label="Password"
           type="password"
           value={password}

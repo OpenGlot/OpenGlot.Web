@@ -1,5 +1,5 @@
-import { Course } from '../courses/course';
-import { Lesson } from '../lessons/lesson';
+import { Course } from './course';
+import { Lesson } from './lesson';
 
 export interface Module {
   id: number;

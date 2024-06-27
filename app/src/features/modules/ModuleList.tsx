@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
-import { Module } from "./module";
+import { Module } from "../../types/module";
 
 const ModuleList: React.FC = () => {
   const { modules } = useLoaderData() as { modules: Module[] };

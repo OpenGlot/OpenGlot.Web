@@ -74,8 +74,7 @@ const EnterUserInfoPage: React.FC = () => {
     } else {
       setIsSubmitted(true);
       alert("Form submitted!");
-      console.log(userInfo);
-      // Handle form submission logic here
+      navigate("/");
     }
   };
 

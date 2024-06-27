@@ -1,180 +1,109 @@
 import axios from 'axios';
 import { config } from '../config';
-import { Language } from 'features/languages/language';
-import { Module } from 'features/modules/module';
-import { Course } from 'features/courses/course';
-import { Lesson } from 'features/lessons/lesson';
-import { getTokens } from '../utils/storeGetTokens';
-import { DBUser } from 'pages/AccountPage/DBUser';
+import { Language, Module, Course, Lesson, Question, User } from 'types';
+import { getTokens, withAsyncErrorHandling } from 'utils';
 
 const API_URL = config.REACT_APP_API_URL;
 
-export interface Question {
-  targetLanguage: string;
-  meaning: string;
-}
-
-export interface User {
-  name: string;
-  profile: string;
-}
-
-// Axios instance with credentials
 const apiClient = axios.create({
   baseURL: API_URL,
 });
 
-export const fetchQuestions = async (): Promise<Question[]> => {
-  try {
+const createAuthConfig = () => {
+  const { idToken } = getTokens();
+  return {
+    headers: {
+      Authorization: `Bearer ${idToken}`,
+    },
+  };
+};
+
+export const checkHealth = withAsyncErrorHandling(async () => {
+  const response = await apiClient.get('health');
+  return response.data;
+});
+
+export const fetchQuestions = withAsyncErrorHandling(
+  async (): Promise<Question[]> => {
     const response = await apiClient.get('/questions/random-question');
     return response.data.data.pairs;
-  } catch (error) {
-    throw new Error('Fetch questions failed');
   }
-};
+);
 
-export const checkHealth = async (): Promise<any> => {
-  try {
-    const response = await apiClient.get('health');
-    return response;
-  } catch (error) {
-    return error;
+export const getLanguages = withAsyncErrorHandling(
+  async (): Promise<Language[]> => {
+    const response = await apiClient.get('Languages', createAuthConfig());
+    return response.data;
   }
-};
+);
 
-export const getLanguages = async (): Promise<Language[]> => {
-  const { idToken } = await getTokens();
+export const getLanguageDetails = withAsyncErrorHandling(
+  async (id: number): Promise<Language> => {
+    const response = await apiClient.get(`Languages/${id}`, createAuthConfig());
+    return response.data;
+  }
+);
+
+export const getModules = withAsyncErrorHandling(
+  async (): Promise<Module[]> => {
+    const response = await apiClient.get('Modules', createAuthConfig());
+    return response.data;
+  }
+);
+
+export const getModuleDetails = withAsyncErrorHandling(
+  async (id: number): Promise<Module> => {
+    const response = await apiClient.get(`Modules/${id}`, createAuthConfig());
+    return response.data;
+  }
+);
+
+export const getCourses = withAsyncErrorHandling(
+  async (): Promise<Course[]> => {
+    const response = await apiClient.get('Courses', createAuthConfig());
+    return response.data;
+  }
+);
+
+export const getCourseDetails = withAsyncErrorHandling(
+  async (id: number): Promise<Course> => {
+    const response = await apiClient.get(`Courses/${id}`, createAuthConfig());
+    return response.data;
+  }
+);
+
+export const getLessons = withAsyncErrorHandling(
+  async (): Promise<Lesson[]> => {
+    const response = await apiClient.get('Lessons', createAuthConfig());
+    return response.data;
+  }
+);
+
+export const getLessonDetails = withAsyncErrorHandling(
+  async (id: number): Promise<Lesson> => {
+    const response = await apiClient.get(`Lessons/${id}`, createAuthConfig());
+    return response.data;
+  }
+);
+
+export const getUserDetails = withAsyncErrorHandling(
+  async (id: string): Promise<User> => {
+    const response = await apiClient.get(`users/${id}`, createAuthConfig());
+    return response.data;
+  }
+);
+
+export const checkRegisterState = async () => {
   try {
-    const response = await apiClient.get('Languages', {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
+    const response = await apiClient.post(
+      'users/login',
+      {},
+      createAuthConfig()
+    );
     return response.data;
   } catch (error) {
-    console.error('Error fetching languages:', error);
-    return [];
-  }
-};
-
-export const getLanguageDetails = async (id: number): Promise<Language> => {
-  const { idToken } = await getTokens();
-  try {
-    const response = await apiClient.get(`Languages/${id}`, {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching language details:', error);
-    throw new Error('Failed to fetch language details');
-  }
-};
-
-export const getModules = async (): Promise<Module[]> => {
-  const { idToken } = await getTokens();
-  try {
-    const response = await apiClient.get('Modules', {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching modules:', error);
-    return [];
-  }
-};
-
-export const getModuleDetails = async (id: number): Promise<Module> => {
-  const { idToken } = await getTokens();
-  try {
-    const response = await apiClient.get(`Modules/${id}`, {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching module details:', error);
-    throw new Error('Failed to fetch module details');
-  }
-};
-
-export const getCourses = async (): Promise<Course[]> => {
-  const { idToken } = await getTokens();
-  try {
-    const response = await apiClient.get('Courses', {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching courses:', error);
-    return [];
-  }
-};
-
-export const getCourseDetails = async (id: number): Promise<Course> => {
-  const { idToken } = await getTokens();
-  try {
-    const response = await apiClient.get(`Courses/${id}`, {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching course details:', error);
-    throw new Error('Failed to fetch course details');
-  }
-};
-
-export const getLessons = async (): Promise<Lesson[]> => {
-  const { idToken } = await getTokens();
-  try {
-    const response = await apiClient.get('Lessons', {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching lessons:', error);
-    return [];
-  }
-};
-
-export const getLessonDetails = async (id: number): Promise<Lesson> => {
-  const { idToken } = await getTokens();
-  try {
-    const response = await apiClient.get(`Lessons/${id}`, {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching lesson details:', error);
-    throw new Error('Failed to fetch lesson details');
-  }
-};
-
-export const getUserDetails = async (id: string): Promise<DBUser> => {
-  const { idToken } = await getTokens();
-
-  try {
-    const response = await apiClient.get(`users/${id}`, {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching lesson details:', error);
-    throw new Error('Failed to fetch lesson details');
+    console.error('Error checking registration state:', error);
+    throw error; // Re-throw the error to be handled elsewhere
   }
 };
 

@@ -10,11 +10,10 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full">
-      {/* <div className="w-full border-b"></div> */}
       <div className="flex flex-grow flex-col gap-10 items-center justify-center w-full">
         <h1 className="text-2xl font-semibold">
           {authState.user
-            ? `${t("Welcome")}, ${authState.user.name || ""}!`
+            ? `${t("Welcome")}, ${authState.user.username || ""}!`
             : t("Welcome")}
         </h1>
         <div

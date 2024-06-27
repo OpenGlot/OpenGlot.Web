@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { DBUser } from "./DBUser";
+import { User } from "types";
 import { getUserDetails } from "services/api";
 import { useAuth } from "context/AuthContext";
 
 const MyProfile: React.FC = () => {
   const { authState } = useAuth();
   const { t } = useTranslation();
-  const [userDetails, setUserDetails] = useState<DBUser | null>(null);
+  const [userDetails, setUserDetails] = useState<User | null>(null);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       if (authState.user?.username) {
         try {
           const details = await getUserDetails(authState.user.username);
-          setUserDetails(details);
+          if (details) setUserDetails(details);
         } catch (error) {
           console.error("Error fetching user details:", error);
         }

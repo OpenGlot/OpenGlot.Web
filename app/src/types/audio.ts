@@ -1,4 +1,4 @@
-import { Language } from 'features/languages/language';
+import { Language } from './language';
 
 export interface Audio {
   id: number;

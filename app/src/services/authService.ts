@@ -5,24 +5,19 @@ import {
   CognitoUserPool,
 } from 'amazon-cognito-identity-js';
 import axios from 'axios';
-import { config } from '../config';
-import { CognitoError } from '../types/authTypes';
-import { storeTokens } from '../utils/storeGetTokens';
-import { User } from '../types/authTypes';
+import { config } from 'config';
 
 const userPool = new CognitoUserPool({
   UserPoolId: config.userPoolId,
   ClientId: config.userPoolWebClientId,
 });
 
-const { domain, redirectSignIn } = config.oauth;
-const clientId = config.userPoolWebClientId;
+const {
+  oauth: { domain, redirectSignIn },
+  userPoolWebClientId: clientId,
+} = config;
 
-export const signUp = (
-  email: string,
-  password: string,
-  username: string
-): Promise<any> => {
+export const signUp = (email: string, password: string, username: string) => {
   const attributeList = [
     new CognitoUserAttribute({
       Name: 'email',
@@ -36,9 +31,7 @@ export const signUp = (
 
   return new Promise((resolve, reject) => {
     userPool.signUp(email, password, attributeList, [], (err, result) => {
-      if (err) {
-        return reject(err);
-      }
+      if (err) return reject(err);
       resolve(result);
     });
   });
@@ -49,10 +42,7 @@ export const confirmSignUp = (email: string, code: string): Promise<any> => {
 
   return new Promise((resolve, reject) => {
     cognitoUser.confirmRegistration(code, true, (err, result) => {
-      console.log(code);
-      if (err) {
-        return reject(err);
-      }
+      if (err) return reject(err);
       resolve(result);
     });
   });
@@ -73,16 +63,10 @@ export const signIn = (email: string, password: string): Promise<any> => {
 
   return new Promise((resolve, reject) => {
     cognitoUser.authenticateUser(authDetails, {
-      onSuccess: (result) => {
-        console.log('Login successful:', result);
-        storeTokens(
-          result.getIdToken().getJwtToken(),
-          result.getAccessToken().getJwtToken(),
-          result.getRefreshToken().getToken()
-        );
+      onSuccess: async (result) => {
         resolve(result);
       },
-      onFailure: (err) => reject(err as CognitoError),
+      onFailure: (err) => reject(err),
     });
   });
 };
@@ -91,24 +75,6 @@ export const googleSignIn = () => {
   const redirectUri = encodeURIComponent(redirectSignIn);
   const url = `https://${domain}/oauth2/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&identity_provider=Google`;
   window.location.assign(url);
-};
-
-const parseJwt = (token: string): any | null => {
-  try {
-    return JSON.parse(atob(token.split('.')[1]));
-  } catch (e) {
-    return null;
-  }
-};
-
-export const isTokenExpired = (token: string): boolean => {
-  const decoded = parseJwt(token);
-  if (!decoded) {
-    return true;
-  }
-  const exp = decoded.exp;
-  const currentTime = Math.floor(Date.now() / 1000);
-  return exp < currentTime;
 };
 
 export const exchangeCodeForTokens = async (authorizationCode: string) => {
@@ -155,7 +121,6 @@ export const refreshTokens = async (refreshToken: string) => {
     }
 
     const data = response.data;
-    console.log('refreshed');
     return {
       idToken: data.id_token,
       accessToken: data.access_token,
@@ -166,25 +131,9 @@ export const refreshTokens = async (refreshToken: string) => {
   }
 };
 
-export const extractUserInfo = async (idToken: string): Promise<User> => {
-  const decoded = parseJwt(idToken);
-  return {
-    email: decoded?.email || '',
-    username: decoded?.['cognito:username'] || '',
-    name: decoded?.name || '',
-    dob: decoded?.dob || '',
-  };
-};
-
 export const resendConfirmationCode = async () => {
-  const email = localStorage.getItem('email-pending');
-  console.log(email);
-
-  if (!email) {
-    console.error('No email found in localStorage');
-    alert('No email found. Please sign up again.');
-    return;
-  }
+  const email = sessionStorage.getItem('emailForConfirmation');
+  if (!email) return;
 
   const userData = {
     Username: email,
@@ -195,10 +144,8 @@ export const resendConfirmationCode = async () => {
 
   cognitoUser.resendConfirmationCode((err, result) => {
     if (err) {
-      console.error('Error resending confirmation code:', err.message || err);
       alert(`Error resending confirmation code: ${err.message || err}`);
     } else {
-      console.log('Resend confirmation code success:', result);
       alert('Resent confirmation code, please check your email');
     }
   });
@@ -215,13 +162,12 @@ export const forgotPassword = async (email: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     cognitoUser.forgotPassword({
       onSuccess: (data) => {
-        alert('Code sent successfully');
-        console.log('Code sent successfully:', data);
-        localStorage.setItem('email-reseting', email);
+        alert('Email sent successfully');
+        sessionStorage.setItem('email-reseting', email);
         resolve();
       },
       onFailure: (err) => {
-        console.error('Error sending code:', err.message || err);
+        alert('Error sending email');
         reject(err);
       },
     });
@@ -232,13 +178,9 @@ export const resetPassword = async (
   verificationCode: string,
   newPassword: string
 ): Promise<void> => {
-  const email = localStorage.getItem('email-reseting');
+  const email = sessionStorage.getItem('email-reseting');
 
-  if (!email) {
-    console.error('No email found in localStorage');
-    alert('No email found. Please sign up again.');
-    return;
-  }
+  if (!email) return;
 
   const userData = {
     Username: email,
@@ -250,11 +192,11 @@ export const resetPassword = async (
   return new Promise((resolve, reject) => {
     cognitoUser.confirmPassword(verificationCode, newPassword, {
       onSuccess: () => {
-        console.log('Password reset successfully');
+        alert('Password reset successfully');
         resolve();
       },
       onFailure: (err) => {
-        console.error('Error resetting password:', err.message || err);
+        alert('Error resetting password');
         reject(err);
       },
     });

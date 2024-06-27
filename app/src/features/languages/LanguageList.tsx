@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
-import { Language } from "./language";
+import { Language } from "types";
 
 const LanguageList: React.FC = () => {
   const { languages } = useLoaderData() as { languages: Language[] };

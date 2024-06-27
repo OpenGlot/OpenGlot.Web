@@ -5,10 +5,14 @@ import Button from "../common/Button";
 import { useAuth } from "../../context/AuthContext";
 import Dropdown from "../common/Dropdown";
 import LanguageSwitcher from "../common/LanguageSwitcher";
+import { useTheme } from "context/ThemeContext";
+import { useAuthService } from "hooks/useAuthService";
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
-  const { authState, handleSignOut } = useAuth();
+  const { authState } = useAuth();
+  const { handleSignOut } = useAuthService();
+  const { theme } = useTheme();
   const [showDropdown, setShowDropdown] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -41,16 +45,16 @@ const Navbar: React.FC = () => {
   return (
     <nav className="container bg-white dark:bg-customBlack px-4 py-4 grid grid-cols-3 justify-between items-center relative">
       <a href="/" className="cursor-pointer">
-        <div className="flex items-center justify-start space-x-2">
+        <div className="flex items-center justify-start">
           <div className="font-sansLogo gradient-text">OpenGlot</div>
         </div>
       </a>
       <div className="flex justify-center gap-x-10">
-        <a href="/questions" className="link-hover-effect">
-          {t("Questions")}
-        </a>
         <a href="/courses" className="link-hover-effect">
           {t("Courses")}
+        </a>
+        <a href="/lessons" className="link-hover-effect">
+          {t("Lessons")}
         </a>
         <a href="/" className="link-hover-effect">
           {t("Review")}
@@ -68,7 +72,7 @@ const Navbar: React.FC = () => {
               onClick={handleProfileClick}
             >
               <div className="underline decoration-primary">
-                {authState.user ? authState.user.name : t("User")}
+                {authState.user ? authState.user.username : t("User")}
               </div>
               {showDropdown ? <GoTriangleUp /> : <GoTriangleDown />}
             </div>
@@ -83,12 +87,15 @@ const Navbar: React.FC = () => {
         ) : (
           <div className="flex items-center gap-x-2">
             <a href="/login">
-              <Button variant="no-fill" width="w-28">
+              <Button variant="contrast" width="w-28">
                 {t("Login")}
               </Button>
             </a>
             <a href="/signup">
-              <Button variant="outlined" width="w-28">
+              <Button
+                variant={theme === "light" ? "outlined" : "filled"}
+                width="w-28"
+              >
                 {t("SignUp")}
               </Button>
             </a>

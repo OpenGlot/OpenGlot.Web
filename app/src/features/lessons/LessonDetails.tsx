@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
-import { Lesson } from "./lesson";
+import { Lesson } from "types";
 
 const LessonDetail: React.FC = () => {
   const lessonDetail = useLoaderData() as Lesson;

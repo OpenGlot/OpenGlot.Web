@@ -1,4 +1,4 @@
-import { Lesson } from 'features/lessons/lesson';
+import { Lesson } from './lesson';
 import { Audio } from './audio';
 import { Image } from './image';
 import { Option } from './option';

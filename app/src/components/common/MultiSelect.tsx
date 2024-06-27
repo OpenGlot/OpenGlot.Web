@@ -181,7 +181,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
             />
             <span
               className="ml-2 cursor-pointer text-xl"
-              onClick={(e) => {
+              onClick={() => {
                 setInputValue("");
                 if (inputRef.current) {
                   inputRef.current.focus();

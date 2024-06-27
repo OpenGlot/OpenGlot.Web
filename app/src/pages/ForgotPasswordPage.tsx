@@ -28,7 +28,7 @@ const ForgotPasswordPage: React.FC = () => {
         <InputField
           key="email"
           id="email"
-          label="email"
+          label="Email"
           type="email"
           value={email}
           onChange={(e) => {
