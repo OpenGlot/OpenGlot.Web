@@ -203,3 +203,37 @@ export const resendConfirmationCode = async () => {
     }
   });
 };
+
+export const forgotPassword = (email: string): Promise<any> => {
+  const cognitoUser = new CognitoUser({ Username: email, Pool: userPool });
+
+  return new Promise<void>((resolve, reject) => {
+    cognitoUser.forgotPassword({
+      onSuccess: () => {
+        resolve();
+      },
+      onFailure: (err) => {
+        reject(err);
+      },
+    });
+  });
+};
+
+export const resetPassword = (
+  email: string,
+  code: string,
+  newPassword: string
+): Promise<any> => {
+  const cognitoUser = new CognitoUser({ Username: email, Pool: userPool });
+
+  return new Promise<void>((resolve, reject) => {
+    cognitoUser.confirmPassword(code, newPassword, {
+      onSuccess: () => {
+        resolve();
+      },
+      onFailure: (err) => {
+        reject(err);
+      },
+    });
+  });
+};

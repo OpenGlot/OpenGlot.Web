@@ -28,6 +28,7 @@ import LessonDetail from "features/lessons/LessonDetails";
 import { lessonsLoader } from "features/lessons/LessonsLoader";
 import { lessonLoader } from "features/lessons/LessonLoader";
 import LanguageLearningGame from "games/LanguageLearningGame";
+import ForgotPassword from "pages/ForgotPasswordPage/ForgotPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
       { path: "/questions", element: <MatchingPairs /> },
       { path: "/oauth2/callback", element: <OAuthCallbackPage /> },
       { path: "/enter-info", element: <EnterUserInfoPage /> },
+      { path: "/forgotPassword", element: <ForgotPassword /> },
       {
         path: "account",
         element: <AccountPage />,

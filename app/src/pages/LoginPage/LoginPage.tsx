@@ -4,6 +4,8 @@ import Button from "../../components/common/Button";
 import InputField from "../../components/common/InputField";
 import SocialLogin from "./SocialLogin";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from 'react-router-dom';
+import { resendConfirmationCode } from '../../services/authService';
 
 const LoginPage: React.FC = () => {
   const {
@@ -15,10 +17,22 @@ const LoginPage: React.FC = () => {
   } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleSignIn(email, password);
+  };
+
+  const handleResendVerificationCode = async () => {
+    try {
+      await resendConfirmationCode();
+      authState.error = null; 
+      navigate("/signup-confirm");
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
 
   const fields = [
@@ -66,7 +80,7 @@ const LoginPage: React.FC = () => {
               onChange={field.onChange}
             />
           ))}
-          <div className="link text-sm -mt-3 text-right">Forgot password?</div>
+          <a href="/forgotPassword"><div className="link text-sm -mt-3 text-right">Forgot password?</div></a>
           <div className="flex flex-col items-center justify-between">
             <Button width="w-96" type="submit" variant="filled">
               {authState.loading ? (
@@ -80,7 +94,14 @@ const LoginPage: React.FC = () => {
             </Button>
 
             {authState.error && (
-              <p className="text-red-500">Error: {authState.error.message}</p>
+              authState.error.message === "User is not confirmed." ? (
+                <div>
+                  <span className="text-red-500">User not verified yet! </span>
+                  <span className="link" onClick={handleResendVerificationCode}>Please Verify</span>
+                </div>
+              ) : (
+                <p className="text-red-500">Error: {authState.error.message}</p>
+              )
             )}
           </div>
         </form>
