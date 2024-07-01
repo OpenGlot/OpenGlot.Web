@@ -36,6 +36,7 @@ import {
 } from "features";
 import { LanguageLearningGame } from "games";
 import { ProtectedRoute } from "components";
+import VoiceRecorder from "pages/VoiceRecorder";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
       { path: "/forgot-password", element: <ForgotPasswordPage /> },
       { path: "/verify-password-reset", element: <VerifyPasswordResetPage /> },
       { path: "/reset-password", element: <EnterNewPasswordPage /> },
+      { path: "/voice-recorder", element: <VoiceRecorder /> },
       {
         element: <ProtectedRoute />, // This wraps all protected routes
         children: [
