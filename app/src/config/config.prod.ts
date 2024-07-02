@@ -8,7 +8,7 @@ const config = {
     redirectSignOut: 'https://openglot.com/',
     scope: ['openid', 'profile', 'email'],
   },
-  REACT_APP_API_URL: 'https://api.openglot.com/api',
+  REACT_APP_API_URL: 'https://api.openglot.com/api/',
 };
 
 export default config;
