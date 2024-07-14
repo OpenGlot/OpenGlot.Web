@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "b4841187-3a7f-4110-a5e5-511394f03ef4",
+		"_postman_id": "8bb35f32-33a0-43f5-9ff5-dc73e0bf341e",
 		"name": "OpenGlotTest",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26701309"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -326,8 +325,7 @@
 								"exec": [
 									""
 								],
-								"type": "text/javascript",
-								"packages": {}
+								"type": "text/javascript"
 							}
 						},
 						{
@@ -343,8 +341,7 @@
 									"pm.environment.set(\"user_name\", jsonData.username);",
 									"pm.environment.set(\"user_email\", jsonData.email);"
 								],
-								"type": "text/javascript",
-								"packages": {}
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -363,7 +360,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userId\": \"999\",\n    \"username\": \"user999\",\n    \"email\": \"abcd@gmail.com\",\n    \"nativeLanguage\": \"English\",\n    \"targetLanguage\": \"Spanish\",\n    \"targetLanguageLevel\": \"Beginner\",\n    \"targetLanguage2\": null,\n    \"targetLanguageLevel2\": null,\n    \"targetLanguage3\": null,\n    \"targetLanguageLevel3\": null,\n    \"dateOfBirth\": \"2000-01-01T00:00:00Z\",\n    \"timeZone\": \"UTC\",\n    \"userRole\": 0,\n    \"ratings\": null,\n    \"progresses\": null,\n    \"badges\": null,\n    \"notifications\": null,\n    \"flashcards\": null,\n    \"userGeneratedContents\": null,\n    \"subscription\": null\n}",
+							"raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"username\": \"user999\",\n    \"email\": \"abcd@gmail.com\",\n    \"nativeLanguage\": \"English\",\n    \"targetLanguage\": \"Spanish\",\n    \"targetLanguageLevel\": \"Beginner\",\n    \"targetLanguage2\": null,\n    \"targetLanguageLevel2\": null,\n    \"targetLanguage3\": null,\n    \"targetLanguageLevel3\": null,\n    \"dateOfBirth\": \"2000-01-01T00:00:00Z\",\n    \"timeZone\": \"UTC\",\n    \"userRole\": 0,\n    \"ratings\": null,\n    \"progresses\": null,\n    \"badges\": null,\n    \"notifications\": null,\n    \"flashcards\": null,\n    \"userGeneratedContents\": null,\n    \"subscription\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -472,8 +469,7 @@
 									"});",
 									""
 								],
-								"type": "text/javascript",
-								"packages": {}
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -492,7 +488,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userId\": \"999\",\n    \"username\": \"Updated user999\",\n    \"email\": \"updated_abcd@gmail.com\",\n    \"nativeLanguage\": \"English\",\n    \"targetLanguage\": \"Spanish\",\n    \"targetLanguageLevel\": \"Beginner\",\n    \"targetLanguage2\": null,\n    \"targetLanguageLevel2\": null,\n    \"targetLanguage3\": null,\n    \"targetLanguageLevel3\": null,\n    \"dateOfBirth\": \"2000-01-01T00:00:00Z\",\n    \"timeZone\": \"UTC\",\n    \"userRole\": 0,\n    \"ratings\": null,\n    \"progresses\": null,\n    \"badges\": null,\n    \"notifications\": null,\n    \"flashcards\": null,\n    \"userGeneratedContents\": null,\n    \"subscription\": null\n}",
+							"raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"username\": \"Updated user999\",\n    \"email\": \"updated_abcd@gmail.com\",\n    \"nativeLanguage\": \"English\",\n    \"targetLanguage\": \"Spanish\",\n    \"targetLanguageLevel\": \"Beginner\",\n    \"targetLanguage2\": null,\n    \"targetLanguageLevel2\": null,\n    \"targetLanguage3\": null,\n    \"targetLanguageLevel3\": null,\n    \"dateOfBirth\": \"2000-01-01T00:00:00Z\",\n    \"timeZone\": \"UTC\",\n    \"userRole\": 0,\n    \"ratings\": null,\n    \"progresses\": null,\n    \"badges\": null,\n    \"notifications\": null,\n    \"flashcards\": null,\n    \"userGeneratedContents\": null,\n    \"subscription\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1137,8 +1133,7 @@
 									"pm.environment.set(\"lesson_id\", jsonData.id);",
 									""
 								],
-								"type": "text/javascript",
-								"packages": {}
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -1157,7 +1152,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n     \"id\": 999,\n    \"title\": \"Lesson 999 for 999\",\n    \"contentType\": 3,\n    \"moduleId\": 1\n}",
+							"raw": "{\n     \"id\": {{language_id}},\n    \"title\": \"Lesson 999 for 999\",\n    \"contentType\": 3,\n    \"moduleId\": {{module_id}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1259,8 +1254,7 @@
 									"});",
 									""
 								],
-								"type": "text/javascript",
-								"packages": {}
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -1920,8 +1914,7 @@
 									"pm.environment.set(\"module_id\", jsonData.id);",
 									""
 								],
-								"type": "text/javascript",
-								"packages": {}
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -1940,7 +1933,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\n        \"id\": 999,\n        \"title\": \"Module 999 for 999\",\n        \"description\": \"Module Description 999\",\n        \"courseId\": 20,\n        \"course\": null,\n        \"lessons\": null,\n        \"progresses\": null,\n        \"ratings\": null\n    }",
+							"raw": "    {\n        \"id\": {{module_id}},\n        \"title\": \"Module 999 for 999\",\n        \"description\": \"Module Description 999\",\n        \"courseId\": {{course_id}},\n        \"order\": 0,\n        \"lessons\": null,\n        \"progresses\": null,\n        \"ratings\": null\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2244,6 +2237,36 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{cognitoIdToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

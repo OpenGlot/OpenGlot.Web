@@ -1,0 +1,1 @@
+newman run OpenGlotTest.postman_collection.json -e Docker-OpenGlot.postman_environment.json --insecure
