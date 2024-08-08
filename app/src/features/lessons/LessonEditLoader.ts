@@ -7,6 +7,5 @@ export const lessonLoader: LoaderFunction = async ({ params }) => {
     const response = await getLessonDetails(Number(id));
     return response;
   }
-  else return null;
-  // throw new Error('Lesson ID is required');
+  throw new Error('Lesson ID is required');
 };

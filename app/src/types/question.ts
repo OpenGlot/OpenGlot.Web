@@ -16,3 +16,14 @@ export interface Question {
   image: Image | null;
   options: Option[];
 }
+
+export enum QuestionType {
+  NotSelected = 'Not Selected',
+  Reply = 'Reply',
+  Listen = 'Listen',
+  Describe = 'Describe',
+  Choose = 'Choose',
+  Recognize = 'Recognize',
+  FillBlank = 'Fill Blank',
+  All = 'All',
+}

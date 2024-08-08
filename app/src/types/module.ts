@@ -4,6 +4,7 @@ import { Lesson } from './lesson';
 export interface Module {
   id: number;
   title: string;
+  description: string;
   courseId: number;
   course: Course | null;
   lessons: Lesson[] | null;

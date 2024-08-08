@@ -11,3 +11,9 @@ export interface Lesson {
   questions: Question[] | null;
   ratings: null;
 }
+
+export enum ContentType {
+  Video = 'Video',
+  Text = 'Text',
+  Audio = 'Audio',
+}

@@ -25,9 +25,7 @@ import {
   ModuleDetails,
   modulesLoader,
   moduleLoader,
-  CourseList,
   CourseDetails,
-  coursesLoader,
   courseLoader,
   LessonList,
   LessonDetails,
@@ -37,6 +35,7 @@ import {
 import { LanguageLearningGame } from "games";
 import { ProtectedRoute } from "components";
 import VoiceRecorder from "pages/VoiceRecorder";
+import LessonForm from "features/lessons/LessonForm"; // Corrected import
 
 const router = createBrowserRouter([
   {
@@ -58,7 +57,11 @@ const router = createBrowserRouter([
       {
         element: <ProtectedRoute />, // This wraps all protected routes
         children: [
-          { path: "courses", element: <CourseList />, loader: coursesLoader },
+          {
+            path: "courses",
+            element: <LanguageList />,
+            loader: languagesLoader,
+          },
           {
             path: "course/:id",
             element: <CourseDetails />,
@@ -81,6 +84,11 @@ const router = createBrowserRouter([
             loader: moduleLoader,
           },
           { path: "lessons", element: <LessonList />, loader: lessonsLoader },
+          {
+            path: "create-lesson/:id?",
+            element: <LessonForm />,
+            loader: lessonLoader,
+          },
           {
             path: "lesson/:id",
             element: <LessonDetails />,
