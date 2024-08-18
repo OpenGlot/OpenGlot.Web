@@ -86,6 +86,63 @@ export const getLessonDetails = withAsyncErrorHandling(
   }
 );
 
+export const updateLesson = withAsyncErrorHandling(
+  async (lessonData: Partial<Lesson>): Promise<Lesson> => {
+    console.log(lessonData, 'lessonData');
+    try {
+      if (!lessonData.id) {
+        throw new Error('Lesson ID is required for updating');
+      }
+      const response = await apiClient.put(
+        `Lessons/${lessonData.id}`,
+        lessonData,
+        createAuthConfig()
+      );
+      return response.data;
+    } catch (error: any) {
+      // Handle server validation errors
+      if (error.response && error.response.status === 400) {
+        console.error('Validation error:', error.response.data);
+        throw new Error(
+          'Validation error: ' + JSON.stringify(error.response.data)
+        );
+      } else {
+        console.error('Error updating lesson:', error);
+        throw new Error(
+          'An unexpected error occurred while updating the lesson.'
+        );
+      }
+    }
+  }
+);
+
+export const createLesson = withAsyncErrorHandling(
+  async (lessonData: Partial<Lesson>): Promise<Lesson> => {
+    console.log(lessonData, 'lessonData');
+    try {
+      const response = await apiClient.post(
+        'Lessons',
+        lessonData,
+        createAuthConfig()
+      );
+      return response.data;
+    } catch (error: any) {
+      // Handle server validation errors
+      if (error.response && error.response.status === 400) {
+        console.error('Validation error:', error.response.data);
+        throw new Error(
+          'Validation error: ' + JSON.stringify(error.response.data)
+        );
+      } else {
+        console.error('Error creating lesson:', error);
+        throw new Error(
+          'An unexpected error occurred while creating the lesson.'
+        );
+      }
+    }
+  }
+);
+
 export const getUserDetails = withAsyncErrorHandling(
   async (id: string): Promise<User> => {
     const response = await apiClient.get(`users/${id}`, createAuthConfig());
