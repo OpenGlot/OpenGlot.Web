@@ -86,6 +86,62 @@ export const getLessonDetails = withAsyncErrorHandling(
   }
 );
 
+export const getImages = withAsyncErrorHandling(async (): Promise<Lesson[]> => {
+  const response = await apiClient.get('Files/images', createAuthConfig());
+  return response.data;
+});
+
+export const getImageDetails = withAsyncErrorHandling(
+  async (searchText: string | null): Promise<Lesson> => {
+    const query = searchText ? searchText : null;
+    const response = await apiClient.get(
+      `Files/search/images/${query}`,
+      createAuthConfig()
+    );
+    return response.data;
+  }
+);
+
+export const getAudios = withAsyncErrorHandling(async (): Promise<Lesson[]> => {
+  const response = await apiClient.get('Files/audios', createAuthConfig());
+  return response.data;
+});
+
+export const getAudioDetails = withAsyncErrorHandling(
+  async (searchText: string): Promise<Lesson> => {
+    const response = await apiClient.get(
+      `Files/search/audios/${searchText}`,
+      createAuthConfig()
+    );
+    return response.data;
+  }
+);
+
+// Reusable upload file function
+export const handleUploadFiles = withAsyncErrorHandling(
+  async (files: File[], uploadEndpoint: string) => {
+    const formData = new FormData();
+
+    // Append each file to the FormData with the key 'file'
+    files.forEach((file) => {
+      formData.append('file', file); // Ensure the key 'file' matches your backend's expected field name
+    });
+
+    try {
+      const response = await apiClient.post(
+        `/Files${uploadEndpoint}`,
+        formData,
+        createAuthConfig()
+      );
+      return response.data;
+    } catch (error) {
+      console.error(`Error uploading files to ${uploadEndpoint}:`, error);
+      throw new Error(`Failed to upload files.`);
+    }
+  }
+);
+
+// update the lesson
 export const updateLesson = withAsyncErrorHandling(
   async (lessonData: Partial<Lesson>): Promise<Lesson> => {
     console.log(lessonData, 'lessonData');
@@ -116,6 +172,7 @@ export const updateLesson = withAsyncErrorHandling(
   }
 );
 
+// create the lesson
 export const createLesson = withAsyncErrorHandling(
   async (lessonData: Partial<Lesson>): Promise<Lesson> => {
     console.log(lessonData, 'lessonData');

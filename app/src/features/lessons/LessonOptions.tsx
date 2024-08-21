@@ -86,7 +86,7 @@ export const OptionsField: React.FC<OptionsFieldProps> = ({
                 context="Some context"
                 description="A brief description"
                 enhancedDescription="An enhanced description with more details"
-                id={getRandomNumberAsString(1000, 999999)}
+                // id={getRandomNumberAsString(1000, 999999)}
                 uploadedAt={new Date()}
                 urlKey="some-url-key"
               />
@@ -121,7 +121,7 @@ export const OptionsField: React.FC<OptionsFieldProps> = ({
                 context="Some context"
                 description="A brief description"
                 enhancedDescription="An enhanced description with more details"
-                id={getRandomNumberAsString(1000, 999999)}
+                // id={getRandomNumberAsString(1000, 999999)}
                 uploadedAt={new Date()}
                 urlKey="some-url-key"
               />

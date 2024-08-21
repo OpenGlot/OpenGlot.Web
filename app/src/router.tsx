@@ -36,6 +36,7 @@ import { LanguageLearningGame } from "games";
 import { ProtectedRoute } from "components";
 import VoiceRecorder from "pages/VoiceRecorder";
 import LessonForm from "features/lessons/LessonForm"; // Corrected import
+import LessonFilesUpload from "features/lessons/LessonFilesUpload";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,8 @@ const router = createBrowserRouter([
             loader: moduleLoader,
           },
           { path: "lessons", element: <LessonList />, loader: lessonsLoader },
+          { path: "files", element: <LessonFilesUpload />, loader: null },
+
           {
             path: "create-lesson/:id?",
             element: <LessonForm />,

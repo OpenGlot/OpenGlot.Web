@@ -29,10 +29,7 @@ export const getQuestionTypeFromValue = (value: number): QuestionType => {
 export const getValueFromQuestionType = (type: QuestionType): number => {
   return reverseQuestionTypeMap[type] || 0;
 };
-export const getRandomNumberAsString = (min: number, max: number): string => {
-  const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-  return randomNumber.toString();
-};
+
 
 export const renderInputsForQuestionType = ({
   questionType,
@@ -86,7 +83,7 @@ export const renderInputsForQuestionType = ({
             context="Some context"
             description="A brief description"
             enhancedDescription="An enhanced description with more details"
-            id={getRandomNumberAsString(1000, 999999)}
+            // id={getRandomNumberAsString(1000, 999999)}
             uploadedAt={new Date()}
             urlKey="some-url-key"
           />
@@ -123,7 +120,7 @@ export const renderInputsForQuestionType = ({
             context="Some context"
             description="A brief description"
             enhancedDescription="An enhanced description with more details"
-            id={getRandomNumberAsString(1000, 999999)}
+            // id={getRandomNumberAsString(1000, 999999)}
             uploadedAt={new Date()}
             urlKey="some-url-key"
           />

@@ -59,12 +59,14 @@ const ListCard = ({
 
   return (
     <div>
-      <button
-        onClick={() => navigate(-1)}
-        className="flex-shrink-0 p-2 rounded-full hover:bg-gray-100"
-      >
-        <ArrowLeft className="w-6 h-6 text-gray-600" />
-      </button>
+      {componentName !== "Languages" && (
+        <button
+          onClick={() => navigate(-1)}
+          className="flex-shrink-0 p-2 rounded-full hover:bg-gray-100"
+        >
+          <ArrowLeft className="w-6 h-6 text-gray-600" />
+        </button>
+      )}
       <div className="flex bg-white shadow-md rounded-lg p-6">
         <div className="ml-4 flex-1">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">

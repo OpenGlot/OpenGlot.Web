@@ -18,9 +18,14 @@ const ModuleDetail: React.FC = () => {
   const handleCreateLessonClick = () => {
     navigate(`/create-lesson`,{state:{moduleId:moduleDetail.id}});
   };
+  const handleUploadFiles = () => {
+    navigate(`/files`);
+  };
+  
 
   return (
     <div className="max-w-4xl mx-auto p-4">
+      <div className="flex justify-between">
       <div className="mb-4">
         <button
           onClick={handleCreateLessonClick}
@@ -28,6 +33,15 @@ const ModuleDetail: React.FC = () => {
         >
           Create New Lesson
         </button>
+      </div>
+      <div className="mb-4">
+        <button
+          onClick={handleUploadFiles}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+         Upload Files
+        </button>
+      </div>
       </div>
       <ListCard
         title={moduleDetail.title}
