@@ -13,7 +13,7 @@ export const withAsyncErrorHandling = <T>(
           return null;
         }
         console.error('Error fetching data', error);
-        alert('Error fetching data');
+        // alert('Error fetching data');
         return null;
       }
 

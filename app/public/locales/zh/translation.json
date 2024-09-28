@@ -21,5 +21,16 @@
   "Dark": "深色",
   "Email": "邮箱",
   "Password": "密码",
-  "Game": "游戏"
+  "Game": "游戏",
+  "Native language": "母语",
+  "Target language": "目标语言",
+  "Username": "用户名",
+  "Date of birth": "出生日期",
+  "Confirm password": "确认密码",
+  "Submit": "提交",
+  "Cancel": "取消",
+  "Add a new course": "添加新课程",
+  "Course name": "课程名称",
+  "Course description": "课程描述",
+  "Add": "添加"
 }

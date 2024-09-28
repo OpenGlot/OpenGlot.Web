@@ -12,6 +12,8 @@ export interface Lesson {
   ratings: null;
 }
 
+
+
 export enum ContentType {
   Video = 'Video',
   Text = 'Text',

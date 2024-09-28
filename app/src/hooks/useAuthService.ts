@@ -82,7 +82,7 @@ export const useAuthService = () => {
         loading: false,
         isAuthenticated: true,
       });
-      await checkRegisterState();
+      // await checkRegisterState();
       navigate('/');
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 404) {

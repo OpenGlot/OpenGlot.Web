@@ -2,8 +2,8 @@ export interface User {
   userId: string;
   username: string;
   email: string;
-  nativeLanguage?: string;
-  targetLanguage?: string;
+  nativeLanguage?: string[];
+  targetLanguage?: string[];
   targetLanguageLevel?: string;
   targetLanguage2?: string | null;
   targetLanguageLevel2?: string | null;

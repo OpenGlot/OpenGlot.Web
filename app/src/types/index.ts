@@ -8,3 +8,4 @@ export * from './question';
 export * from './audio';
 export * from './image';
 export * from './option';
+export * from './lessonType'

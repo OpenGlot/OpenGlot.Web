@@ -73,7 +73,9 @@ const EnterUserInfoPage: React.FC = () => {
       setStep((prev) => prev + 1);
     } else {
       setIsSubmitted(true);
-      alert("Form submitted!");
+      // alert("Form submitted!");
+      console.log('用户信息：', userInfo);
+      localStorage.setItem('userInfo', JSON.stringify(userInfo));
       navigate("/");
     }
   };
