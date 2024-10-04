@@ -1,0 +1,40 @@
+.myProfile {
+  color: #394155;
+}
+
+.filedArea {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.formLabel {
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #394155;
+}
+
+.formValue {
+  font-size: 1rem;
+}
+
+.tag {
+  font-size: 1rem;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background-color: #000;
+}
+
+.editItem {
+  width: 60%;
+}
+
+.dateOfBirth {
+  width: 30%;
+} 
+
+.nativeLanguage {
+  z-index: 999;
+}

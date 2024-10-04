@@ -9,3 +9,4 @@ export { default as MuitiSelect } from './MultiSelect';
 export { default as ProtectedRoute } from './ProtectedRoute';
 export { default as ThemeSwitcher } from './ThemeSwitcher';
 export { default as VerificationCodeForm } from './VerificationCodeForm';
+export { default as FormCard } from './FormCard';
