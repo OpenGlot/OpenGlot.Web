@@ -32,7 +32,7 @@ import {
   lessonsLoader,
   lessonLoader,
 } from "features";
-import { LanguageLearningGame } from "games";
+import { LanguageLearningGame, GameSelect } from "games";
 import { ProtectedRoute } from "components";
 import VoiceRecorder from "pages/VoiceRecorder";
 import LessonForm from "features/lessons/LessonForm"; // Corrected import
@@ -49,7 +49,8 @@ const router = createBrowserRouter([
       { path: "/signup-confirm", element: <SignupConfirmPage /> },
       { path: "/oauth2/callback", element: <OAuthCallbackPage /> },
       { path: "/enter-info", element: <EnterUserInfoPage /> },
-      { path: "/game", element: <LanguageLearningGame /> },
+      { path: "/game", element: <GameSelect /> },
+      { path: "/language-learning-game", element: <LanguageLearningGame /> },
       { path: "/forgot-password", element: <ForgotPasswordPage /> },
       { path: "/verify-password-reset", element: <VerifyPasswordResetPage /> },
       { path: "/reset-password", element: <EnterNewPasswordPage /> },

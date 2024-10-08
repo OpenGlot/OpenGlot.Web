@@ -38,14 +38,14 @@ const LessonDetailSlider: React.FC<LessonDetailSliderProps> = ({
       <div className="slider-container">
         <Slider {...settings}>
           {lessonDetail?.questions?.map((question, questionIndex) => (
-            <div key={questionIndex}>
+            <div key={questionIndex} className="p-10">
               <h3>Question Name : {question.text}</h3>
               <p>Answer: {question.answer}</p>
               <div className="grid grid-cols-2 grid-rows-2 gap-2">
                 {question.options?.map((option, index) => (
                   <div
                     key={option.id}
-                    className="bg-gray-100 p-1 rounded-lg shadow-sm cursor-pointer w-full"
+                    className="bg-gray-100 rounded-lg shadow-sm cursor-pointer w-full"
                   >
                     <p className="text-lg font-medium mb-2">
                       {`Option ${index + 1} : `}
@@ -66,7 +66,7 @@ const LessonDetailSlider: React.FC<LessonDetailSliderProps> = ({
                       </div>
                     )}
                   </div>
-                ))}
+                ))} 
               </div>
             </div>
           ))}

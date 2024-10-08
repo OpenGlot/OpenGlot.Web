@@ -90,7 +90,7 @@ const FormCard: React.FC<FormProps> = ({}) => {
 
   return (
     <form className="myFrom w-full h-fit mx-auto flex justify-between flex-col gap-6">
-      <h2 className="myProfile text-2xl font-semibold">My Profile</h2>
+      <h2 className="myProfile text-2xl font-semibold">{ t("My Profile") }</h2>
       {isEdit ? (
         <>
           <div>
@@ -170,7 +170,7 @@ const FormCard: React.FC<FormProps> = ({}) => {
         <>
           {formField.map((item, index) => (
             <div className="filedArea" key={index}>
-              <div className="formLabel">{item.label}:</div>
+              <div className="formLabel">{t(item.label)}:</div>
               {item.value instanceof Array ? (
                 <div>
                   {item.value.map((item, index) => (

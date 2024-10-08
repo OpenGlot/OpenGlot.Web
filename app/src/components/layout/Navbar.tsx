@@ -50,9 +50,6 @@ const Navbar: React.FC = () => {
         <a href="/courses" className="link-hover-effect">
           {t("Courses")}
         </a>
-        <a href="/modules" className="link-hover-effect">
-          {t("Modules")}
-        </a>
         <a href="/" className="link-hover-effect">
           {t("Review")}
         </a>

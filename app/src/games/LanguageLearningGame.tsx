@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import "../assets/styles/languageLearningGame.scss";
 
 const GRID_SIZE = 10;
 const CELL_SIZE = 40;
@@ -41,6 +42,7 @@ const LanguageLearningGame: React.FC = () => {
   const [settings, setSettings] = useState({
     highlight: true,
     speed: 500,
+    isPlaying: false, // 添加一个状态变量来控制游戏的开始与暂停
   });
   const [showSettings, setShowSettings] = useState(false);
 
@@ -75,7 +77,7 @@ const LanguageLearningGame: React.FC = () => {
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (gameOver) return;
+      if (gameOver || !settings.isPlaying) return; // 添加一个条件判断，只有在游戏未结束且游戏正在播放时才处理按键事件
 
       const newPosition = { ...playerPosition };
 
@@ -111,10 +113,10 @@ const LanguageLearningGame: React.FC = () => {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [playerPosition, gameOver, checkScoring, objects]);
+  }, [playerPosition, gameOver, checkScoring, objects, settings.isPlaying]);
 
   useEffect(() => {
-    if (gameOver) return;
+    if (gameOver || !settings.isPlaying) return; // 添加一个条件判断，只有在游戏未结束且游戏正在播放时才启动游戏循环
 
     const gameLoop = setInterval(() => {
       setObjects((prevObjects) => {
@@ -163,6 +165,7 @@ const LanguageLearningGame: React.FC = () => {
     gameOver,
     settings.speed,
     checkScoring,
+    settings.isPlaying,
   ]);
 
   const handleRestart = () => {
@@ -187,22 +190,104 @@ const LanguageLearningGame: React.FC = () => {
     setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
+  const handlePlayPause = () => {
+    setSettings((prev) => ({ ...prev, isPlaying: !prev.isPlaying }));
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen dark:bg-customBlack p-4">
-      <h1 className="text-4xl font-bold mb-4">Language Learning Game</h1>
+    <div className="flex flex-col items-center justify-start mt-5 min-h-screen dark:bg-customBlack p-4">
+      <h1 className="text-4xl font-bold mb-4">Grammar Training</h1>
       <div className="mb-4 flex items-center space-x-4">
         <p className="text-xl">
-          Score: {score} | Target: {targetPartOfSpeech}s
+          <span className="mr-5">Score: {score}</span> |{" "}
+          <span className="ml-5">
+            Target: <span className="myTag">{targetPartOfSpeech}</span>s
+          </span>
         </p>
         <button
-          className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+          onClick={handleChangeTarget}
+        >
+          Change Target
+        </button>
+      </div>
+      <div className="mt-3">
+        <p className="text-lg font-semibold">
+          Controls: Use arrow keys to move
+        </p>
+      </div>
+
+      <div
+        className="relative bg-white border-2 border-gray-300 rounded"
+        style={{
+          width: GRID_SIZE * CELL_SIZE,
+          height: GRID_SIZE * CELL_SIZE,
+        }}
+      >
+        {objects.map((obj, index) => (
+          <div
+            key={index}
+            className="absolute flex items-center justify-center text-sm font-bold"
+            style={{
+              left: obj.x * CELL_SIZE,
+              top: obj.y * CELL_SIZE,
+              width: CELL_SIZE,
+              height: CELL_SIZE,
+              boxShadow: "0 0 5px rgba(0, 0, 0, 0.5)",
+              borderRadius: "50%",
+              padding: "0.2rem 0.5rem",
+              backgroundColor: settings.highlight
+                ? `${
+                    obj.type === targetPartOfSpeech
+                      ? "rgba(127, 255, 212, 0.861)"
+                      : "rgba(255, 136, 127, 0.861)"
+                  }`
+                : "#fff",
+            }}
+          >
+            {obj.word}
+          </div>
+        ))}
+        <div
+          className="absolute bg-blue-500 rounded-full"
+          style={{
+            left: playerPosition.x * CELL_SIZE,
+            top: playerPosition.y * CELL_SIZE,
+            width: CELL_SIZE,
+            height: CELL_SIZE,
+          }}
+        />
+      </div>
+      {gameOver && (
+        <>
+          <div className="mt-10 text-2xl font-bold text-red-500">
+            Game Over!
+          </div>
+          <span className="mr-5 font-bold text-2xl">Score: {score}</span>
+        </>
+      )}
+      <div className="mt-10 flex space-x-4">
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          onClick={handlePlayPause}
+        >
+          {settings.isPlaying ? "Pause" : "Play"}
+        </button>
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          onClick={handleRestart}
+        >
+          {gameOver ? "Restart" : "New Game"}
+        </button>
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           onClick={() => setShowSettings(!showSettings)}
         >
           Settings
         </button>
       </div>
       {showSettings && (
-        <div className="mb-4 p-4 bg-white rounded shadow">
+        <div className="mt-10 mb-4 p-4 bg-white rounded shadow">
           <h2 className="text-lg font-semibold mb-2">Game Settings</h2>
           <div className="flex items-center justify-between mb-2">
             <label htmlFor="highlight">Highlight Words:</label>
@@ -232,65 +317,6 @@ const LanguageLearningGame: React.FC = () => {
           </div>
         </div>
       )}
-      <div
-        className="relative bg-white border-2 border-gray-300"
-        style={{
-          width: GRID_SIZE * CELL_SIZE,
-          height: GRID_SIZE * CELL_SIZE,
-        }}
-      >
-        {objects.map((obj, index) => (
-          <div
-            key={index}
-            className="absolute flex items-center justify-center text-sm font-bold"
-            style={{
-              left: obj.x * CELL_SIZE,
-              top: obj.y * CELL_SIZE,
-              width: CELL_SIZE,
-              height: CELL_SIZE,
-              backgroundColor: "lightblue",
-              border: settings.highlight
-                ? `2px solid ${
-                    obj.type === targetPartOfSpeech ? "green" : "red"
-                  }`
-                : "2px solid transparent",
-            }}
-          >
-            {obj.word}
-          </div>
-        ))}
-        <div
-          className="absolute bg-blue-500 rounded-full"
-          style={{
-            left: playerPosition.x * CELL_SIZE,
-            top: playerPosition.y * CELL_SIZE,
-            width: CELL_SIZE,
-            height: CELL_SIZE,
-          }}
-        />
-      </div>
-      <div className="mt-4 text-lg font-semibold">{message}</div>
-      <div className="mt-4 flex space-x-4">
-        <button
-          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-          onClick={handleChangeTarget}
-        >
-          Change Target
-        </button>
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          onClick={handleRestart}
-        >
-          {gameOver ? "Restart" : "New Game"}
-        </button>
-      </div>
-      {gameOver && (
-        <div className="mt-4 text-2xl font-bold text-red-500">Game Over!</div>
-      )}
-      <div className="mt-4">
-        <p className="text-lg font-semibold">Controls:</p>
-        <p>Use arrow keys to move</p>
-      </div>
     </div>
   );
 };
