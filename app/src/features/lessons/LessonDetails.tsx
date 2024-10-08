@@ -21,7 +21,6 @@ const LessonDetail: React.FC = () => {
         lessonDetail={lessonDetail}
         componentName="Lesson"
       />
-      课程
     </div>
   );
 };

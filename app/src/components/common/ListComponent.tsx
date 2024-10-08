@@ -82,7 +82,6 @@ const ListCard = ({
                 <h2 className="text-2xl font-bold text-gray-800 mt-6">
                   Questions:
                 </h2>
-
                 <LessonDetailSlider lessonDetail={lessonDetail} />
               </div>
             ) : (
